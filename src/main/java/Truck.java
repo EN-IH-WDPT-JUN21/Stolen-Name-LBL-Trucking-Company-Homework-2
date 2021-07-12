@@ -1,3 +1,4 @@
 public enum Truck {
-    HYBRID, FLATBED, BOX
+    HYBRID, FLATBED, BOX;
+
 }

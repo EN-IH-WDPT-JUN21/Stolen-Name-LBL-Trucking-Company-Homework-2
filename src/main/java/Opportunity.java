@@ -1,6 +1,10 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Opportunity extends ClientInformation {
+
+    public static Map<String, ClientInformation> theOpportunities = new HashMap<>();
 
     // This assigns a unique ID to the opportunity object
     private static final AtomicLong idCounter = new AtomicLong();
@@ -12,7 +16,7 @@ public class Opportunity extends ClientInformation {
     // Opportunity Specific variable - EnumTruck Truck, int quantity, ObjectContact DecisionMaker
     private Truck truck;
     private int quantity;
-    private Contact decisionMaker;
+    private ClientInformation decisionMaker;
 
     public Opportunity() {
     }
@@ -41,11 +45,11 @@ public class Opportunity extends ClientInformation {
         this.truck = truck;
     }
 
-    public Contact getDecisionMaker() {
+    public ClientInformation getDecisionMaker() {
         return decisionMaker;
     }
 
-    public void setDecisionMaker(Contact decisionMaker) {
+    public void setDecisionMaker(ClientInformation decisionMaker) {
         this.decisionMaker = decisionMaker;
     }
 
@@ -72,5 +76,16 @@ public class Opportunity extends ClientInformation {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Opportunity{" +
+                "id='" + id + '\'' +
+                ", status=" + status +
+                ", truck=" + truck +
+                ", quantity=" + quantity +
+                ", decisionMaker=" + decisionMaker.toString() +
+                '}';
     }
 }

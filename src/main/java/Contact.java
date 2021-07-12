@@ -1,6 +1,10 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Contact extends ClientInformation {
+
+    public static Map<String, ClientInformation> theContacts = new HashMap<>();
 
 
     private static final AtomicLong idCounter = new AtomicLong();
@@ -9,8 +13,8 @@ public class Contact extends ClientInformation {
     public Contact() {
     }
 
-    public Contact(ClientInformation client) {
-        super(client);
+    public Contact(Lead lead) {
+        super(lead);
     }
 
 
@@ -18,4 +22,14 @@ public class Contact extends ClientInformation {
     public String getId() {
         return id;
     }
+
+    public String toString() {
+        return "name='" + getName() + '\'' +
+                ", phoneNumber='" + getPhoneNumber() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", companyName='" + getCompanyName() + '\'' +
+                '}';
+    }
+
+
 }

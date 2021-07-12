@@ -1,6 +1,10 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Lead extends ClientInformation {
+
+    public static Map<String, ClientInformation> theLeads = new HashMap<>();
 
     private static final AtomicLong idCounter = new AtomicLong();
     private final String id = String.valueOf(idCounter.getAndIncrement());
