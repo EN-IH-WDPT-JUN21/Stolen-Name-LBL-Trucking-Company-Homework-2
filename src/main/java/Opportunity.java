@@ -2,13 +2,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class Opportunity extends ClientInformation {
+public class Opportunity {
 
     public static Map<String, Opportunity> theOpportunities = new HashMap<>();
 
     // This assigns a unique ID to the opportunity object
     private static final AtomicLong idCounter = new AtomicLong();
-    private String id = String.valueOf(idCounter.getAndIncrement());
+    private final String id = String.valueOf(idCounter.getAndIncrement());
 
     // This sets the status to Enum Open whenever an opportunity object is created
     private Status status = Status.OPEN;
@@ -16,7 +16,7 @@ public class Opportunity extends ClientInformation {
     // Opportunity Specific variable - EnumTruck Truck, int quantity, ObjectContact DecisionMaker
     private Truck truck;
     private int quantity;
-    private ClientInformation decisionMaker;
+    private Contact decisionMaker;
 
     public Opportunity() {
     }
@@ -44,7 +44,7 @@ public class Opportunity extends ClientInformation {
         return decisionMaker;
     }
 
-    public void setDecisionMaker(ClientInformation decisionMaker) {
+    public void setDecisionMaker(Contact decisionMaker) {
         this.decisionMaker = decisionMaker;
     }
 
@@ -70,7 +70,6 @@ public class Opportunity extends ClientInformation {
         return idCounter;
     }
 
-    @Override
     public String toString() {
         return "Opportunity{" +
                 "id='" + id + '\'' +

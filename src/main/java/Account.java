@@ -105,5 +105,9 @@ public class Account {
                 ", opportunityList=" + opportunityList +
                 '}';
     }
+
+    public static AtomicLong getIdCounter() {
+        return idCounter;
+    }
 }
 

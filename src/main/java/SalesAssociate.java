@@ -112,6 +112,7 @@ public class SalesAssociate {
 
     // Method called to create a new account
     public void createAccount(Contact contact, Opportunity opportunity) {
+        long startingId = Account.getIdCounter().longValue(); // logs current ID
         Scanner scanner = new Scanner(System.in);
         try {
             Account newAccount = new Account(contact, opportunity);
@@ -126,6 +127,7 @@ public class SalesAssociate {
             newAccount.setCountry(scanner.nextLine().trim());
             Account.theAccounts.put(newAccount.getId(), newAccount); // Adds new account to Accounts Map (database)
         } catch (Exception e) {
+            Account.getIdCounter().compareAndExchange(startingId + 1, startingId); // resets ID to starting ID should error happen during Opportunity creation.
             System.out.println("Invalid input - please start again");
             createAccount(contact, opportunity); // Catches errors and returns to start of method - Is there a better way??
         }
