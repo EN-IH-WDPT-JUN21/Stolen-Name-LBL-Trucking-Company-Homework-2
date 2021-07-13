@@ -18,7 +18,7 @@ public class Contact extends ClientInformation {
     }
 
 
-    @Override
+
     public String getId() {
         return id;
     }

@@ -21,18 +21,13 @@ public class Opportunity extends ClientInformation {
     public Opportunity() {
     }
 
-    public Opportunity(ClientInformation client) {
-        super(client);
-    }
-
-    public Opportunity(ClientInformation lead, Truck truck, int quantity, Contact decisionMaker) {
-        super(lead.getName(), lead.getPhoneNumber(), lead.getEmail(), lead.getCompanyName());
+    public Opportunity(Truck truck, int quantity, Contact decisionMaker) {
         setTruck(truck);
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
     }
 
-    @Override
+
     public String getId() {
         return id;
     }

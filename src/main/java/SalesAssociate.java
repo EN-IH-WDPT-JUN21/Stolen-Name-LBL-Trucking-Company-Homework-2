@@ -79,11 +79,11 @@ public class SalesAssociate {
             switch (scanner.nextLine().trim()) {
                 case "Y":
                 case "y": {
-                    Opportunity newOpp = new Opportunity(lead);
+                    Opportunity newOpp = new Opportunity();
                     System.out.println("Please input the product that " + lead.getName() + " is interested in: \n " +
                             "HYBRID, FLATBED OR BOX");
                     newOpp.setTruck(Truck.valueOf(scanner.nextLine().trim().toUpperCase(Locale.ROOT)));
-                    System.out.println("Please input the quantity that " + newOpp.getName() + " is interested in: ");
+                    System.out.println("Please input the quantity that " + lead.getName() + " is interested in: ");
                     newOpp.setQuantity(Integer.parseInt(scanner.nextLine().trim()));
                     Contact newContact = new Contact(lead); // Converts lead into contact
                     newOpp.setDecisionMaker(newContact); // Assigns contact as the decisionMaker
@@ -125,8 +125,6 @@ public class SalesAssociate {
             System.out.println("Please input the Country for " + newAccount.getName() +":  ");
             newAccount.setCountry(scanner.nextLine().trim());
             Account.theAccounts.put(newAccount.getId(), newAccount); // Adds new account to Accounts Map (database)
-            newAccount.addContact(contact); // Adds contact to Accounts contact list
-            newAccount.addOpportunity(opportunity); // adds opportunity to the Accounts opportunity list
         } catch (Exception e) {
             System.out.println("Invalid input - please start again");
             createAccount(contact, opportunity); // Catches errors and returns to start of method - Is there a better way??

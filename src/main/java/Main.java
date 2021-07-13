@@ -7,20 +7,16 @@ public class Main {
 
         nathan.newLead();
 
-        Lead lead1 = new Lead("Nathan","07282920", "BLAH BLAH", "Starling" );
-        Lead lead2 = new Lead("Nigel","072829201", "myemail@email.com", "Starling" );
-        Lead lead3 = new Lead("Norbert","0728292043", "myemail2@email.com", "Starling" );
+        System.out.println(Lead.theLeads.get("0").toString());
 
-        Lead.theLeads.put(lead1.getId(), lead1);
-        Lead.theLeads.put(lead2.getId(), lead2);
-        Lead.theLeads.put(lead3.getId(), lead3);
+        nathan.convertLead(Lead.theLeads.get("0"));
 
-        Opportunity opp1 = new Opportunity();
 
-        //nathan.convertLead(lead2);
+        nathan.createAccount(Contact.theContacts.get("0"), Opportunity.theOpportunities.get("0"));
 
-        System.out.println(nathan.lookUpLeadId("2").getEmail());
-
+        System.out.println(Contact.theContacts.get("0").toString());
+        System.out.println(Opportunity.theOpportunities.get("0").toString());
+        System.out.println(Account.theAccounts.get("0").toString());
 
     }
 }

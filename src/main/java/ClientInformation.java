@@ -3,7 +3,6 @@ import java.util.concurrent.atomic.AtomicLong;
 abstract class ClientInformation {
 
 
-    private String id;
     private String name;
     private String phoneNumber;
     private String email;
@@ -24,14 +23,6 @@ abstract class ClientInformation {
         setPhoneNumber(phoneNumber);
         setEmail(email);
         setCompanyName(companyName);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -66,4 +57,13 @@ abstract class ClientInformation {
         this.companyName = companyName;
     }
 
+    @Override
+    public String toString() {
+        return "ClientInformation{" +
+                "name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", companyName='" + companyName + '\'' +
+                '}';
+    }
 }

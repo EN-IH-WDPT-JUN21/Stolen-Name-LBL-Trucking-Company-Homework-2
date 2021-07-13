@@ -16,7 +16,6 @@ public class Lead extends ClientInformation {
         super(name, phoneNumber, email, companyName);
     }
 
-    @Override
     public String getId() {
         return id;
     }
@@ -24,6 +23,8 @@ public class Lead extends ClientInformation {
     public static AtomicLong getIdCounter() {
         return idCounter;
     }
+
+
 }
 
 
