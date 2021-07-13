@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class Contact extends ClientInformation {
 
-    public static Map<String, ClientInformation> theContacts = new HashMap<>();
+    public static Map<String, Contact> theContacts = new HashMap<>();
 
 
     private static final AtomicLong idCounter = new AtomicLong();

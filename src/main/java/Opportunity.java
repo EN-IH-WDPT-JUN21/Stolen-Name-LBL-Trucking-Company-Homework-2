@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class Opportunity extends ClientInformation {
 
-    public static Map<String, ClientInformation> theOpportunities = new HashMap<>();
+    public static Map<String, Opportunity> theOpportunities = new HashMap<>();
 
     // This assigns a unique ID to the opportunity object
     private static final AtomicLong idCounter = new AtomicLong();
@@ -27,7 +27,7 @@ public class Opportunity extends ClientInformation {
 
     public Opportunity(ClientInformation lead, Truck truck, int quantity, Contact decisionMaker) {
         super(lead.getName(), lead.getPhoneNumber(), lead.getEmail(), lead.getCompanyName());
-        setProduct(truck);
+        setTruck(truck);
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
     }
@@ -53,13 +53,6 @@ public class Opportunity extends ClientInformation {
         this.decisionMaker = decisionMaker;
     }
 
-    public Truck getProduct() {
-        return truck;
-    }
-
-    public void setProduct(Truck truck) {
-        this.truck = truck;
-    }
 
     public int getQuantity() {
         return quantity;
@@ -76,6 +69,10 @@ public class Opportunity extends ClientInformation {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public static AtomicLong getIdCounter() {
+        return idCounter;
     }
 
     @Override

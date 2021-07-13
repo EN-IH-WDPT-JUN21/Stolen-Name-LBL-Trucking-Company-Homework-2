@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class Lead extends ClientInformation {
 
-    public static Map<String, ClientInformation> theLeads = new HashMap<>();
+    public static Map<String, Lead> theLeads = new HashMap<>();
 
     private static final AtomicLong idCounter = new AtomicLong();
     private final String id = String.valueOf(idCounter.getAndIncrement());
@@ -19,6 +19,10 @@ public class Lead extends ClientInformation {
     @Override
     public String getId() {
         return id;
+    }
+
+    public static AtomicLong getIdCounter() {
+        return idCounter;
     }
 }
 

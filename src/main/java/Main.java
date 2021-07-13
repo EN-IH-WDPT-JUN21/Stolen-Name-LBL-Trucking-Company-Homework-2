@@ -1,5 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
 
@@ -7,33 +5,22 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //nathan.newLead();
+        nathan.newLead();
 
         Lead lead1 = new Lead("Nathan","07282920", "BLAH BLAH", "Starling" );
-        nathan.convertLead(lead1);
+        Lead lead2 = new Lead("Nigel","072829201", "myemail@email.com", "Starling" );
+        Lead lead3 = new Lead("Norbert","0728292043", "myemail2@email.com", "Starling" );
 
-        System.out.println(Lead.theLeads.toString());
-        System.out.println(Opportunity.theOpportunities.toString());
-        System.out.println(Account.theAccounts.toString());
+        Lead.theLeads.put(lead1.getId(), lead1);
+        Lead.theLeads.put(lead2.getId(), lead2);
+        Lead.theLeads.put(lead3.getId(), lead3);
 
-        Contact contact1 = new Contact(lead1);
+        Opportunity opp1 = new Opportunity();
 
-        Opportunity opp1 = new Opportunity(lead1, Truck.HYBRID, 5, contact1);
-        Opportunity opp2 = new Opportunity(lead1, Truck.HYBRID, 5, contact1);
-        Opportunity opp3 = new Opportunity(lead1, Truck.HYBRID, 5, contact1);
-        Opportunity opp4 = new Opportunity(lead1, Truck.HYBRID, 5, contact1);
-        Opportunity opp5 = new Opportunity(lead1, Truck.HYBRID, 5, contact1);
+        //nathan.convertLead(lead2);
 
-        Lead lead2 = new Lead("Nathan","07282920", "BLAH BLAH", "Starling" );
-        Contact contact2 = new Contact(lead1);
-
-        Opportunity opp10 = new Opportunity();
-
-        System.out.println(opp10.getId());
+        System.out.println(nathan.lookUpLeadId("2").getEmail());
 
 
-        System.out.println(opp5.getId());
-        System.out.println(lead2.getId());
-        System.out.println(contact2.getId());
     }
 }
