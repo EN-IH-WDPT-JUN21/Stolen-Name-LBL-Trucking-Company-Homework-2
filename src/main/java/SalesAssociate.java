@@ -110,7 +110,7 @@ public class SalesAssociate {
 
     }
 
-    // Method called to create a new account - Called automatically through the convertLead method.
+    // Method called to create a new account
     public void createAccount(Contact contact, Opportunity opportunity) {
         Scanner scanner = new Scanner(System.in);
         try {
