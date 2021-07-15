@@ -2,9 +2,10 @@
 public class Main {
 
     public static SalesAssociate nathan = new SalesAssociate("Nathan");
+    public static Login login = new Login();
 
     public static void main(String[] args) {
-
+        login.login();
         nathan.newLead();
 
         System.out.println(Lead.theLeads.get("0").toString());
