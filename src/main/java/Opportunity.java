@@ -1,28 +1,20 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
+//Extends ClientInformation class to retain Unique ID incrementing.
 
-public class Opportunity {
-
-    public static Map<String, Opportunity> theOpportunities = new HashMap<>();
-
-    // This assigns a unique ID to the opportunity object
-    private static final AtomicLong idCounter = new AtomicLong();
-    private final String id = String.valueOf(idCounter.getAndIncrement());
+public class Opportunity extends ClientInformation {
 
     // This sets the status to Enum Open whenever an opportunity object is created
     private Status status = Status.OPEN;
 
     // Opportunity Specific variable - EnumTruck Truck, int quantity, ObjectContact DecisionMaker
-    private Truck truck;
+    private Truck product;
     private int quantity;
     private Contact decisionMaker;
 
     public Opportunity() {
     }
 
-    public Opportunity(Truck truck, int quantity, Contact decisionMaker) {
-        setTruck(truck);
+    public Opportunity(Truck product, int quantity, Contact decisionMaker) {
+        setTruck(product);
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
     }
@@ -32,12 +24,12 @@ public class Opportunity {
         return id;
     }
 
-    public Truck getTruck() {
-        return truck;
+    public Truck getProduct() {
+        return product;
     }
 
-    public void setTruck(Truck truck) {
-        this.truck = truck;
+    public void setTruck(Truck product) {
+        this.product = product;
     }
 
     public ClientInformation getDecisionMaker() {
@@ -66,17 +58,15 @@ public class Opportunity {
         this.status = status;
     }
 
-    public static AtomicLong getIdCounter() {
-        return idCounter;
-    }
+
 
     public String toString() {
         return "Opportunity{" +
                 "id='" + id + '\'' +
-                ", status=" + status +
-                ", truck=" + truck +
-                ", quantity=" + quantity +
-                ", decisionMaker=" + decisionMaker.toString() +
+                ", status= " + status +
+                ", product= " + product +
+                ", quantity= " + quantity +
+                ", decisionMaker= " + decisionMaker.toString() +
                 '}';
     }
 }
