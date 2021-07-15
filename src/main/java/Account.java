@@ -1,14 +1,9 @@
-import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 
-public class Account {
+import java.util.List;
+import java.util.ArrayList;
 
-    public static Map<String, Account> theAccounts = new HashMap<>();
+public class Account extends ClientInformation{
 
-    private static final AtomicLong idCounter = new AtomicLong();
-    private final String id = String.valueOf(idCounter.getAndIncrement());
-
-    private String name;
     private Industry industry;
     private int employeeCount;
     private String city;
@@ -20,28 +15,22 @@ public class Account {
     }
 
     public Account(Contact contact, Opportunity opportunity){
-        setName(contact.getCompanyName());
         addContact(contact);
         addOpportunity(opportunity);
     }
 
-    public Account(Industry industry, int employeeCount, String city, String country) {
+
+    public Account(Industry industry, int employeeCount, String city, String country, Contact contact, Opportunity opportunity) {
         setIndustry(industry);
         setEmployeeCount(employeeCount);
         setCity(city);
         setCountry(country);
+        addContact(contact);
+        addOpportunity(opportunity);
     }
 
     public String getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Industry getIndustry() {
@@ -80,6 +69,10 @@ public class Account {
         return contactList;
     }
 
+    public String getCompanyName(){
+        return contactList.get(0).getCompanyName();
+    }
+
     public void addContact(Contact contact) {
         contactList.add(contact);
     }
@@ -96,7 +89,6 @@ public class Account {
     public String toString() {
         return "Account{" +
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
                 ", industry=" + industry +
                 ", employeeCount=" + employeeCount +
                 ", city='" + city + '\'' +
@@ -106,8 +98,6 @@ public class Account {
                 '}';
     }
 
-    public static AtomicLong getIdCounter() {
-        return idCounter;
-    }
+
 }
 

@@ -1,23 +1,24 @@
 
 public class Main {
 
-    public static SalesAssociate nathan = new SalesAssociate("Nathan");
-    public static Login login = new Login();
+    public static MainMenu nathan = new MainMenu("Nathan");
+    //public static Login login = new Login(); Temporarily disabled during development
 
     public static void main(String[] args) {
-        login.login();
+        //login.login();  Temporarily disabled during development
         nathan.newLead();
 
-        System.out.println(Lead.theLeads.get("0").toString());
 
-        nathan.convertLead(Lead.theLeads.get("0"));
+        //System.out.println(MainMenu.theLeads.get("0").toString()); Replaced in MainMenu instead
+
+        nathan.convertLead(MainMenu.theLeads.get("1").getId());
 
 
-        nathan.createAccount(Contact.theContacts.get("0"), Opportunity.theOpportunities.get("0"));
+        nathan.createAccount(MainMenu.theContacts.get("3"), MainMenu.theOpportunities.get("2"));
 
-        System.out.println(Contact.theContacts.get("0").toString());
-        System.out.println(Opportunity.theOpportunities.get("0").toString());
-        System.out.println(Account.theAccounts.get("0").toString());
+        System.out.println(MainMenu.theContacts.get("3").toString());
+        System.out.println(MainMenu.theOpportunities.get("2").toString());
+        System.out.println(MainMenu.theAccounts.get("4").toString());
 
     }
 }

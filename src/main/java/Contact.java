@@ -2,20 +2,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class Contact extends ClientInformation {
+public class Contact extends Lead {
 
-    public static Map<String, Contact> theContacts = new HashMap<>();
-
-
-    private static final AtomicLong idCounter = new AtomicLong();
-    private final String id = String.valueOf(idCounter.getAndIncrement());
+    public Contact(String name, String phoneNumber, String email, String companyName) {
+        super(name, phoneNumber, email, companyName);
+    }
 
     public Contact() {
     }
 
-    public Contact(Lead lead) {
-        super(lead);
-    }
 
 
 
