@@ -152,6 +152,17 @@ public class MainMenu {
         return (Lead) theLeads.get(id);
     }
 
-
+    //look up opportunities
+    public void showOpportunities(){
+        for (String key : theOpportunities.keySet()){
+            System.out.println(theOpportunities.get(key).toString());
+        }
+    }
+    //look up accounts
+    public void showAccounts(){
+        for (String key : theAccounts.keySet()){
+            System.out.println(theAccounts.get(key).toString());
+        }
+    }
 }
 
