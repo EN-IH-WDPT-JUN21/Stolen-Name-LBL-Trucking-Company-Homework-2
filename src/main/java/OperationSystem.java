@@ -51,7 +51,7 @@ public class OperationSystem {
             + "║ 7. To check Account list - type: - 'Show Accounts'                           ║\n"
             + "║ 8. To quit - type: - 'Quit'                                                  ║\n"
             + "╚══════════════════════════════════════════════════════════════════════════════╝\n"
-            + reset);
+            );
 
             String input = scanner.nextLine().trim();
 
