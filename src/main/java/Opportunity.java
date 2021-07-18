@@ -58,7 +58,11 @@ public class Opportunity extends ClientInformation {
         this.status = status;
     }
 
-
+    public static void showOportunities(){
+        for (String key : Lead.theOpportunities.keySet()){
+            System.out.println("ID: " + key + " Name: " + Lead.theOpportunities.get(key).getDecisionMaker() );
+        }
+    }
 
     public String toString() {
         return "Opportunity{" +

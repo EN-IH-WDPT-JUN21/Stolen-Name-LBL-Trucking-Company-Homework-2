@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class MainMenu {
 
-    public static Map<String, Lead> theLeads = new HashMap<>();
+    /*public static Map<String, Lead> theLeads = new HashMap<>();
     public static Map<String, Account> theAccounts = new HashMap<>();
     public static Map<String, Contact> theContacts = new HashMap<>();
     public static Map<String, Opportunity> theOpportunities = new HashMap<>();
@@ -150,7 +150,7 @@ public class MainMenu {
 
     public Lead lookUpLeadId(String id) throws RuntimeException{
         return (Lead) theLeads.get(id);
-    }
+    }*/
 
 
 }

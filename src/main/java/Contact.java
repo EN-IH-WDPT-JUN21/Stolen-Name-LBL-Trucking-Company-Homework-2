@@ -11,7 +11,11 @@ public class Contact extends Lead {
     public Contact() {
     }
 
-
+    public static void showContacts(){
+        for (String key : theLeads.keySet()){
+            System.out.println("ID: " + key + " Name: " + Lead.theContacts.get(key).getName() );
+        }
+    }
 
 
     public String getId() {

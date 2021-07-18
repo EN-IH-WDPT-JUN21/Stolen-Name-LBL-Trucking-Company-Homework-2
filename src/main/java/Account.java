@@ -85,6 +85,12 @@ public class Account extends ClientInformation{
         opportunityList.add(opportunity);
     }
 
+    public static void showAccounts(){
+        for (String key : Lead.theAccounts.keySet()){
+            System.out.println("ID: " + key + " Name: " + Lead.theAccounts.get(key).getCompanyName());
+        }
+    }
+
     @Override
     public String toString() {
         return "Account{" +
