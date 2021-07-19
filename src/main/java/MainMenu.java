@@ -80,9 +80,7 @@ public class MainMenu {
                     case "show" + "opportunity" -> showOpportunities();
                     case "show" + "contacts" -> showContacts();
                     case "show" + "accounts" -> showAccounts();
-                    default -> {
-                        throw new IllegalArgumentException();
-                    }
+                    default -> throw new IllegalArgumentException();
                 }
             }
         } catch (IllegalArgumentException | NullPointerException e) {

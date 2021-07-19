@@ -8,7 +8,6 @@ public class Lead extends ClientInformation {
     protected String phoneNumber;
     protected String email;
     protected String companyName;
-    private static Scanner scanner = new Scanner(System.in);
 
     public Lead() {
     }
