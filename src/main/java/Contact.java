@@ -2,21 +2,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class Contact extends ClientInformation {
+public class Contact extends Lead {
 
     public static Map<String, Contact> theContacts = new HashMap<>();
 
-
-    private static final AtomicLong idCounter = new AtomicLong();
-    private final String id = String.valueOf(idCounter.getAndIncrement());
+    public Contact(String name, String phoneNumber, String email, String companyName) {
+        super(name, phoneNumber, email, companyName);
+    }
 
     public Contact() {
     }
 
-    public Contact(Lead lead) {
-        super(lead);
+    public static void showContacts(){
+        System.out.println("═════════════ Total Number Of Contacts: " + theContacts.size() + " ═════════════");
+        for (String key : theContacts.keySet()){
+            System.out.println("ID: " + key + " Name: " + theContacts.get(key).getName());
+        }
     }
-
 
 
     public String getId() {

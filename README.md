@@ -8,3 +8,7 @@ The use and class diagrams for the CRM system that our team was tasked to develo
 #placeholder for the class diagram
 
 #more text
+<<<<<<< HEAD
+=======
+
+>>>>>>> a404613f5843532f0e443439f4cad6c6649460f0
