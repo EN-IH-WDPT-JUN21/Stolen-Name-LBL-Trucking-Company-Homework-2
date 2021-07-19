@@ -11,7 +11,6 @@ public class MainMenu {
     public static Map<String, Contact> theContacts = new HashMap<>();
     public static Map<String, Opportunity> theOpportunities = new HashMap<>();
 
-    private String name;
     Scanner scanner = new Scanner(System.in);
 
     enum consoleTextColor {
@@ -39,7 +38,7 @@ public class MainMenu {
 
     }
 
-    public void OS() {
+    public void OS() throws RuntimeException{
 
         System.out.println("\n" + color
                 + "╔══════════════════════════════════════════════════════════════════════════════╗\n"
@@ -81,8 +80,8 @@ public class MainMenu {
                 case "show" + "contacts" -> showContacts();
                 case "show" + "accounts" -> showAccounts();
                 default -> {
-                    if (input[0].equals("convert")) {
-                        convertLead(input[1]);
+                    if (input[0].equals("convert")) { // throws null point exception if number not in array
+                        createAccount(convertLead(input[1]));
                     }
                     throw new IllegalArgumentException();
                 }
@@ -95,7 +94,7 @@ public class MainMenu {
 
 
     // Method to create a new lead
-    public void newLead() {
+    public Lead newLead() {
 
         System.out.println("Would you like to create a new lead?   y / n ");
         try {
@@ -123,12 +122,12 @@ public class MainMenu {
                         throw new IllegalArgumentException("No name input");
                     }
                     theLeads.put(newLead.getId(), newLead);
+                    System.out.println("═════════════ New Lead Created ═════════════");
                     System.out.println(theLeads.get(newLead.getId()));
+                    return newLead;
                 }
-                case "N", "n" -> {
-                    // Would normally go back in the menu at this point
-                    System.out.println("You said no");
-                }
+                case "N", "n" -> // Would normally go back in the menu at this point
+                        System.out.println("You said no");
                 default -> throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
@@ -136,11 +135,11 @@ public class MainMenu {
             System.out.println("Invalid input - please start again");
             newLead();
         }
+        return null;
     }
 
     // Method to convert Lead to Opportunity
-    public void convertLead(String id) {
-
+    public Opportunity convertLead(String id) throws NullPointerException {
 
         Lead lead = theLeads.get(id);
         System.out.println("Would you like to convert " + lead.getName() + " from: " + lead.getCompanyName() +
@@ -160,12 +159,11 @@ public class MainMenu {
                     theContacts.put(newContact.getId(), newContact);  // Adds contact to contact Map
                     theOpportunities.put(newOpp.getId(), newOpp); // Adds Opportunity to opportunities map
                     theLeads.remove(lead.getId()); // Removes converted lead from Leads map ("Database")
-                    createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
+                    return newOpp;
+                    //createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
                 }
-                case "N", "n" -> {
-                    System.out.println("You said no");
-                    // Should return to main menu here
-                }
+                case "N", "n" -> // Should return to main menu here
+                        System.out.println("You said no");
                 default -> throw new IllegalArgumentException("Invalid input - please start again");
             }
         } catch (Exception e) {
@@ -173,16 +171,16 @@ public class MainMenu {
             System.out.println("Invalid input - please start again");
             convertLead(id); // Catches errors and returns to start of method - Is there a simple alternative?
         }
-
+        return null;
     }
 
     // Method called to create a new account
-    public void createAccount(Contact contact, Opportunity opportunity) {
+    public Account createAccount(Opportunity opportunity) {
 
         Scanner scanner = new Scanner(System.in);
         try {
 
-            Account newAccount = new Account(contact, opportunity);
+            Account newAccount = new Account(opportunity.getDecisionMaker(), opportunity);
 
             System.out.println("Please input the company industry: \n" + "PRODUCE, ECOMMERCE, " +
                     "MANUFACTURING, MEDICAL, OTHER");
@@ -194,11 +192,13 @@ public class MainMenu {
             System.out.println("Please input the Country for " + newAccount.getCompanyName() + ":  ");
             newAccount.setCountry(scanner.nextLine().trim());
             theAccounts.put(newAccount.getId(), newAccount); // Adds new account to Accounts Map (database)
+            return newAccount;
         } catch (Exception e) {
 
             System.out.println("Invalid input - please start again");
-            createAccount(contact, opportunity); // Catches errors and returns to start of method - Is there a better way??
+            createAccount(opportunity); // Catches errors and returns to start of method - Is there a better way??
         }
+        return null;
     }
 
     public void showLeads() {

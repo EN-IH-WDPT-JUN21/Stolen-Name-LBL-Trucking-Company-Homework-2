@@ -35,7 +35,7 @@ public class Opportunity extends ClientInformation {
         this.product = product;
     }
 
-    public ClientInformation getDecisionMaker() {
+    public Contact getDecisionMaker() {
         return decisionMaker;
     }
 
