@@ -13,12 +13,6 @@ public class Contact extends Lead {
     public Contact() {
     }
 
-    public static void showContacts(){
-        System.out.println("═════════════ Total Number Of Contacts: " + theContacts.size() + " ═════════════");
-        for (String key : theContacts.keySet()){
-            System.out.println("ID: " + key + " Name: " + theContacts.get(key).getName());
-        }
-    }
 
 
     public String getId() {

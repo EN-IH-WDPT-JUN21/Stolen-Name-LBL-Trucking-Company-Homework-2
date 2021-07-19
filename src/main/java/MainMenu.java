@@ -58,40 +58,36 @@ public class MainMenu {
                 + "╚══════════════════════════════════════════════════════════════════════════════╝\n"
         );
 
-        String input = scanner.nextLine().trim().toLowerCase(Locale.ROOT);
-
         try {
-            switch (input) {
-                //String x = input.substring(input.indexOf("Lead") + 3, input.length());
-                case "new lead":
-                    newLead();
 
-                    break;
-                case "show leads":
-                    showLeads();
-                    break;
-                //case "Lookup Lead " + :
-                case "convert 1":
-                    convertLead("1");
-                    break;
-                case "show opportunity":
-                    showOpportunities();
-                    break;
-                case "show contacts":
-                    showContacts();
-                    break;
-                case "show accounts":
-                    showAccounts();
-                    break;
-                case "quit":
-                    System.out.println("Thank you for using our LBL CRM SYSTEM!");
-                    throw new RuntimeException("Exiting the program");
-                default:
-                    throw new IllegalArgumentException();
+            // Creates String array from scanner input
+            String[] input = scanner.nextLine().trim().toLowerCase().split("\\s+");
 
+            if (input[0].equals("quit")) {
+                System.out.println("Thank you for using our LBL CRM SYSTEM!");
+                throw new RuntimeException("Exiting the program");
+            } else if (input[0].equals("lookup") && input[1].equals("lead")) {
+                System.out.println(lookUpLeadId(input[2]).toString());
+                OS();
+            } else if (input.length < 2) {
+                throw new IllegalArgumentException();
             }
-        } catch (IllegalArgumentException e) {
 
+            switch (input[0] + input[1]) {
+                //String x = input.substring(input.indexOf("Lead") + 3, input.length());
+                case "new" + "lead" -> newLead();
+                case "show" + "leads" -> showLeads();
+                case "show" + "opportunity" -> showOpportunities();
+                case "show" + "contacts" -> showContacts();
+                case "show" + "accounts" -> showAccounts();
+                default -> {
+                    if (input[0].equals("convert")) {
+                        convertLead(input[1]);
+                    }
+                    throw new IllegalArgumentException();
+                }
+            }
+        } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("Invalid input - please start again");
             OS();
         }
@@ -104,8 +100,7 @@ public class MainMenu {
         System.out.println("Would you like to create a new lead?   y / n ");
         try {
             switch (scanner.nextLine().trim()) {
-                case "Y":
-                case "y": {
+                case "Y", "y" -> {
                     Lead newLead = new Lead();
                     System.out.println("Please input the customers name: ");
                     newLead.setName(scanner.nextLine().trim());
@@ -129,16 +124,12 @@ public class MainMenu {
                     }
                     theLeads.put(newLead.getId(), newLead);
                     System.out.println(theLeads.get(newLead.getId()));
-                    break;
                 }
-                case "N":
-                case "n": {
+                case "N", "n" -> {
                     // Would normally go back in the menu at this point
                     System.out.println("You said no");
-                    break;
                 }
-                default:
-                    throw new IllegalArgumentException();
+                default -> throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
 
@@ -157,8 +148,7 @@ public class MainMenu {
         Scanner scanner = new Scanner(System.in);
         try {
             switch (scanner.nextLine().trim()) {
-                case "Y":
-                case "y": {
+                case "Y", "y" -> {
                     Opportunity newOpp = new Opportunity();
                     System.out.println("Please input the product that " + lead.getCompanyName() + " is interested in: \n " +
                             "HYBRID, FLATBED OR BOX");
@@ -171,16 +161,12 @@ public class MainMenu {
                     theOpportunities.put(newOpp.getId(), newOpp); // Adds Opportunity to opportunities map
                     theLeads.remove(lead.getId()); // Removes converted lead from Leads map ("Database")
                     createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
-                    break;
                 }
-                case "N":
-                case "n": {
+                case "N", "n" -> {
                     System.out.println("You said no");
                     // Should return to main menu here
-                    break;
                 }
-                default:
-                    throw new IllegalArgumentException("Invalid input - please start again");
+                default -> throw new IllegalArgumentException("Invalid input - please start again");
             }
         } catch (Exception e) {
 
@@ -245,7 +231,7 @@ public class MainMenu {
 
 
     public Lead lookUpLeadId(String id) throws RuntimeException {
-        return (Lead) theLeads.get(id);
+        return theLeads.get(id);
     }
 
 

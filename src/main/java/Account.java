@@ -6,8 +6,6 @@ import java.util.Map;
 
 public class Account extends ClientInformation{
 
-    public static Map<String, Account> theAccounts = new HashMap<>();
-
     private Industry industry;
     private int employeeCount;
     private String city;
@@ -89,12 +87,6 @@ public class Account extends ClientInformation{
         opportunityList.add(opportunity);
     }
 
-    public static void showAccounts(){
-        System.out.println("═════════════ Total Number Of Accounts: " + theAccounts.size() + " ═════════════");
-        for (String key : theAccounts.keySet()){
-            System.out.println("ID: " + key + " Name: " + theAccounts.get(key).getCompanyName());
-        }
-    }
 
     @Override
     public String toString() {

@@ -5,8 +5,6 @@ import java.util.Map;
 
 public class Opportunity extends ClientInformation {
 
-    public static Map<String, Opportunity> theOpportunities = new HashMap<>();
-
     // This sets the status to Enum Open whenever an opportunity object is created
     private Status status = Status.OPEN;
 
@@ -63,12 +61,6 @@ public class Opportunity extends ClientInformation {
         this.status = status;
     }
 
-    public static void showOportunities(){
-        System.out.println("═════════════ Total Number Of Opportunities: " + theOpportunities.size() + " ═════════════");
-        for (String key : theOpportunities.keySet()){
-            System.out.println("ID: " + key + " Name: " + theOpportunities.get(key).getDecisionMaker() );
-        }
-    }
 
     public String toString() {
         return "Opportunity{" +
