@@ -1,8 +1,12 @@
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Account extends ClientInformation{
+
+    public static Map<String, Account> theAccounts = new HashMap<>();
 
     private Industry industry;
     private int employeeCount;
@@ -83,6 +87,13 @@ public class Account extends ClientInformation{
 
     public void addOpportunity(Opportunity opportunity) {
         opportunityList.add(opportunity);
+    }
+
+    public static void showAccounts(){
+        System.out.println("═════════════ Total Number Of Accounts: " + theAccounts.size() + " ═════════════");
+        for (String key : theAccounts.keySet()){
+            System.out.println("ID: " + key + " Name: " + theAccounts.get(key).getCompanyName());
+        }
     }
 
     @Override

@@ -9,10 +9,8 @@ public class Main {
             while (true) {
                 menu.OS();
             }
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
 
         }
-
-
     }
 }
