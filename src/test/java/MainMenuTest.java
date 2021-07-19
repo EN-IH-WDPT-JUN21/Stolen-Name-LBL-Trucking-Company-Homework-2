@@ -14,14 +14,12 @@ class MainMenuTest {
     Lead lead1;
     Lead lead2;
     Lead lead3;
-    MainMenu test;
 
 
     @BeforeEach
     void setUp() {
         counterStatus = ClientInformation.getUniqueID();
         ClientInformation.setUniqueID(0);
-        test = new MainMenu(); // Creates a sales associate to test method
         lead1 = new Lead("Test1", "testnum1", "test1@test.gmail.com", "TestCompany1");
         lead2 = new Lead("Test2", "testnum1", "test1@test.gmail.com", "TestCompany1");
         lead3 = new Lead("Test3", "testnum1", "test1@test.gmail.com", "TestCompany1");
@@ -29,7 +27,6 @@ class MainMenuTest {
         MainMenu.theLeads.put(lead1.getId(), lead1);
         MainMenu.theLeads.put(lead2.getId(), lead2);
         MainMenu.theLeads.put(lead3.getId(), lead3);
-        System.out.println(lead3.getId());
     }
 
     @AfterEach
@@ -41,15 +38,16 @@ class MainMenuTest {
     }
 
     @Test
-    void testNewLead() {
+    void testNewLeadPositive() {
         String data = "y \n Nathan \n 0028263 \n 122@gmail.com \n Santander \n"; // Used to simulate user input
         InputStream stdin = System.in; // Used to store default System.in
         try {
             System.setIn(new ByteArrayInputStream(data.getBytes())); // Sets System.In to test1
             int hashMapSize = MainMenu.theLeads.size();
+            MainMenu test = new MainMenu(); // Creates a sales associate to test method
 
             Lead theNewLead = test.newLead(); // creates new lead
-
+            //Assertions check Object created correctly and added to hashmap
             Assertions.assertEquals(hashMapSize + 1, MainMenu.theLeads.size()); // Checks that new lead is added to array
             Assertions.assertEquals("Nathan", MainMenu.theLeads.get(theNewLead.getId()).getName());
             Assertions.assertEquals("Santander", MainMenu.theLeads.get(theNewLead.getId()).getCompanyName());
@@ -62,6 +60,8 @@ class MainMenuTest {
 
     @Test
     void testConvertLeadThrowsNullPointerException(){
+        MainMenu test = new MainMenu(); // Creates a sales associate to test method
+
         Assertions.assertThrows(NullPointerException.class, () -> test.convertLead("239832487248"));
         Assertions.assertThrows(NullPointerException.class, () -> test.convertLead("Sausage"));
     }
@@ -70,6 +70,7 @@ class MainMenuTest {
     void testConvertLeadPositive() {
         Assertions.assertEquals(0, MainMenu.theOpportunities.size());
         Assertions.assertEquals(0, MainMenu.theContacts.size());
+        MainMenu test = new MainMenu(); // Creates a sales associate to test method
 
         String data = "y \n box \n 20 \n"; // Used to simulate user input
         InputStream stdin = System.in; // Used to store default System.in
@@ -80,7 +81,7 @@ class MainMenuTest {
             int conHashMapSize = MainMenu.theContacts.size();
 
             Opportunity newOpp = test.convertLead(MainMenu.theLeads.get(String.valueOf(counterStatus + 1)).getId());
-
+            //Assertions check Object created correctly and added to hashmap
             Assertions.assertEquals(oppHashMapSize + 1, MainMenu.theOpportunities.size()); // Checks it's added to HashMap
             Assertions.assertEquals(Truck.BOX, MainMenu.theOpportunities.get(newOpp.getId()).getProduct());
             Assertions.assertEquals(20, MainMenu.theOpportunities.get(newOpp.getId()).getQuantity());
@@ -105,7 +106,10 @@ class MainMenuTest {
         try {
             System.setIn(new ByteArrayInputStream(data.getBytes())); // Sets System.In to test1
             int accHashMapSize = MainMenu.theAccounts.size();
+            MainMenu test = new MainMenu(); // Creates a sales associate to test method
+
             Account testAccount = test.createAccount(testOpp);
+            //Assertions check Object created correctly and added to hashmap
             Assertions.assertEquals(accHashMapSize + 1, MainMenu.theAccounts.size()); // Checks it's added to HashMap
             Assertions.assertEquals(Industry.PRODUCE, MainMenu.theAccounts.get(testAccount.getId()).getIndustry());
             Assertions.assertEquals(200, MainMenu.theAccounts.get(testAccount.getId()).getEmployeeCount());
@@ -118,8 +122,18 @@ class MainMenuTest {
 
 
    @Test
-    void OS() {
+    void TestQuitWorksInOS() {
+        String data = "quit"; // Used to simulate user input
+        InputStream stdin = System.in; // Used to store default System.in
+        try {
+            System.setIn(new ByteArrayInputStream(data.getBytes())); // Sets System.In to test1
 
+            MainMenu test = new MainMenu(); // Creates a sales associate to test method
+
+            Assertions.assertThrows(RuntimeException.class, test::OS);
+        }finally {
+            System.setIn(stdin); /// Resets System.in to default state
+        }
     }
 
     @Test

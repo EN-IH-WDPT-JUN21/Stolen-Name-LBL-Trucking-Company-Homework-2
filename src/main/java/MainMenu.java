@@ -50,7 +50,7 @@ public class MainMenu {
                 + "║ 2. To check Leads list - type: 'Show Leads'                                  ║\n"
                 + "║ 3. To check individual Lead's details - type: 'Lookup Lead ' + Lead Id       ║\n"
                 + "║ 4. To convert Lead into Opportunity - type: - 'convert ' + Lead Id           ║\n"
-                + "║ 5. To check Opportunity list - type: 'Show Opportunity'                      ║\n"
+                + "║ 5. To check Opportunity list - type: 'Show Opportunities'                    ║\n"
                 + "║ 6. To check Contact list - type: - 'Show Contacts'                           ║\n"
                 + "║ 7. To check Account list - type: - 'Show Accounts'                           ║\n"
                 + "║ 8. To quit - type: - 'Quit'                                                  ║\n"
@@ -67,29 +67,32 @@ public class MainMenu {
                 throw new RuntimeException("Exiting the program");
             } else if (input[0].equals("lookup") && input[1].equals("lead")) {
                 System.out.println(lookUpLeadId(input[2]).toString());
-                OS();
             } else if (input.length < 2) {
                 throw new IllegalArgumentException();
-            }
+            } else if (input[0].equals("convert")) { // throws null point exception if number not in array
+                createAccount(convertLead(input[1]));
+            } else {
 
-            switch (input[0] + input[1]) {
-                //String x = input.substring(input.indexOf("Lead") + 3, input.length());
-                case "new" + "lead" -> newLead();
-                case "show" + "leads" -> showLeads();
-                case "show" + "opportunity" -> showOpportunities();
-                case "show" + "contacts" -> showContacts();
-                case "show" + "accounts" -> showAccounts();
-                default -> {
-                    if (input[0].equals("convert")) { // throws null point exception if number not in array
-                        createAccount(convertLead(input[1]));
+                switch (input[0] + input[1]) {
+                    //String x = input.substring(input.indexOf("Lead") + 3, input.length());
+                    case "new" + "lead" -> newLead();
+                    case "show" + "leads" -> showLeads();
+                    case "show" + "opportunity" -> showOpportunities();
+                    case "show" + "contacts" -> showContacts();
+                    case "show" + "accounts" -> showAccounts();
+                    default -> {
+                        throw new IllegalArgumentException();
                     }
-                    throw new IllegalArgumentException();
                 }
             }
         } catch (IllegalArgumentException | NullPointerException e) {
-            System.out.println("Invalid input - please start again");
-            OS();
+            System.out.println("Invalid input");
+
         }
+        System.out.println("\n Press enter to return to the main menu");
+        scanner.nextLine();
+        OS();
+
     }
 
 
@@ -122,7 +125,7 @@ public class MainMenu {
                         throw new IllegalArgumentException("No name input");
                     }
                     theLeads.put(newLead.getId(), newLead);
-                    System.out.println("═════════════ New Lead Created ═════════════");
+                    System.out.println("\n═════════════ New Lead Created ═════════════\n");
                     System.out.println(theLeads.get(newLead.getId()));
                     return newLead;
                 }
@@ -132,7 +135,7 @@ public class MainMenu {
             }
         } catch (IllegalArgumentException e) {
 
-            System.out.println("Invalid input - please start again");
+            System.out.println("\n***Invalid input - please start again***\n");
             newLead();
         }
         return null;
@@ -159,6 +162,10 @@ public class MainMenu {
                     theContacts.put(newContact.getId(), newContact);  // Adds contact to contact Map
                     theOpportunities.put(newOpp.getId(), newOpp); // Adds Opportunity to opportunities map
                     theLeads.remove(lead.getId()); // Removes converted lead from Leads map ("Database")
+                    System.out.println("\n ═════════════ New Opportunity Created ═════════════\n");
+                    System.out.println(theOpportunities.get(newOpp.getId()));
+                    System.out.println("\n═════════════ New Contact Created ═════════════\n");
+                    System.out.println(theContacts.get(newContact.getId()));
                     return newOpp;
                     //createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
                 }
@@ -168,7 +175,7 @@ public class MainMenu {
             }
         } catch (Exception e) {
 
-            System.out.println("Invalid input - please start again");
+            System.out.println("\n***Invalid input - please start again***\n");
             convertLead(id); // Catches errors and returns to start of method - Is there a simple alternative?
         }
         return null;
@@ -176,7 +183,7 @@ public class MainMenu {
 
     // Method called to create a new account
     public Account createAccount(Opportunity opportunity) {
-
+        System.out.println("\n═════════════ Account Creation ═════════════\n");
         Scanner scanner = new Scanner(System.in);
         try {
 
@@ -192,38 +199,40 @@ public class MainMenu {
             System.out.println("Please input the Country for " + newAccount.getCompanyName() + ":  ");
             newAccount.setCountry(scanner.nextLine().trim());
             theAccounts.put(newAccount.getId(), newAccount); // Adds new account to Accounts Map (database)
+            System.out.println("\n ═════════════ New Account Created ═════════════\n");
+            System.out.println(theAccounts.get(newAccount.getId()));
             return newAccount;
         } catch (Exception e) {
 
-            System.out.println("Invalid input - please start again");
+            System.out.println("\n***Invalid input - please start again***\n");
             createAccount(opportunity); // Catches errors and returns to start of method - Is there a better way??
         }
         return null;
     }
 
     public void showLeads() {
-        System.out.println("═════════════ Total Number Of Leads: " + theLeads.size() + " ═════════════");
+        System.out.println("\n═════════════ Total Number Of Leads: " + theLeads.size() + " ═════════════\n");
         for (String key : theLeads.keySet()) {
             System.out.println("ID: " + key + " Name: " + theLeads.get(key).getName());
         }
     }
 
     public void showContacts() {
-        System.out.println("═════════════ Total Number Of Contacts: " + theContacts.size() + " ═════════════");
+        System.out.println("\n═════════════ Total Number Of Contacts: " + theContacts.size() + " ═════════════\n");
         for (String key : theContacts.keySet()) {
             System.out.println("ID: " + key + " Name: " + theContacts.get(key).getName());
         }
     }
 
     public static void showOpportunities() {
-        System.out.println("═════════════ Total Number Of Opportunities: " + theOpportunities.size() + " ═════════════");
+        System.out.println("\n═════════════ Total Number Of Opportunities: " + theOpportunities.size() + " ═════════════\n");
         for (String key : theOpportunities.keySet()) {
             System.out.println("ID: " + key + " Name: " + theOpportunities.get(key).getDecisionMaker());
         }
     }
 
     public static void showAccounts() {
-        System.out.println("═════════════ Total Number Of Accounts: " + theAccounts.size() + " ═════════════");
+        System.out.println("\n ═════════════ Total Number Of Accounts: " + theAccounts.size() + " ═════════════\n");
         for (String key : theAccounts.keySet()) {
             System.out.println("ID: " + key + " Name: " + theAccounts.get(key).getCompanyName());
         }

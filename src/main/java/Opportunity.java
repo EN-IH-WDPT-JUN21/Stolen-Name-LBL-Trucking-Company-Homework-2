@@ -63,12 +63,10 @@ public class Opportunity extends ClientInformation {
 
 
     public String toString() {
-        return "Opportunity{" +
-                "id='" + id + '\'' +
-                ", status= " + status +
-                ", product= " + product +
-                ", quantity= " + quantity +
-                ", decisionMaker= " + decisionMaker.toString() +
-                '}';
+        return "ID: " + id + " || " +
+                "Contract Status: " + status + " || " +
+                "Product: " + product + " || " +
+                "Quantity:  " + quantity + " || " +
+                "Decision Maker:  " + decisionMaker.toString() + "\n";
     }
 }
