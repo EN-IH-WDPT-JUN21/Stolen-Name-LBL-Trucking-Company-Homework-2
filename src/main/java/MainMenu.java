@@ -14,17 +14,93 @@ public class MainMenu {
     private String name;
     Scanner scanner = new Scanner(System.in);
 
-    public MainMenu(String name) {
-        setName(name);
+    enum consoleTextColor {
+        ANSI_GREEN("\u001B[32m"),
+        ANSI_BLUE("\\u001B[34m"),
+        ANSI_RED("\u001B[31m"),
+        ANSI_YELLOW("\u001B[33m"),
+        ANSI_PURPLE("\u001B[35m"),
+        ANSI_CYAN("\u001B[36m"),
+        ANSI_RESET("\u001B[0m");
+
+
+        private final String color;
+
+        consoleTextColor(String color) {
+            this.color = color;
+        }
+    }
+    //Pattern pattern = Pattern.compile("^[1-9][0-9]{1,4}$");
+
+    private static String color = MainMenu.consoleTextColor.ANSI_GREEN.color;
+    private static String reset = MainMenu.consoleTextColor.ANSI_RESET.color;
+
+    public MainMenu(){
+
     }
 
-    public String getName() {
-        return name;
-    }
+    public void OS() {
 
-    public void setName(String name) {
-        this.name = name;
-    }
+            System.out.println("\n" + color
+                    + "╔══════════════════════════════════════════════════════════════════════════════╗\n"
+                    + "║                          WELCOME TO LBL CRM SYSTEM                           ║\n"
+                    + "╠══════════════════════════════════════════════════════════════════════════════╣\n"
+                    + "║ WHAT WOULD YOU LIKE TO DO?                                                   ║\n"
+                    + "╠══════════════════════════════════════════════════════════════════════════════╣\n"
+                    + "║ 1. To create new Lead - type: 'New Lead'                                     ║\n"
+                    + "║ 2. To check Leads list - type: 'Show Leads'                                  ║\n"
+                    + "║ 3. To check individual Lead's details - type: 'Lookup Lead ' + Lead Id       ║\n"
+                    + "║ 4. To convert Lead into Opportunity - type: - 'convert ' + Lead Id           ║\n"
+                    + "║ 5. To check Opportunity list - type: 'Show Opportunity'                      ║\n"
+                    + "║ 6. To check Contact list - type: - 'Show Contacts'                           ║\n"
+                    + "║ 7. To check Account list - type: - 'Show Accounts'                           ║\n"
+                    + "║ 8. To quit - type: - 'Quit'                                                  ║\n"
+                    + "╚══════════════════════════════════════════════════════════════════════════════╝\n"
+            );
+
+            String input = scanner.nextLine().trim().toLowerCase(Locale.ROOT);
+
+            try {
+                switch (input) {
+                    //String x = input.substring(input.indexOf("Lead") + 3, input.length());
+                    case "new lead":
+                        try {
+                            newLead();
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Invalid input - please start again");
+                            newLead();
+                        }
+                        break;
+                    case "show leads":
+                        showLeads();
+                        break;
+                    //case "Lookup Lead " + :
+                    case "convert 1":
+                        convertLead("1");
+                        break;
+                    case "show opportunity":
+                        showOpportunities();
+                        break;
+                    case "show contacts":
+                        showContacts();
+                        break;
+                    case "show accounts":
+                        showAccounts();
+                        break;
+                    case "quit":
+                        System.out.println("Thank you for using our LBL CRM SYSTEM!");
+                        throw new RuntimeException("Exiting the program");
+                    default:
+                        throw new IllegalArgumentException();
+
+                }
+            } catch (IllegalArgumentException e) {
+
+                System.out.println("Invalid input - please start again");
+                OS();
+            }
+        }
+
 
     // Method to create a new lead
     public void newLead() {
@@ -80,7 +156,8 @@ public class MainMenu {
 
 
         Lead lead = theLeads.get(id);
-        System.out.println("Would you like to convert lead " + lead.getCompanyName()  + " into an opportunity?    y / n ");
+        System.out.println("Would you like to convert " +lead.getName() + " from: " + lead.getCompanyName()  +
+                " into an opportunity?    y / n ");
         Scanner scanner = new Scanner(System.in);
         try {
             switch (scanner.nextLine().trim()) {
@@ -97,7 +174,7 @@ public class MainMenu {
                     theContacts.put(newContact.getId(), newContact);  // Adds contact to contact Map
                     theOpportunities.put(newOpp.getId(), newOpp); // Adds Opportunity to opportunities map
                     theLeads.remove(lead.getId()); // Removes converted lead from Leads map ("Database")
-                    // createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
+                    createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
                     break;
                 }
                 case "N":
@@ -143,10 +220,33 @@ public class MainMenu {
     }
 
     public void showLeads(){
+        System.out.println("═════════════ Total Number Of Leads: " + theLeads.size() + " ═════════════");
         for (String key : theLeads.keySet()){
             System.out.println("ID: " + key + " Name: " + theLeads.get(key).getName() );
         }
     }
+
+    public void showContacts(){
+        System.out.println("═════════════ Total Number Of Contacts: " + theContacts.size() + " ═════════════");
+        for (String key : theContacts.keySet()){
+            System.out.println("ID: " + key + " Name: " + theContacts.get(key).getName() );
+        }
+    }
+
+    public static void showOpportunities(){
+        System.out.println("═════════════ Total Number Of Opportunities: " + theOpportunities.size() + " ═════════════");
+        for (String key : theOpportunities.keySet()){
+            System.out.println("ID: " + key + " Name: " + theOpportunities.get(key).getDecisionMaker() );
+        }
+    }
+
+    public static void showAccounts(){
+        System.out.println("═════════════ Total Number Of Accounts: " + theAccounts.size() + " ═════════════");
+        for (String key : theAccounts.keySet()){
+            System.out.println("ID: " + key + " Name: " + theAccounts.get(key).getCompanyName());
+        }
+    }
+
 
     public Lead lookUpLeadId(String id) throws RuntimeException{
         return (Lead) theLeads.get(id);
