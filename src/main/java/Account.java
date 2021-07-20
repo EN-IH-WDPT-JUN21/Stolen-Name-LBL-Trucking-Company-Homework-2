@@ -85,19 +85,17 @@ public class Account extends ClientInformation{
         opportunityList.add(opportunity);
     }
 
+
     @Override
     public String toString() {
-        return "Account{" +
-                "id='" + id + '\'' +
-                ", industry=" + industry +
-                ", employeeCount=" + employeeCount +
-                ", city='" + city + '\'' +
-                ", country='" + country + '\'' +
-                ", contactList=" + contactList +
-                ", opportunityList=" + opportunityList +
-                '}';
+        return  "ID: " + id + " || " +
+                "Industry: " + industry + " || " +
+                "Employee Count: " + employeeCount + " || " +
+                "City: " + city + " || " +
+                "Country: " + country + " || " +
+                "\nContact List: " + contactList +
+                "\nOpportunity List: " + opportunityList + "\n";
     }
-
 
 }
 

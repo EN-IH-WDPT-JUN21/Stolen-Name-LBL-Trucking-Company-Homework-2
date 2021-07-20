@@ -15,4 +15,11 @@ abstract class ClientInformation {
         id = generateID().toString();
     }
 
+    public static Integer getUniqueID() {
+        return uniqueID;
+    }
+
+    public static void setUniqueID(Integer uniqueID) {
+        ClientInformation.uniqueID = uniqueID;
+    }
 }

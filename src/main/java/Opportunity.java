@@ -1,5 +1,8 @@
 //Extends ClientInformation class to retain Unique ID incrementing.
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Opportunity extends ClientInformation {
 
     // This sets the status to Enum Open whenever an opportunity object is created
@@ -32,7 +35,7 @@ public class Opportunity extends ClientInformation {
         this.product = product;
     }
 
-    public ClientInformation getDecisionMaker() {
+    public Contact getDecisionMaker() {
         return decisionMaker;
     }
 
@@ -59,14 +62,11 @@ public class Opportunity extends ClientInformation {
     }
 
 
-
     public String toString() {
-        return "Opportunity{" +
-                "id='" + id + '\'' +
-                ", status= " + status +
-                ", product= " + product +
-                ", quantity= " + quantity +
-                ", decisionMaker= " + decisionMaker.toString() +
-                '}';
+        return "ID: " + id + " || " +
+                "Contract Status: " + status + " || " +
+                "Product: " + product + " || " +
+                "Quantity:  " + quantity + " || " +
+                "Decision Maker:  " + decisionMaker.toString() + "\n";
     }
 }
