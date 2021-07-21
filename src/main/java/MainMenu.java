@@ -66,7 +66,6 @@ public class MainMenu {
                 + "║ 9.  To change Opportunity status - type: - 'Change Opportunity' + Opportunity Id             ║\n"
                 + "║ 10. To quit - type: - 'Quit'                                                                 ║\n"
                 + "╚══════════════════════════════════════════════════════════════════════════════════════════════╝\n"
-        );
 
         try {
 
@@ -86,6 +85,7 @@ public class MainMenu {
                 createAccount(convertLead(input[1]));
             } else if (input[0].equals("change") && input[1].equals("opportunity")) {
                 changeOppStatus(input[2]);
+
             } else {
 
                 switch (input[0] + input[1]) {
