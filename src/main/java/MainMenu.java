@@ -38,24 +38,34 @@ public class MainMenu {
 
     }
 
-    public void OS() throws RuntimeException{
+    public void OS() throws RuntimeException {
 
         System.out.println("\n" + color
-                + "╔══════════════════════════════════════════════════════════════════════════════╗\n"
-                + "║                          WELCOME TO LBL CRM SYSTEM                           ║\n"
-                + "╠══════════════════════════════════════════════════════════════════════════════╣\n"
-                + "║ WHAT WOULD YOU LIKE TO DO?                                                   ║\n"
-                + "╠══════════════════════════════════════════════════════════════════════════════╣\n"
-                + "║ 1. To create new Lead - type: 'New Lead'                                     ║\n"
-                + "║ 2. To check Leads list - type: 'Show Leads'                                  ║\n"
-                + "║ 3. To check individual Lead's details - type: 'Lookup Lead ' + Lead Id       ║\n"
-                + "║ 4. To convert Lead into Opportunity - type: - 'convert ' + Lead Id           ║\n"
-                + "║ 5. To check Opportunity list - type: 'Show Opportunities'                    ║\n"
-                + "║ 6. To check Contact list - type: - 'Show Contacts'                           ║\n"
-                + "║ 7. To check Account list - type: - 'Show Accounts'                           ║\n"
-                + "║ 8. To quit - type: - 'Quit'                                                  ║\n"
-                + "╚══════════════════════════════════════════════════════════════════════════════╝\n"
-        );
+                + "                                                                                                \n" +
+                "                                         *#### #####        ###################*   *####*         \n" +
+                "                         #################### #####        ######################  #####          \n" +
+                "                    ,######              ### #####        #####            ###### #####           \n" +
+                "                  ####                  ### #####        #####    ############## #####            \n" +
+                "                ####                   ### #####        #####      ###########  #####             \n" +
+                "              ########################### #####        #####            ###### #####              \n" +
+                "             ####################.###### ############ ###################### ############        \n" +
+                "             ################ ####### # ############ #####################  ############         \n"
+                + "╔══════════════════════════════════════════════════════════════════════════════════════════════╗\n"
+                + "║                                WELCOME TO LBL CRM SYSTEM                                     ║\n"
+                + "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n"
+                + "║     WHAT WOULD YOU LIKE TO DO?                                                               ║\n"
+                + "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n"
+                + "║ 1.  To create new Lead - type: 'New Lead'                                                    ║\n"
+                + "║ 2.  To check Leads list - type: 'Show Leads'                                                 ║\n"
+                + "║ 3.  To check individual Lead's details - type: 'Lookup Lead ' + Lead Id                      ║\n"
+                + "║ 4.  To check individual Opportunity's details - type: 'Lookup Opportunity ' + Opportunity Id ║\n"
+                + "║ 5.  To convert Lead into Opportunity - type: - 'convert ' + Lead Id                          ║\n"
+                + "║ 6.  To check Opportunity list - type: 'Show Opportunities'                                   ║\n"
+                + "║ 7.  To check Contact list - type: - 'Show Contacts'                                          ║\n"
+                + "║ 8.  To check Account list - type: - 'Show Accounts'                                          ║\n"
+                + "║ 9.  To change Opportunity status - type: - 'Change Opportunity' + Opportunity Id             ║\n"
+                + "║ 10. To quit - type: - 'Quit'                                                                 ║\n"
+                + "╚══════════════════════════════════════════════════════════════════════════════════════════════╝\n");
 
         try {
 
@@ -67,10 +77,15 @@ public class MainMenu {
                 throw new RuntimeException("Exiting the program");
             } else if (input[0].equals("lookup") && input[1].equals("lead")) {
                 System.out.println(lookUpLeadId(input[2]).toString());
+            } else if (input[0].equals("lookup") && input[1].equals("opportunity")) {
+                    System.out.println(lookUpOppId(input[2]).toString());
             } else if (input.length < 2) {
                 throw new IllegalArgumentException();
             } else if (input[0].equals("convert")) { // throws null point exception if number not in array
                 createAccount(convertLead(input[1]));
+            } else if (input[0].equals("change") && input[1].equals("opportunity")) {
+                changeOppStatus(input[2]);
+
             } else {
 
                 switch (input[0] + input[1]) {
@@ -99,8 +114,8 @@ public class MainMenu {
 
         System.out.println("Would you like to create a new lead?   y / n ");
         try {
-            switch (scanner.nextLine().trim()) {
-                case "Y", "y" -> {
+            switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
+                case "y" -> {
                     Lead newLead = new Lead();
                     System.out.println("Please input the customers name: ");
                     newLead.setName(scanner.nextLine().trim());
@@ -127,7 +142,7 @@ public class MainMenu {
                     System.out.println(theLeads.get(newLead.getId()));
                     return newLead;
                 }
-                case "N", "n" -> // Would normally go back in the menu at this point
+                case "n" -> // Would normally go back in the menu at this point
                         System.out.println("You said no");
                 default -> throw new IllegalArgumentException();
             }
@@ -147,8 +162,8 @@ public class MainMenu {
                 " into an opportunity?    y / n ");
         Scanner scanner = new Scanner(System.in);
         try {
-            switch (scanner.nextLine().trim()) {
-                case "Y", "y" -> {
+            switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
+                case "y" -> {
                     Opportunity newOpp = new Opportunity();
                     System.out.println("Please input the product that " + lead.getCompanyName() + " is interested in: \n " +
                             "HYBRID, FLATBED OR BOX");
@@ -167,8 +182,10 @@ public class MainMenu {
                     return newOpp;
                     //createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
                 }
-                case "N", "n" -> // Should return to main menu here
-                        System.out.println("You said no");
+                case "n" -> {// Should return to main menu here
+                    System.out.println("You said no");
+                    OS();
+                }
                 default -> throw new IllegalArgumentException("Invalid input - please start again");
             }
         } catch (Exception e) {
@@ -218,7 +235,8 @@ public class MainMenu {
     public void showContacts() {
         System.out.println("\n═════════════ Total Number Of Contacts: " + theContacts.size() + " ═════════════\n");
         for (String key : theContacts.keySet()) {
-            System.out.println("ID: " + key + "  |  Name: " + theContacts.get(key).getName());
+            System.out.println("ID: " + key + " Name: " + theContacts.get(key).getName() +
+                    "Company Name: " + theContacts.get(key).getCompanyName());
         }
     }
 
@@ -245,6 +263,40 @@ public class MainMenu {
         return theLeads.get(id);
     }
 
+    //look up opportunity by Id
+    public Opportunity lookUpOppId(String id) throws RuntimeException {
+        return theOpportunities.get(id);
+    }
 
+    //Change opportunity status
+    public void changeOppStatus(String id) {
+        Opportunity opp = theOpportunities.get(id);
+        System.out.println("Would you like to change the status of the opportunity " + opp + "y / n ");
+        Scanner scanner = new Scanner(System.in);
+        try {
+            switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
+                case "y": {
+                    System.out.println("Please select the status you would like to change to?\n " +
+                            "OPEN, CLOSED_WON, CLOSED_LOST");           //Do we want to keep open option?
+                    opp.setStatus(Status.valueOf(scanner.nextLine().trim().toUpperCase(Locale.ROOT)));
+                    System.out.println("\n═════════════ Status Changed! ═════════════\n");
+                }
+                break;
+                case "n": {
+                    System.out.println("You said no");
+                    OS();
+                }
+                break;
+
+                default:
+                    throw new IllegalArgumentException("Invalid input - please try again");
+            }
+
+        } catch (Exception e) {
+            System.out.println("\n***Invalid input - please start again***\n");
+            changeOppStatus(id);
+        }
+    }
 }
+
 
