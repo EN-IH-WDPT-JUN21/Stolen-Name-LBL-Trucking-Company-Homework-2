@@ -65,7 +65,7 @@ public class MainMenu {
                 + "║ 8.  To check Account list - type: - 'Show Accounts'                                          ║\n"
                 + "║ 9.  To change Opportunity status - type: - 'Change Opportunity' + Opportunity Id             ║\n"
                 + "║ 10. To quit - type: - 'Quit'                                                                 ║\n"
-                + "╚══════════════════════════════════════════════════════════════════════════════════════════════╝\n"
+                + "╚══════════════════════════════════════════════════════════════════════════════════════════════╝\n");
 
         try {
 
