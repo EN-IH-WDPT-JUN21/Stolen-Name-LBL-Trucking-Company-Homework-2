@@ -1,12 +1,13 @@
 //For creating basic Leads. Extends Client information in order to retain a unique ID counter.
 
+import java.util.Scanner;
+
 public class Lead extends ClientInformation {
 
     protected String name;
     protected String phoneNumber;
     protected String email;
     protected String companyName;
-
 
     public Lead() {
     }
@@ -51,22 +52,16 @@ public class Lead extends ClientInformation {
     }
 
 
-
-
-
-
-
     public String getId() {
         return id;
     }
 
 
     public String toString() {
-        return "name='" + getName() + '\'' +
-                ", phoneNumber='" + getPhoneNumber() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", companyName='" + getCompanyName() + '\'' +
-                '}';
+        return "ID: " + getId() + "name: " + getName() + " || " +
+                "Phone Number: " + getPhoneNumber() + " || " +
+                "Email Address: " + getEmail() + " || " +
+                "Company Name: " + getCompanyName() + "\n";
     }
 
 }

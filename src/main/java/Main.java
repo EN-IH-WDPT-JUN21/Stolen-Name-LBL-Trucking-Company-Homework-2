@@ -1,24 +1,23 @@
 
 public class Main {
 
-    public static MainMenu nathan = new MainMenu("Nathan");
-    //public static Login login = new Login(); Temporarily disabled during development
+    public static MainMenu menu = new MainMenu();
 
     public static void main(String[] args) {
-        //login.login();  Temporarily disabled during development
-        nathan.newLead();
 
+        Lead lead1 = new Lead("Test1", "testnum1", "test1@test.gmail.com", "TestCompany1");
+        Lead lead2 = new Lead("Test2", "testnum2", "test2@test.gmail.com", "TestCompany2");
+        Lead lead3 = new Lead("Test3", "testnum2", "test2@test.gmail.com", "TestCompany2");
 
-        //System.out.println(MainMenu.theLeads.get("0").toString()); Replaced in MainMenu instead
+        MainMenu.theLeads.put(lead1.getId(), lead1);
+        MainMenu.theLeads.put(lead2.getId(), lead2);
+        MainMenu.theLeads.put(lead3.getId(), lead3);
 
-        nathan.convertLead(MainMenu.theLeads.get("1").getId());
-
-
-        nathan.createAccount(MainMenu.theContacts.get("3"), MainMenu.theOpportunities.get("2"));
-
-        System.out.println(MainMenu.theContacts.get("3").toString());
-        System.out.println(MainMenu.theOpportunities.get("2").toString());
-        System.out.println(MainMenu.theAccounts.get("4").toString());
-
+        try {
+            while (true) {
+                menu.OS();
+            }
+        } catch (RuntimeException e) {
+        }
     }
 }
