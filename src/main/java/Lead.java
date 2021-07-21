@@ -58,10 +58,11 @@ public class Lead extends ClientInformation {
 
 
     public String toString() {
-        return "ID: " + getId() + "name: " + getName() + " || " +
-                "Phone Number: " + getPhoneNumber() + " || " +
-                "Email Address: " + getEmail() + " || " +
-                "Company Name: " + getCompanyName() + "\n";
+        return "ID: " + getId() + "\n" +
+                "Name: " + getName() + "\n" +
+                "Phone Number: " + getPhoneNumber() + "\n" +
+                "Email Address: " + getEmail() + "\n" +
+                "Company Name: " + getCompanyName();
     }
 
 }

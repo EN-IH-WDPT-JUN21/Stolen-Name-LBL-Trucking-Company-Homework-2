@@ -77,7 +77,7 @@ public class MainMenu {
                     //String x = input.substring(input.indexOf("Lead") + 3, input.length());
                     case "new" + "lead" -> newLead();
                     case "show" + "leads" -> showLeads();
-                    case "show" + "opportunity" -> showOpportunities();
+                    case "show" + "opportunities" -> showOpportunities();
                     case "show" + "contacts" -> showContacts();
                     case "show" + "accounts" -> showAccounts();
                     default -> throw new IllegalArgumentException();
@@ -211,28 +211,32 @@ public class MainMenu {
     public void showLeads() {
         System.out.println("\n═════════════ Total Number Of Leads: " + theLeads.size() + " ═════════════\n");
         for (String key : theLeads.keySet()) {
-            System.out.println("ID: " + key + " Name: " + theLeads.get(key).getName());
+            System.out.println("ID: " + key + "  |  Name: " + theLeads.get(key).getName());
         }
     }
 
     public void showContacts() {
         System.out.println("\n═════════════ Total Number Of Contacts: " + theContacts.size() + " ═════════════\n");
         for (String key : theContacts.keySet()) {
-            System.out.println("ID: " + key + " Name: " + theContacts.get(key).getName());
+            System.out.println("ID: " + key + "  |  Name: " + theContacts.get(key).getName());
         }
     }
 
     public static void showOpportunities() {
         System.out.println("\n═════════════ Total Number Of Opportunities: " + theOpportunities.size() + " ═════════════\n");
         for (String key : theOpportunities.keySet()) {
-            System.out.println("ID: " + key + " Name: " + theOpportunities.get(key).getDecisionMaker());
+            System.out.println("ID: " + key +
+                               "  ║  Contract status: " + theOpportunities.get(key).getStatus() +
+                               "  ║  Product: " + theOpportunities.get(key).getProduct() +
+                               "  ║  Quantity: " + theOpportunities.get(key).getQuantity() +
+                               "  ║  Decision maker: " + theOpportunities.get(key).getDecisionMaker().getName());
         }
     }
 
     public static void showAccounts() {
         System.out.println("\n ═════════════ Total Number Of Accounts: " + theAccounts.size() + " ═════════════\n");
         for (String key : theAccounts.keySet()) {
-            System.out.println("ID: " + key + " Name: " + theAccounts.get(key).getCompanyName());
+            System.out.println("ID: " + key + "  |  Name: " + theAccounts.get(key).getCompanyName());
         }
     }
 

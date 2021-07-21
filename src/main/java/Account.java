@@ -88,13 +88,15 @@ public class Account extends ClientInformation{
 
     @Override
     public String toString() {
-        return  "ID: " + id + " || " +
-                "Industry: " + industry + " || " +
-                "Employee Count: " + employeeCount + " || " +
-                "City: " + city + " || " +
-                "Country: " + country + " || " +
-                "\nContact List: " + contactList +
-                "\nOpportunity List: " + opportunityList + "\n";
+        return  "ID: " + id + "\n" +
+                "Industry: " + industry + "\n" +
+                "Employee Count: " + employeeCount + "\n" +
+                "City: " + city + "\n" +
+                "Country: " + country + "\n" +
+                "\nList of Contacts: \n" +
+                contactList + "\n" +
+                "\nList of Opportunities: \n" +
+                opportunityList;
     }
 
 }
