@@ -13,6 +13,9 @@ public class Opportunity extends ClientInformation {
     private int quantity;
     private Contact decisionMaker;
 
+    private static String colorMain = "\u001B[33m";
+    private static String reset = "\u001B[0m";
+
     public Opportunity() {
     }
 
@@ -63,10 +66,11 @@ public class Opportunity extends ClientInformation {
 
 
     public String toString() {
-        return "ID: " + id + " || " +
-                "Contract Status: " + status + " || " +
-                "Product: " + product + " || " +
-                "Quantity:  " + quantity + " || " +
-                "Decision Maker:  " + decisionMaker.toString() + "\n";
+        return colorMain +
+                "\nID: " + id + "\n" +
+                "Contract status: " + status + "\n" +
+                "Product: " + product + "\n" +
+                "Quantity: " + quantity + "\n" +
+                "\nDecision maker:\n" + decisionMaker.toString();
     }
 }
