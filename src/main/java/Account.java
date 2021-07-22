@@ -11,6 +11,9 @@ public class Account extends ClientInformation{
     private List<Contact> contactList = new ArrayList<>();
     private List<Opportunity> opportunityList = new ArrayList<>();
 
+    private static String colorMain = "\u001B[33m";
+    private static String reset = "\u001B[0m";
+
     public Account() {
     }
 
@@ -88,7 +91,8 @@ public class Account extends ClientInformation{
 
     @Override
     public String toString() {
-        return  "ID: " + id + "\n" +
+        return  colorMain +
+                "ID: " + id + "\n" +
                 "Industry: " + industry + "\n" +
                 "Employee Count: " + employeeCount + "\n" +
                 "City: " + city + "\n" +
