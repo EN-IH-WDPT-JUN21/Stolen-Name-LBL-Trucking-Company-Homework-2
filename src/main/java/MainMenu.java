@@ -1,3 +1,5 @@
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Locale;
 import java.util.Map;
 import java.util.HashMap;
@@ -14,15 +16,24 @@ public class MainMenu {
     Scanner scanner = new Scanner(System.in);
 
     enum consoleTextColor {
-        ANSI_BLACK("\u001B[30m"),
-        ANSI_RED("\u001B[31m"),
-        ANSI_GREEN("\u001B[32m"),
-        ANSI_YELLOW("\u001B[33m"),
-        ANSI_BLUE("\033[1;34m"),
-        ANSI_PURPLE("\u001B[35m"),
-        ANSI_CYAN("\u001B[36m"),
+        ANSI_BLACK("\033[0;30m"),
+        ANSI_RED("\033[0;31m"),
+        ANSI_GREEN("\033[0;32m"),
+        ANSI_YELLOW("\033[0;33m"),
+        ANSI_BLUE("\033[0;34m"),
+        ANSI_PURPLE("\033[0;35m"),
+        ANSI_CYAN("\033[0;36m"),
         ANSI_WHITE("\033[0;37m"),
-        ANSI_RESET("\u001B[0m");
+        ANSI_RESET("\u001B[0m"),
+        BLACK_BOLD("\033[1;30m"),
+        RED_BOLD("\033[1;31m"),
+        GREEN_BOLD("\033[1;32m"),
+        YELLOW_BOLD("\033[1;33m"),
+        BLUE_BOLD("\033[1;34m"),
+        PURPLE_BOLD("\033[1;35m"),
+        CYAN_BOLD("\033[1;36m"),
+        WHITE_BOLD("\033[1;37m");
+        
 
 
         private final String color;
@@ -32,19 +43,24 @@ public class MainMenu {
         }
     }
 
-    private static String colorMain = consoleTextColor.ANSI_YELLOW.color;
-    private static String colorInput = consoleTextColor.ANSI_CYAN.color;
-    private static String colorError = consoleTextColor.ANSI_RED.color;
-    private static String colorLogo = consoleTextColor.ANSI_GREEN.color;
-    private static String reset = MainMenu.consoleTextColor.ANSI_RESET.color;
+    private static final String colorMain = consoleTextColor.ANSI_YELLOW.color;
+    private static final String colorMainBold = consoleTextColor.BLACK_BOLD.color;
+    private static final String colorInput = consoleTextColor.ANSI_CYAN.color;
+    private static final String colorHeadline = consoleTextColor.ANSI_BLUE.color;
+    private static final String colorHeadlineBold = consoleTextColor.BLUE_BOLD.color;
+    private static final String colorTable = consoleTextColor.ANSI_GREEN.color;
+    private static final String colorError = consoleTextColor.ANSI_RED.color;
+    private static final String colorLogo = consoleTextColor.ANSI_GREEN.color;
+    private static final String reset = MainMenu.consoleTextColor.ANSI_RESET.color;
+    private static boolean wasRun = false;
 
     public MainMenu() {
 
     }
 
-    public void OS() throws RuntimeException {
+    public void OS() throws RuntimeException, AWTException {
 
-        System.out.println("\n" + colorLogo
+        System.out.println("\n" + colorHeadline + colorLogo
                                    + "                                                                                                \n" +
                                    "                                         *#### #####        ###################*   *####*         \n" +
                                    "                         #################### #####        ######################  #####          \n" +
@@ -54,23 +70,28 @@ public class MainMenu {
                                    "              ########################### #####        #####            ###### #####              \n" +
                                    "             ####################.###### ############ ###################### ############         \n" +
                                    "             ################ ####### # ############ #####################  ############          \n" + reset +
-                         colorMain + "╔══════════════════════════════════════════════════════════════════════════════════════════════╗\n"
-                                   + "║                                WELCOME TO LBL CRM SYSTEM                                     ║\n"
-                                   + "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n"
-                                   + "║     WHAT WOULD YOU LIKE TO DO?                                                               ║\n"
-                                   + "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n"
-                                   + "║ 1.  To create new Lead - type: 'New Lead'                                                    ║\n"
-                                   + "║ 2.  To check Leads list - type: 'Show Leads'                                                 ║\n"
-                                   + "║ 3.  To check individual Lead's details - type: 'Lookup Lead ' + Lead Id                      ║\n"
-                                   + "║ 4.  To check individual Opportunity's details - type: 'Lookup Opportunity ' + Opportunity Id ║\n"
-                                   + "║ 5.  To convert Lead into Opportunity - type: - 'convert ' + Lead Id                          ║\n"
-                                   + "║ 6.  To check Opportunity list - type: 'Show Opportunities'                                   ║\n"
-                                   + "║ 7.  To check Contact list - type: - 'Show Contacts'                                          ║\n"
-                                   + "║ 8.  To check Account list - type: - 'Show Accounts'                                          ║\n"
-                                   + "║ 9.  To change Opportunity status - type: - 'Change Opportunity' + Opportunity Id             ║\n"
-                                   + "║ 10. To quit - type: - 'Quit'                                                                 ║\n"
-                                   + "╚══════════════════════════════════════════════════════════════════════════════════════════════╝\n" + reset);
+         colorHeadline + colorMain + "╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗\n"
+                                   + "║                                WELCOME TO LBL CRM SYSTEM                                          ║\n"
+                                   + "╠═══════════════════════════════════════════════════════════════════════════════════════════════════╣\n"
+                                   + "║     WHAT WOULD YOU LIKE TO DO?                                                                    ║\n"
+                                   + "╠═══════════════════════════════════════════════════════════════════════════════════════════════════╣\n"
+                                   + "║ 1.  To create new Lead " + colorHeadline + "- type: 'New Lead'" + colorMain + "                                                         ║\n"
+                                   + "║ 2.  To check Leads list " + colorHeadline + "- type: 'Show Leads'" + colorMain + "                                                      ║\n"
+                                   + "║ 3.  To check individual Lead's details " + colorHeadline + "- type: 'Lookup Lead ' + Lead Id" + colorMain + "                           ║\n"
+                                   + "║ 4.  To check individual Opportunity's details " + colorHeadline + "- type: 'Lookup Opportunity ' + Opportunity Id" + colorMain + "      ║\n"
+                                   + "║ 5.  To convert Lead into Opportunity " + colorHeadline + "- type: - 'convert ' + Lead Id" + colorMain + "                               ║\n"
+                                   + "║ 6.  To check Opportunity list " + colorHeadline + "- type: 'Show Opportunities'" + colorMain + "                                        ║\n"
+                                   + "║ 7.  To check Contact list " + colorHeadline + "- type: 'Show Contacts'" + colorMain + "                                                 ║\n"
+                                   + "║ 8.  To check Account list " + colorHeadline + "- type: 'Show Accounts'" + colorMain + "                                                 ║\n"
+                                   + "║ 9.  To change Opportunity status " + colorHeadline + "- type: 'Change Opportunity' + Opportunity Id" + colorMain + "                    ║\n"
+                                   + "║ 10. To quit " + colorHeadline + "- type: 'Quit'" + colorMain + "                                                                        ║\n"
+                                   + "╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝\n" + reset);
 
+        conoleFocusRunOnce();
+        //showLeads();
+        //showContacts();
+        //showOpportunities();
+        //showAccounts();
         try {
 
             // Creates String array from scanner input
@@ -106,7 +127,7 @@ public class MainMenu {
             System.out.println(colorError + "\nInvalid input" + reset);
 
         }
-        System.out.println(colorInput + "\nPress enter to return to the main menu" + reset);
+        System.out.println(colorInput + "\nPress Enter to continue..." + reset);
         scanner.nextLine();
         OS();
 
@@ -129,7 +150,7 @@ public class MainMenu {
                     System.out.println(colorInput + "\nPlease input the customers phone number: " + reset);
                     newLead.setPhoneNumber(scanner.nextLine().trim());
                     if (newLead.getPhoneNumber().isEmpty()) {
-                        throw new IllegalArgumentException("No PhoneNumber input" + reset);
+                        throw new IllegalArgumentException(colorError + "No PhoneNumber input" + reset);
                     }
                     System.out.println(colorInput + "\nPlease input the customers email address: " + reset);
                     newLead.setEmail(scanner.nextLine().trim());
@@ -182,11 +203,11 @@ public class MainMenu {
                     theLeads.remove(lead.getId()); // Removes converted lead from Leads map ("Database")
                     System.out.println(colorMain + "\n ═════════════ New Opportunity Created ═════════════\n");
                     System.out.println(theOpportunities.get(newOpp.getId()));
-                    System.out.println(colorInput + "\nPress enter to continue..." + reset);
+                    System.out.println(colorInput + "\nPress Enter to continue..." + reset);
                     scanner2.nextLine();
                     System.out.println(colorMain + "\n═════════════ New Contact Created ═════════════\n");
                     System.out.println(theContacts.get(newContact.getId()));
-                    System.out.println(colorInput + "\nPress enter to continue..." + reset);
+                    System.out.println(colorInput + "\nPress Enter to continue..." + reset);
                     scanner2.nextLine();
                     return newOpp;
                     //createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
@@ -239,40 +260,141 @@ public class MainMenu {
     }
 
     public void showLeads() {
-        System.out.println(colorMain + "\n═════════════ Total Number Of Leads: " + theLeads.size() + " ═════════════\n" + reset);
+        System.out.println(colorMain + "\n╔════════════╦═══ " + colorMainBold + "Total Number Of Leads: " + theLeads.size() + colorMain + " ════════════════╗" + reset);
+        System.out.printf("%-1s %-17s %-1s %-50s %-1s\n",
+                          colorMain + "║",
+                          colorHeadlineBold + "ID",
+                          colorMain + "║",
+                          colorHeadlineBold + "Name",
+                          colorMain + "║");
+        System.out.printf("%-1s%-12s%-1s%-45s%-1s\n",
+                          colorMain + "╠",
+                          "════════════",
+                          "╬",
+                          "═════════════════════════════════════════════",
+                          "╣" + reset);
         for (String key : theLeads.keySet()) {
-            System.out.println(colorMain + "ID: " + key + "  ║  Name: " + theLeads.get(key).getName() + reset);
+            System.out.printf("%-1s %-17s %-1s %-50s %-1s\n",
+                              colorMain + "║",
+                              colorTable + key,
+                              colorMain + "║",
+                              colorTable + theLeads.get(key).getName(),
+                              colorMain + "║" + reset);
         }
     }
 
     public void showContacts() {
-        System.out.println(colorMain + "\n═════════════ Total Number Of Contacts: " + theContacts.size() + " ═════════════\n" + reset);
+        System.out.println(colorMain + "\n╔════════════╦════════ " + colorMainBold + "Total Number Of Contacts: " + theContacts.size() + colorMain + " ════════╦══════════════════════════════════════════╗" + reset);
+        System.out.printf("%-1s %-17s %-1s %-50s %-1s %-47s %-1s\n",
+                          colorMain + "║",
+                          colorHeadlineBold + "ID",
+                          colorMain + "║",
+                          colorHeadlineBold + "Name",
+                          colorMain + "║",
+                          colorHeadlineBold + "Company name",
+                          colorMain + "║");
+        System.out.printf("%-1s%-12s%-1s%-45s%-1s%-32s%-1s\n",
+                          colorMain + "╠",
+                          "════════════",
+                          "╬",
+                          "═════════════════════════════════════════════",
+                          "╬",
+                          "══════════════════════════════════════════",
+                          "╣" + reset);
         for (String key : theContacts.keySet()) {
-            System.out.println(colorMain + "ID: " + key + "  ║  Name: " + theContacts.get(key).getName() +
-                                       "  ║  Company Name: " + theContacts.get(key).getCompanyName() + reset);
+            System.out.printf("%-1s %-17s %-1s %-50s %-1s %-47s %-1s\n",
+                              colorMain + "║",
+                              colorTable + key,
+                              colorMain + "║",
+                              colorTable + theContacts.get(key).getName(),
+                              colorMain + "║",
+                              colorTable + theContacts.get(key).getCompanyName(),
+                              colorMain + "║" + reset);
         }
     }
 
     public static void showOpportunities() {
-        System.out.println(colorMain + "\n═════════════ Total Number Of Opportunities: " + theOpportunities.size() + " ═════════════\n" + reset);
+        System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "Total Number Of Opportunities: " + theOpportunities.size() + colorMain + " ══════╦══════════════════════════════════════════╗" + reset);
+        System.out.printf("%-1s %-17s %-1s %-24s %-1s %-17s %-1s %-17s %-1s %-47s %-1s\n",
+                          colorMain + "║",
+                          colorHeadlineBold + "ID",
+                          colorMain + "║",
+                          colorHeadlineBold + "Contract status",
+                          colorMain + "║",
+                          colorHeadlineBold + "Product",
+                          colorMain + "║",
+                          colorHeadlineBold + "Quantity",
+                          colorMain + "║",
+                          colorHeadlineBold + "Decision maker",
+                          colorMain + "║");
+        System.out.printf("%-1s%-12s%-1s%-19s%-1s%-12s%-1s%-12s%-1s%-42s%-1s\n",
+                          colorMain + "╠",
+                          "════════════",
+                          "╬",
+                          "═══════════════════",
+                          "╬",
+                          "════════════",
+                          "╬",
+                          "════════════",
+                          "╬",
+                          "══════════════════════════════════════════",
+                          "╣" + reset);
         for (String key : theOpportunities.keySet()) {
-            System.out.println(colorMain + "ID: " + key +
-                                       "  ║  Contract status: " + theOpportunities.get(key).getStatus() +
-                                       "  ║  Product: " + theOpportunities.get(key).getProduct() +
-                                       "  ║  Quantity: " + theOpportunities.get(key).getQuantity() +
-                                       "  ║  Decision maker: " + theOpportunities.get(key).getDecisionMaker().getName() + reset);
+            System.out.printf("%-1s %-17s %-1s %-24s %-1s %-17s %-1s %-17s %-1s %-47s %-1s\n",
+                              colorMain + "║",
+                              colorTable + key,
+                              colorMain + "║",
+                              colorTable + theOpportunities.get(key).getStatus(),
+                              colorMain + "║",
+                              colorTable + theOpportunities.get(key).getProduct(),
+                              colorMain + "║",
+                              colorTable + theOpportunities.get(key).getQuantity(),
+                              colorMain + "║",
+                              colorTable + theOpportunities.get(key).getDecisionMaker().getName(),
+                              colorMain + "║" + reset);
         }
     }
 
     public static void showAccounts() {
-        System.out.println(colorMain + "\n ═════════════ Total Number Of Accounts: " + theAccounts.size() + " ═════════════\n" + reset);
+        System.out.println(colorMain + "\n╔════════════╦═══ " + colorMainBold + "Total Number Of Accounts: " + theAccounts.size() + colorMain + " ═════════════╗" + reset);
+        System.out.printf("%-1s %-17s %-1s %-50s %-1s\n",
+                          colorMain + "║",
+                          colorHeadlineBold + "ID",
+                          colorMain + "║",
+                          colorHeadlineBold + "Company name",
+                          colorMain + "║");
+        System.out.printf("%-1s%-12s%-1s%-45s%-1s\n",
+                          colorMain + "╠",
+                          "════════════",
+                          "╬",
+                          "═════════════════════════════════════════════",
+                          "╣" + reset);
         for (String key : theAccounts.keySet()) {
-            System.out.println(colorMain + "ID: " + key + "  ║  Name: " + theAccounts.get(key).getCompanyName() + reset);
+            System.out.printf("%-1s %-17s %-1s %-50s %-1s\n",
+                              colorMain + "║",
+                              colorTable + key,
+                              colorMain + "║",
+                              colorTable + theAccounts.get(key).getCompanyName(),
+                              colorMain + "║" + reset);
         }
     }
 
 
     public Lead lookUpLeadId(String id) throws RuntimeException {
+        System.out.printf(String.format("%-1s %-17s %-1s %-50s %-1s %-27s %-1s %-47s %-1s %-50s %-1s \n",
+                            "\n" + colorMain + "║",
+                            colorHeadlineBold + "ID",
+                            colorMain + "║",
+                            colorHeadlineBold + "Name",
+                            colorMain + "║",
+                            colorHeadlineBold + "Phone Number",
+                            colorMain + "║",
+                            colorHeadlineBold + "Email Address",
+                            colorMain + "║",
+                            colorHeadlineBold + "Company Name",
+                            colorMain + "║\n" +
+                            colorMain + "╠════════════╬═════════════════════════════════════════════╬══════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════════════╣"
+                          + reset));
         return theLeads.get(id);
     }
 
@@ -285,7 +407,7 @@ public class MainMenu {
     public void changeOppStatus(String id) {
         Opportunity opp = theOpportunities.get(id);
         System.out.println(colorInput + "\nWould you like to change the status of this opportunity?   y / n\n" +
-                                        opp + reset);
+                                   opp + reset);
         Scanner scanner = new Scanner(System.in);
         try {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
@@ -309,6 +431,22 @@ public class MainMenu {
         } catch (Exception e) {
             System.out.println(colorError + "\n***Invalid input - please start again***\n" + reset);
             changeOppStatus(id);
+        }
+    }
+
+    public void consoleFocus() throws AWTException {
+        Robot robot = new Robot();
+
+        robot.keyPress(KeyEvent.VK_ALT);
+        robot.keyPress(KeyEvent.VK_4);
+        robot.keyRelease(KeyEvent.VK_4);
+        robot.keyRelease(KeyEvent.VK_ALT);
+    }
+
+    public void conoleFocusRunOnce() throws AWTException {
+        if (!wasRun) {
+            wasRun = true;
+            consoleFocus();
         }
     }
 }

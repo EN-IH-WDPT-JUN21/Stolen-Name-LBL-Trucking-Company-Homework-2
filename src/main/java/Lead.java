@@ -8,6 +8,7 @@ public class Lead extends ClientInformation {
     protected String companyName;
 
     private static String colorMain = "\u001B[33m";
+    private static String colorTable = "\u001B[32m";
     private static String reset = "\u001B[0m";
 
     public Lead() {
@@ -59,12 +60,18 @@ public class Lead extends ClientInformation {
 
 
     public String toString() {
-        return  colorMain +
-                "\nID: " + getId() + "\n" +
-                "Name: " + getName() + "\n" +
-                "Phone Number: " + getPhoneNumber() + "\n" +
-                "Email Address: " + getEmail() + "\n" +
-                "Company Name: " + getCompanyName();
+        return  String.format("%-1s %-15s %-1s %-48s %-1s %-25s %-1s %-45s %-1s %-48s %-1s\n",
+                              colorMain + "║",
+                              colorTable + getId(),
+                              colorMain + "║",
+                              colorTable + getName(),
+                              colorMain + "║",
+                              colorTable + getPhoneNumber(),
+                              colorMain + "║",
+                              colorTable + getEmail(),
+                              colorMain + "║",
+                              colorTable + getCompanyName(),
+                              colorMain + "║"+ reset);
     }
 
 }

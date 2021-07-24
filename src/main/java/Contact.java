@@ -28,7 +28,7 @@ public class Contact extends Lead {
                 "Name: " + getName() + "\n" +
                 "Phone Number: " + getPhoneNumber() + "\n" +
                 "Email Address: " + getEmail() + "\n" +
-                "Company Name: " + getCompanyName();
+                "Company name: " + getCompanyName();
     }
 
 
