@@ -33,7 +33,7 @@ public class MainMenu {
         PURPLE_BOLD("\033[1;35m"),
         CYAN_BOLD("\033[1;36m"),
         WHITE_BOLD("\033[1;37m");
-        
+
 
 
         private final String color;
@@ -399,8 +399,37 @@ public class MainMenu {
     }
 
     //look up opportunity by Id
-    public Opportunity lookUpOppId(String id) throws RuntimeException {
-        return theOpportunities.get(id);
+    public String lookUpOppId(String id) throws RuntimeException {
+        System.out.println(colorMain + "\n╔════════════╦═══ " + colorMainBold + "Contract details" + colorMain + " ══════════════════╦═══════════════════╗" + reset);
+        System.out.printf("%-1s %-17s %-1s %-24s %-1s %-24s %-1s %-24s %-1s\n",
+                              colorMain + "║",
+                              colorHeadlineBold + "ID",
+                              colorMain + "║",
+                              colorHeadlineBold + "Contract status",
+                              colorMain + "║",
+                              colorHeadlineBold + "Product",
+                              colorMain + "║",
+                              colorHeadlineBold + "Quantity",
+                              colorMain + "║\n" +
+                                      colorMain + "╠════════════╬═══════════════════╬═══════════════════╬═══════════════════╣"
+                                      + reset);
+        return theOpportunities.get(id) +
+                            colorMain + "\n╔════════════╦═══ " + colorMainBold + "Decision maker details" + colorMain + " ══════════════════╦══════════════════════╦══════════════════════════════════════════╦═════════════════════════════════════════════╗\n" + reset +
+                            String.format("%-1s %-17s %-1s %-50s %-1s %-27s %-1s %-47s %-1s %-50s %-1s\n",
+                              colorMain + "║",
+                              colorHeadlineBold + "ID",
+                              colorMain + "║",
+                              colorHeadlineBold + "Name",
+                              colorMain + "║",
+                              colorHeadlineBold + "Phone Number",
+                              colorMain + "║",
+                              colorHeadlineBold + "Email Address",
+                              colorMain + "║",
+                              colorHeadlineBold + "Company name",
+                              colorMain + "║\n" +
+                                      colorMain + "╠════════════╬═════════════════════════════════════════════╬══════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════════════╣\n"
+                                      + reset +
+                              theOpportunities.get(id).getDecisionMaker());
     }
 
     //Change opportunity status

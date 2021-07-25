@@ -14,6 +14,7 @@ public class Opportunity extends ClientInformation {
     private Contact decisionMaker;
 
     private static String colorMain = "\u001B[33m";
+    private static String colorTable = "\u001B[32m";
     private static String reset = "\u001B[0m";
 
     public Opportunity() {
@@ -66,11 +67,21 @@ public class Opportunity extends ClientInformation {
 
 
     public String toString() {
-        return colorMain +
+        return  String.format("%-1s %-15s %-1s %-22s %-1s %-22s %-1s %-22s %-1s\n",
+                              colorMain + "║",
+                              colorTable + id,
+                              colorMain + "║",
+                              colorTable + status,
+                              colorMain + "║",
+                              colorTable + product,
+                              colorMain + "║",
+                              colorTable + quantity,
+                              colorMain + "║"+ reset);
+        /*return colorMain +
                 "\nID: " + id + "\n" +
                 "Contract status: " + status + "\n" +
                 "Product: " + product + "\n" +
                 "Quantity: " + quantity + "\n" +
-                "\nDecision maker:\n" + decisionMaker.toString();
+                "\nDecision maker:\n" + decisionMaker.toString();*/
     }
 }
