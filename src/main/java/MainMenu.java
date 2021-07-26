@@ -1,9 +1,7 @@
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.Locale;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
+import java.util.List;
 
 
 public class MainMenu {
@@ -83,8 +81,9 @@ public class MainMenu {
                                    + "║ 6.  To check Opportunity list " + colorHeadline + "- type: 'Show Opportunities'" + colorMain + "                                        ║\n"
                                    + "║ 7.  To check Contact list " + colorHeadline + "- type: 'Show Contacts'" + colorMain + "                                                 ║\n"
                                    + "║ 8.  To check Account list " + colorHeadline + "- type: 'Show Accounts'" + colorMain + "                                                 ║\n"
-                                   + "║ 9.  To change Opportunity status " + colorHeadline + "- type: 'Change Opportunity' + Opportunity Id" + colorMain + "                    ║\n"
-                                   + "║ 10. To quit " + colorHeadline + "- type: 'Quit'" + colorMain + "                                                                        ║\n"
+                                   + "║ 9.  To change Opportunity status to WON" + colorHeadline + "- type: 'close-won' + Opportunity Id" + colorMain + "                       ║\n"
+                                   + "║ 10. To change Opportunity status to LOST" + colorHeadline + "- type: 'close-lost' + Opportunity Id" + colorMain + "                     ║\n"
+                                   + "║ 11. To quit " + colorHeadline + "- type: 'Quit'" + colorMain + "                                                                        ║\n"
                                    + "╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝\n" + reset);
 
         conoleFocusRunOnce();
@@ -104,13 +103,14 @@ public class MainMenu {
                 System.out.println(lookUpLeadId(input[2]).toString());
             } else if (input[0].equals("lookup") && input[1].equals("opportunity")) {
                 System.out.println(lookUpOppId(input[2]).toString());
-            } else if (input.length < 2) {
-                throw new IllegalArgumentException();
             } else if (input[0].equals("convert")) { // throws null point exception if number not in array
                 createAccount(convertLead(input[1]));
-            } else if (input[0].equals("change") && input[1].equals("opportunity")) {
-                changeOppStatus(input[2]);
-
+            } else if (input[0].equals("close-lost")) {
+                closeLost(input[1]);
+            } else if (input[0].equals("close-won")) {
+                closeWon(input[1]);
+            } else if (input.length < 2) {
+                throw new IllegalArgumentException();
             } else {
 
                 switch (input[0] + input[1]) {
@@ -142,26 +142,44 @@ public class MainMenu {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
                 case "y" -> {
                     Lead newLead = new Lead();
-                    System.out.println(colorInput + "\nPlease input the customers name: " + reset);
-                    newLead.setName(scanner.nextLine().trim());
-                    if (newLead.getName().isEmpty()) {
-                        throw new IllegalArgumentException(colorError + "No name input" + reset);
-                    }
-                    System.out.println(colorInput + "\nPlease input the customers phone number: " + reset);
-                    newLead.setPhoneNumber(scanner.nextLine().trim());
-                    if (newLead.getPhoneNumber().isEmpty()) {
-                        throw new IllegalArgumentException(colorError + "No PhoneNumber input" + reset);
-                    }
-                    System.out.println(colorInput + "\nPlease input the customers email address: " + reset);
-                    newLead.setEmail(scanner.nextLine().trim());
-                    if (newLead.getEmail().isEmpty()) {
-                        throw new IllegalArgumentException(colorError + "No email input" + reset);
-                    }
-                    System.out.println(colorInput + "\nPlease input the customers company name: " + reset);
-                    newLead.setCompanyName(scanner.nextLine().trim());
-                    if (newLead.getCompanyName().isEmpty()) {
-                        throw new IllegalArgumentException(colorError + "No name input" + reset);
-                    }
+                    //System.out.println(colorInput + "\nPlease input the customers name: " + reset);
+                    String name;
+                    String number;
+                    String email;
+                    String comName;
+                    do {
+                        System.out.println(colorInput + "\nPlease input the customers name: " + reset);
+                        name = scanner.nextLine().trim();
+                        newLead.setName(name);
+                        if (!isValidName(name)) {
+                            System.out.println(colorError + "Invalid name input. Please, try again" + reset);
+                        }
+                    } while (!isValidName(name));
+
+                    do{
+                        System.out.println(colorInput + "\nPlease input the customers phone number: " + reset);
+                        number = scanner.nextLine().trim();
+                        newLead.setPhoneNumber(number);
+                        if (number.isEmpty()) {
+                        System.out.println(colorError + "Please, provide phone number" + reset);
+                        }
+                    } while (number.isEmpty());
+                    do{
+                        System.out.println(colorInput + "\nPlease input the customers email address: " + reset);
+                        email = scanner.nextLine().trim();
+                        newLead.setEmail(email);
+                        if (!isValidEmail(email)) {
+                        System.out.println(colorError + "Invalid email format. Please, try again" + reset);
+                        }
+                    } while (!isValidEmail(email));
+                    do{
+                        System.out.println(colorInput + "\nPlease input the customers company name: " + reset);
+                        comName = scanner.nextLine().trim();
+                        newLead.setCompanyName(comName);
+                        if (comName.isEmpty()) {
+                        System.out.println(colorError + "No name input" + reset);
+                        }
+                    } while (comName.isEmpty());
                     theLeads.put(newLead.getId(), newLead);
                     System.out.println(colorMain + "\n═════════════ New Lead Created ═════════════\n");
                     System.out.println(theLeads.get(newLead.getId()));
@@ -230,6 +248,7 @@ public class MainMenu {
     public Account createAccount(Opportunity opportunity) {
         System.out.println(colorMain + "\n═════════════ Account Creation ═════════════\n");
         Scanner scanner = new Scanner(System.in);
+        String country;
         try {
 
             Account newAccount = new Account(opportunity.getDecisionMaker(), opportunity);
@@ -244,9 +263,15 @@ public class MainMenu {
             System.out.println(colorInput + "\nPlease input the employee count for " + newAccount.getCompanyName() + ":  " + reset); //**Needs amending to display name in contact list
             newAccount.setEmployeeCount(Integer.parseInt(scanner.nextLine().trim()));
             System.out.println(colorInput + "\nPlease input the city for " + newAccount.getCompanyName() + ":  " + reset);
-            newAccount.setCity(scanner.nextLine().trim());
-            System.out.println(colorInput + "\nPlease input the Country for " + newAccount.getCompanyName() + ":  " + reset);
-            newAccount.setCountry(scanner.nextLine().trim());
+            newAccount.setCity(scanner.nextLine().trim().toUpperCase(Locale.ROOT));
+            do{
+                System.out.println(colorInput + "\nPlease input the Country for " + newAccount.getCompanyName() + ":  " + reset);
+                country = scanner.nextLine().trim().toUpperCase(Locale.ROOT);
+                newAccount.setCountry(country);
+                if(!isValidCountry(country)){
+                    System.out.println(colorError + "Invalid country. Please, try again" + reset);
+                }
+            } while (!isValidCountry(country));
             theAccounts.put(newAccount.getId(), newAccount); // Adds new account to Accounts Map (database)
             System.out.println(colorMain + "\n ═════════════ New Account Created ═════════════\n");
             System.out.println(theAccounts.get(newAccount.getId()));
@@ -432,18 +457,16 @@ public class MainMenu {
                               theOpportunities.get(id).getDecisionMaker());
     }
 
-    //Change opportunity status
-    public void changeOppStatus(String id) {
+    //Change opportunity status to LOST
+    public void closeLost(String id) {
         Opportunity opp = theOpportunities.get(id);
-        System.out.println(colorInput + "\nWould you like to change the status of this opportunity?   y / n\n" +
+        System.out.println(colorInput + "\nWould you like to change the status of this opportunity to LOST?   y / n\n" +
                                    opp + reset);
         Scanner scanner = new Scanner(System.in);
         try {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
                 case "y": {
-                    System.out.println(colorInput + "\nPlease select the status you would like to change to?\n " +
-                                               "OPEN, CLOSED_WON, CLOSED_LOST\n" + reset);           //Do we want to keep open option?
-                    opp.setStatus(Status.valueOf(scanner.nextLine().trim().toUpperCase(Locale.ROOT)));
+                    opp.setStatus(Status.CLOSED_LOST);
                     System.out.println(colorMain + "\n═════════════ Status Changed! ═════════════" + reset);
                 }
                 break;
@@ -459,7 +482,7 @@ public class MainMenu {
 
         } catch (Exception e) {
             System.out.println(colorError + "\n***Invalid input - please start again***\n" + reset);
-            changeOppStatus(id);
+            closeLost(id);
         }
     }
 
@@ -477,6 +500,63 @@ public class MainMenu {
             wasRun = true;
             consoleFocus();
         }
+    }
+
+    //Change opportunity status to Won
+    public void closeWon(String id) {
+        Opportunity opp = theOpportunities.get(id);
+        System.out.println(colorInput + "\nWould you like to change the status of this opportunity to WON?   y / n\n" +
+                opp + reset);
+        Scanner scanner = new Scanner(System.in);
+        try {
+            switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
+                case "y": {
+                    opp.setStatus(Status.CLOSED_WON);
+                    System.out.println(colorMain + "\n═════════════ Status Changed! ═════════════" + reset);
+                }
+                break;
+                case "n": {
+                    System.out.println(colorError + "You said no" + reset);
+                    OS();
+                }
+                break;
+
+                default:
+                    throw new IllegalArgumentException(colorError + "Invalid input - please try again" + reset);
+            }
+
+        } catch (Exception e) {
+            System.out.println(colorError + "\n***Invalid input - please start again***\n" + reset);
+            closeLost(id);
+        }
+    }
+
+    //Email format validation
+    public static boolean isValidEmail(String email){
+        return email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
+    }
+
+    //Country name validation
+    public static boolean isValidCountry(String country){
+        List<String> countries = new ArrayList<>();
+
+        // retrieve the list of countries and populate country names
+        String[] isoCountries = Locale.getISOCountries();
+        for (String code : isoCountries) {
+            Locale locale = new Locale("en", code);
+            String name = locale.getDisplayCountry().toUpperCase(Locale.ROOT);
+
+            if (!"".equals(name)) {
+                countries.add(name);
+            }
+        }
+
+       return countries.contains(country);
+    }
+
+    //Name input validation (contains only alphabetic characters)
+    public static boolean isValidName(String name){
+        return name.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$");
     }
 }
 
