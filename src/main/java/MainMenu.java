@@ -201,14 +201,14 @@ public class MainMenu {
                     theContacts.put(newContact.getId(), newContact);  // Adds contact to contact Map
                     theOpportunities.put(newOpp.getId(), newOpp); // Adds Opportunity to opportunities map
                     theLeads.remove(lead.getId()); // Removes converted lead from Leads map ("Database")
-                    System.out.println(colorMain + "\n ═════════════ New Opportunity Created ═════════════\n");
+                    /*System.out.println(colorMain + "\n ═════════════ New Opportunity Created ═════════════\n");
                     System.out.println(theOpportunities.get(newOpp.getId()));
                     System.out.println(colorInput + "\nPress Enter to continue..." + reset);
                     scanner2.nextLine();
                     System.out.println(colorMain + "\n═════════════ New Contact Created ═════════════\n");
                     System.out.println(theContacts.get(newContact.getId()));
                     System.out.println(colorInput + "\nPress Enter to continue..." + reset);
-                    scanner2.nextLine();
+                    scanner2.nextLine();*/
                     return newOpp;
                     //createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
                 }
@@ -248,8 +248,8 @@ public class MainMenu {
             System.out.println(colorInput + "\nPlease input the Country for " + newAccount.getCompanyName() + ":  " + reset);
             newAccount.setCountry(scanner.nextLine().trim());
             theAccounts.put(newAccount.getId(), newAccount); // Adds new account to Accounts Map (database)
-            System.out.println(colorMain + "\n ═════════════ New Account Created ═════════════\n");
-            System.out.println(theAccounts.get(newAccount.getId()));
+            //System.out.println(colorMain + "\n ═════════════ New Account Created ═════════════\n");
+            //System.out.println(theAccounts.get(newAccount.getId()));
             return newAccount;
         } catch (Exception e) {
 
@@ -381,20 +381,6 @@ public class MainMenu {
 
 
     public Lead lookUpLeadId(String id) throws RuntimeException {
-        System.out.printf(String.format("%-1s %-17s %-1s %-50s %-1s %-27s %-1s %-47s %-1s %-50s %-1s \n",
-                            "\n" + colorMain + "║",
-                            colorHeadlineBold + "ID",
-                            colorMain + "║",
-                            colorHeadlineBold + "Name",
-                            colorMain + "║",
-                            colorHeadlineBold + "Phone Number",
-                            colorMain + "║",
-                            colorHeadlineBold + "Email Address",
-                            colorMain + "║",
-                            colorHeadlineBold + "Company Name",
-                            colorMain + "║\n" +
-                            colorMain + "╠════════════╬═════════════════════════════════════════════╬══════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════════════╣"
-                          + reset));
         return theLeads.get(id);
     }
 
