@@ -45,10 +45,10 @@ public class MainMenu {
 
     private static final String colorMain = consoleTextColor.ANSI_YELLOW.color;
     private static final String colorMainBold = consoleTextColor.BLACK_BOLD.color;
-    private static final String colorInput = consoleTextColor.ANSI_CYAN.color;
+    private static final String colorInput = consoleTextColor.CYAN_BOLD.color;
     private static final String colorHeadline = consoleTextColor.ANSI_BLUE.color;
     private static final String colorHeadlineBold = consoleTextColor.BLUE_BOLD.color;
-    private static final String colorTable = consoleTextColor.ANSI_GREEN.color;
+    private static final String colorTable = consoleTextColor.GREEN_BOLD.color;
     private static final String colorError = consoleTextColor.ANSI_RED.color;
     private static final String colorLogo = consoleTextColor.ANSI_GREEN.color;
     private static final String reset = MainMenu.consoleTextColor.ANSI_RESET.color;
@@ -71,34 +71,31 @@ public class MainMenu {
                                    "             ####################.###### ############ ###################### ############         \n" +
                                    "             ################ ####### # ############ #####################  ############          \n" + reset +
          colorHeadline + colorMain + "╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗\n"
-                                   + "║                                WELCOME TO LBL CRM SYSTEM                                          ║\n"
+                                   + "║                                " + colorMainBold + "WELCOME TO LBL CRM SYSTEM" + colorMain + "                                          ║\n"
                                    + "╠═══════════════════════════════════════════════════════════════════════════════════════════════════╣\n"
-                                   + "║     WHAT WOULD YOU LIKE TO DO?                                                                    ║\n"
+                                   + "║     " + colorMainBold + "WHAT WOULD YOU LIKE TO DO?" + colorMain + "                                                                    ║\n"
                                    + "╠═══════════════════════════════════════════════════════════════════════════════════════════════════╣\n"
-                                   + "║ 1.  To create new Lead " + colorHeadline + "- type: 'New Lead'" + colorMain + "                                                         ║\n"
-                                   + "║ 2.  To check Leads list " + colorHeadline + "- type: 'Show Leads'" + colorMain + "                                                      ║\n"
-                                   + "║ 3.  To check individual Lead's details " + colorHeadline + "- type: 'Lookup Lead ' + Lead Id" + colorMain + "                           ║\n"
-                                   + "║ 4.  To check individual Opportunity's details " + colorHeadline + "- type: 'Lookup Opportunity ' + Opportunity Id" + colorMain + "      ║\n"
-                                   + "║ 5.  To convert Lead into Opportunity " + colorHeadline + "- type: - 'convert ' + Lead Id" + colorMain + "                               ║\n"
-                                   + "║ 6.  To check Opportunity list " + colorHeadline + "- type: 'Show Opportunities'" + colorMain + "                                        ║\n"
-                                   + "║ 7.  To check Contact list " + colorHeadline + "- type: 'Show Contacts'" + colorMain + "                                                 ║\n"
-                                   + "║ 8.  To check Account list " + colorHeadline + "- type: 'Show Accounts'" + colorMain + "                                                 ║\n"
-                                   + "║ 9.  To change Opportunity status " + colorHeadline + "- type: 'Change Opportunity' + Opportunity Id" + colorMain + "                    ║\n"
-                                   + "║ 10. To quit " + colorHeadline + "- type: 'Quit'" + colorMain + "                                                                        ║\n"
+                                   + "║ 1.  To create new Lead " + colorHeadline + "- type: 'new lead'" + colorMain + "                                                         ║\n"
+                                   + "║ 2.  To check Leads list " + colorHeadline + "- type: 'show leads'" + colorMain + "                                                      ║\n"
+                                   + "║ 3.  To check individual Lead's details " + colorHeadline + "- type: 'lookup lead ' + Lead Id" + colorMain + "                           ║\n"
+                                   + "║ 4.  To convert Lead into Opportunity " + colorHeadline + "- type: - 'convert ' + Lead Id" + colorMain + "                               ║\n"
+                                   + "║ 5.  To check Opportunity list " + colorHeadline + "- type: 'show opportunities'" + colorMain + "                                        ║\n"
+                                   + "║ 6.  To check individual Opportunity's details " + colorHeadline + "- type: 'lookup opportunity ' + Opportunity Id" + colorMain + "      ║\n"
+                                   + "║ 7.  To change Opportunity status " + colorHeadline + "- type: 'change opportunity' + Opportunity Id" + colorMain + "                    ║\n"
+                                   + "║ 8.  To check Contact list " + colorHeadline + "- type: 'show contacts'" + colorMain + "                                                 ║\n"
+                                   + "║ 9.  To check Account list " + colorHeadline + "- type: 'show accounts'" + colorMain + "                                                 ║\n"
+                                   + "║ 10. To quit " + colorHeadline + "- type: 'quit'" + colorMain + "                                                                        ║\n"
                                    + "╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝\n" + reset);
 
         conoleFocusRunOnce();
-        //showLeads();
-        //showContacts();
-        //showOpportunities();
-        //showAccounts();
+
         try {
 
             // Creates String array from scanner input
             String[] input = scanner.nextLine().trim().toLowerCase().split("\\s+");
 
             if (input[0].equals("quit")) {
-                System.out.println(colorMain + "\nThank you for using our LBL CRM SYSTEM!" + reset);
+                System.out.println(colorMainBold + "\nThank you for using our LBL CRM SYSTEM!" + reset);
                 throw new RuntimeException(colorError + "Exiting the program" + reset);
             } else if (input[0].equals("lookup") && input[1].equals("lead")) {
                 System.out.println(lookUpLeadId(input[2]).toString());
@@ -137,7 +134,7 @@ public class MainMenu {
     // Method to create a new lead
     public Lead newLead() {
 
-        System.out.println(colorInput + "\nWould you like to create a new lead?   y / n " + reset);
+        System.out.println(colorInput + "\nWould you like to create a new lead?" + colorTable +"   y / n " + reset);
         try {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
                 case "y" -> {
@@ -163,7 +160,7 @@ public class MainMenu {
                         throw new IllegalArgumentException(colorError + "No name input" + reset);
                     }
                     theLeads.put(newLead.getId(), newLead);
-                    System.out.println(colorMain + "\n═════════════ New Lead Created ═════════════\n");
+                    System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "New Lead created" + colorMain + " ══════════════════════╦══════════════════════╦══════════════════════════════════════════╦═════════════════════════════════════════════╗" + reset);
                     System.out.println(theLeads.get(newLead.getId()));
                     return newLead;
                 }
@@ -183,32 +180,60 @@ public class MainMenu {
     public Opportunity convertLead(String id) throws NullPointerException {
 
         Lead lead = theLeads.get(id);
-        System.out.println(colorInput + "\nWould you like to convert " + lead.getName() + " from: " + lead.getCompanyName() +
-                                   " into an opportunity?    y / n " + reset);
+        System.out.println(colorInput + "\nWould you like to convert " +
+                           colorTable + lead.getName() +
+                           colorInput + " from " +
+                           colorTable + lead.getCompanyName() +
+                           colorInput + " into an opportunity?" +
+                           colorTable + "    y / n " + reset);
         Scanner scanner = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);
         try {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
                 case "y" -> {
                     Opportunity newOpp = new Opportunity();
-                    System.out.println(colorInput + "\nPlease input the product that " + lead.getCompanyName() + " is interested in: \n " +
-                                               "HYBRID, FLATBED OR BOX" + reset);
+                    System.out.println(colorInput + "\nPlease input the product that " + colorTable + lead.getCompanyName() + colorInput + " is interested in: \n " +
+                                       colorTable + "HYBRID, FLATBED OR BOX" + reset);
                     newOpp.setTruck(Truck.valueOf(scanner.nextLine().trim().toUpperCase(Locale.ROOT)));
-                    System.out.println(colorInput + "\nPlease input the quantity that " + lead.getCompanyName() + " is interested in: " + reset);
+                    System.out.println(colorInput + "\nPlease input the quantity that " + colorTable + lead.getCompanyName() + colorInput + " is interested in: " + reset);
                     newOpp.setQuantity(Integer.parseInt(scanner.nextLine().trim()));
                     Contact newContact = new Contact(lead.getName(), lead.getPhoneNumber(), lead.getEmail(), lead.getCompanyName()); // Converts lead into contact
                     newOpp.setDecisionMaker(newContact); // Assigns contact as the decisionMaker
                     theContacts.put(newContact.getId(), newContact);  // Adds contact to contact Map
                     theOpportunities.put(newOpp.getId(), newOpp); // Adds Opportunity to opportunities map
                     theLeads.remove(lead.getId()); // Removes converted lead from Leads map ("Database")
-                    /*System.out.println(colorMain + "\n ═════════════ New Opportunity Created ═════════════\n");
+                    System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "New Opportunity created" + colorMain + " ════════════╦═══════════════════╗" + reset);
+                    System.out.printf("%-1s %-17s %-1s %-27s %-1s %-24s %-1s %-24s %-1s\n",
+                                      colorMain + "║",
+                                      colorHeadlineBold + "ID",
+                                      colorMain + "║",
+                                      colorHeadlineBold + "Status",
+                                      colorMain + "║",
+                                      colorHeadlineBold + "Product",
+                                      colorMain + "║",
+                                      colorHeadlineBold + "Quantity",
+                                      colorMain + "║\n" +
+                                      colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════╣");
                     System.out.println(theOpportunities.get(newOpp.getId()));
-                    System.out.println(colorInput + "\nPress Enter to continue..." + reset);
+                    System.out.println(colorInput + "Press Enter to continue..." + reset);
                     scanner2.nextLine();
-                    System.out.println(colorMain + "\n═════════════ New Contact Created ═════════════\n");
+                    System.out.println(colorMain + "╔════════════╦═════ " + colorMainBold + "New Contact created" + colorMain + " ═══════════════════╦══════════════════════╦══════════════════════════════════════════╦═════════════════════════════════════════════╗" + reset);
+                    System.out.printf(String.format("%-1s %-17s %-1s %-50s %-1s %-27s %-1s %-47s %-1s %-50s %-1s\n",
+                                                    colorMain + "║",
+                                                    colorHeadlineBold + "ID",
+                                                    colorMain + "║",
+                                                    colorHeadlineBold + "Name",
+                                                    colorMain + "║",
+                                                    colorHeadlineBold + "Phone Number",
+                                                    colorMain + "║",
+                                                    colorHeadlineBold + "Email Address",
+                                                    colorMain + "║",
+                                                    colorHeadlineBold + "Company name",
+                                                    colorMain + "║\n" +
+                                                    colorMain + "╠════════════╬═════════════════════════════════════════════╬══════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════════════╣" + reset));
                     System.out.println(theContacts.get(newContact.getId()));
-                    System.out.println(colorInput + "\nPress Enter to continue..." + reset);
-                    scanner2.nextLine();*/
+                    System.out.println(colorInput + "Press Enter to continue..." + reset);
+                    scanner2.nextLine();
                     return newOpp;
                     //createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
                 }
@@ -228,28 +253,24 @@ public class MainMenu {
 
     // Method called to create a new account
     public Account createAccount(Opportunity opportunity) {
-        System.out.println(colorMain + "\n═════════════ Account Creation ═════════════\n");
+        System.out.println(colorMain + "\n═════════════ " + colorMainBold + "Creating new Account" + colorMain + " ═════════════\n");
         Scanner scanner = new Scanner(System.in);
         try {
 
             Account newAccount = new Account(opportunity.getDecisionMaker(), opportunity);
 
             System.out.println(colorInput + "Please input the company industry: \n" +
-                                       "PRODUCE\n" +
-                                       "ECOMMERCE\n" +
-                                       "MANUFACTURING\n" +
-                                       "MEDICAL\n" +
-                                       "OTHER\n" + reset);
+                               colorTable + "PRODUCE, ECOMMERCE, MANUFACTURING, MEDICAL OR OTHER" + reset);
             newAccount.setIndustry(Industry.valueOf(scanner.nextLine().trim().toUpperCase(Locale.ROOT))); // ENUM Selection
-            System.out.println(colorInput + "\nPlease input the employee count for " + newAccount.getCompanyName() + ":  " + reset); //**Needs amending to display name in contact list
+            System.out.println(colorInput + "\nPlease input the employee count for " + colorTable + newAccount.getCompanyName() + colorInput + ":  " + reset); //**Needs amending to display name in contact list
             newAccount.setEmployeeCount(Integer.parseInt(scanner.nextLine().trim()));
-            System.out.println(colorInput + "\nPlease input the city for " + newAccount.getCompanyName() + ":  " + reset);
+            System.out.println(colorInput + "\nPlease input the city for " + colorTable + newAccount.getCompanyName() + colorInput + ":  " + reset);
             newAccount.setCity(scanner.nextLine().trim());
-            System.out.println(colorInput + "\nPlease input the Country for " + newAccount.getCompanyName() + ":  " + reset);
+            System.out.println(colorInput + "\nPlease input the Country for " + colorTable + newAccount.getCompanyName() + colorInput + ":  " + reset);
             newAccount.setCountry(scanner.nextLine().trim());
             theAccounts.put(newAccount.getId(), newAccount); // Adds new account to Accounts Map (database)
             //System.out.println(colorMain + "\n ═════════════ New Account Created ═════════════\n");
-            //System.out.println(theAccounts.get(newAccount.getId()));
+            System.out.println(theAccounts.get(newAccount.getId()));
             return newAccount;
         } catch (Exception e) {
 
@@ -381,13 +402,14 @@ public class MainMenu {
 
 
     public Lead lookUpLeadId(String id) throws RuntimeException {
+        System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "Lead details" + colorMain + " ══════════════════════════╦══════════════════════╦══════════════════════════════════════════╦═════════════════════════════════════════════╗" + reset);
         return theLeads.get(id);
     }
 
     //look up opportunity by Id
     public String lookUpOppId(String id) throws RuntimeException {
-        System.out.println(colorMain + "\n╔════════════╦═══ " + colorMainBold + "Contract details" + colorMain + " ══════════════════╦═══════════════════╗" + reset);
-        System.out.printf("%-1s %-17s %-1s %-24s %-1s %-24s %-1s %-24s %-1s\n",
+        System.out.println(colorMain + "\n╔════════════╦═══ " + colorMainBold + "Contract details" + colorMain + " ═╦═══════════════════╦═══════════════════╗" + reset);
+        System.out.printf("%-1s %-17s %-1s %-27s %-1s %-24s %-1s %-24s %-1s\n",
                               colorMain + "║",
                               colorHeadlineBold + "ID",
                               colorMain + "║",
@@ -397,8 +419,7 @@ public class MainMenu {
                               colorMain + "║",
                               colorHeadlineBold + "Quantity",
                               colorMain + "║\n" +
-                                      colorMain + "╠════════════╬═══════════════════╬═══════════════════╬═══════════════════╣"
-                                      + reset);
+                              colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════╣" + reset);
         return theOpportunities.get(id) +
                             colorMain + "\n╔════════════╦═══ " + colorMainBold + "Decision maker details" + colorMain + " ══════════════════╦══════════════════════╦══════════════════════════════════════════╦═════════════════════════════════════════════╗\n" + reset +
                             String.format("%-1s %-17s %-1s %-50s %-1s %-27s %-1s %-47s %-1s %-50s %-1s\n",
@@ -421,16 +442,28 @@ public class MainMenu {
     //Change opportunity status
     public void changeOppStatus(String id) {
         Opportunity opp = theOpportunities.get(id);
-        System.out.println(colorInput + "\nWould you like to change the status of this opportunity?   y / n\n" +
-                                   opp + reset);
+        System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "Opportunity details" + colorMain + " ════════════════╦═══════════════════╗" + reset);
+        System.out.printf("%-1s %-17s %-1s %-27s %-1s %-24s %-1s %-24s %-1s\n",
+                          colorMain + "║",
+                          colorHeadlineBold + "ID",
+                          colorMain + "║",
+                          colorHeadlineBold + "Status",
+                          colorMain + "║",
+                          colorHeadlineBold + "Product",
+                          colorMain + "║",
+                          colorHeadlineBold + "Quantity",
+                          colorMain + "║\n" +
+                          colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════╣");
+        System.out.println(opp);
+        System.out.println(colorInput + "Would you like to change the status of this opportunity?" + colorTable + "   y / n" + reset);
         Scanner scanner = new Scanner(System.in);
         try {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
                 case "y": {
-                    System.out.println(colorInput + "\nPlease select the status you would like to change to?\n " +
-                                               "OPEN, CLOSED_WON, CLOSED_LOST\n" + reset);           //Do we want to keep open option?
+                    System.out.println(colorInput + "\nPlease select the status you would like to change to?\n" +
+                                               colorTable + "OPEN, CLOSED_WON, CLOSED_LOST" + reset);           //Do we want to keep open option?
                     opp.setStatus(Status.valueOf(scanner.nextLine().trim().toUpperCase(Locale.ROOT)));
-                    System.out.println(colorMain + "\n═════════════ Status Changed! ═════════════" + reset);
+                    System.out.println(colorMain + "\n═════════════ " + colorMainBold + "Status Changed!" + colorMain + " ═════════════" + reset);
                 }
                 break;
                 case "n": {

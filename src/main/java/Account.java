@@ -143,7 +143,7 @@ public class Account extends ClientInformation{
                           colorMain + "║",
                           colorHeadlineBold + "Country",
                           colorMain + "║\n" +
-                          colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════════════╬═══════════════════════════╣\n");
+                          colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════════════╬═══════════════════════════╣");
         return  colorMain +
                 String.format("%-1s %-15s %-1s %-25s %-1s %-22s %-1s %-30s %-1s %-30s %-1s\n",
                               colorMain + "║",
@@ -156,20 +156,7 @@ public class Account extends ClientInformation{
                               colorTable + city,
                               colorMain + "║",
                               colorTable + country,
-                              colorMain + "║") + reset +
-                getOpportunityList() +
-                getContactList();
-        /*return  colorMain +
-                "ID: " + id + "\n" +
-                "Industry: " + industry + "\n" +
-                "Employee Count: " + employeeCount + "\n" +
-                "City: " + city + "\n" +
-                "Country: " + country + "\n" +
-                "\nList of Contacts: \n" +
-                contactList.toString() + "\n" +
-                "\nList of Opportunities: \n" +
-                opportunityList.toString();*/
+                              colorMain + "║") + reset;
     }
-
 }
 

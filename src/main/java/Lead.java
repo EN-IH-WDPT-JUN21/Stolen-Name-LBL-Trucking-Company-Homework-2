@@ -60,9 +60,7 @@ public class Lead extends ClientInformation {
         return id;
     }
 
-
     public String toString() {
-        System.out.println(colorMain + "\n╔════════════╦═════════ " + colorMainBold + "Lead details" + colorMain + " ══════════════════════╦══════════════════════╦══════════════════════════════════════════╦═════════════════════════════════════════════╗" + reset);
         System.out.printf(String.format("%-1s %-17s %-1s %-50s %-1s %-27s %-1s %-47s %-1s %-50s %-1s \n",
                                         colorMain + "║",
                                         colorHeadlineBold + "ID",

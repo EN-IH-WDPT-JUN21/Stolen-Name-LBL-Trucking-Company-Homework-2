@@ -69,19 +69,7 @@ public class Opportunity extends ClientInformation {
 
 
     public String toString() {
-        /*System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "New Opportunity created" + colorMain + " ════════════════╦═══════════════════════════╦═══════════════════════════╗" + reset);
-        System.out.printf("%-1s %-17s %-1s %-27s %-1s %-24s %-1s %-32s %-1s\n",
-                          colorMain + "║",
-                          colorHeadlineBold + "ID",
-                          colorMain + "║",
-                          colorHeadlineBold + "Status",
-                          colorMain + "║",
-                          colorHeadlineBold + "Product",
-                          colorMain + "║",
-                          colorHeadlineBold + "Quantity",
-                          colorMain + "║\n" +
-                          colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════════════╬═══════════════════════════╣\n");*/
-        return  String.format("%-1s %-15s %-1s %-22s %-1s %-22s %-1s %-22s %-1s\n",
+        return  String.format("%-1s %-15s %-1s %-25s %-1s %-22s %-1s %-22s %-1s\n",
                               colorMain + "║",
                               colorTable + id,
                               colorMain + "║",
