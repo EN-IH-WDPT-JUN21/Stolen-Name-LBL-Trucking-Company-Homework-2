@@ -11,8 +11,11 @@ public class Account extends ClientInformation{
     private List<Contact> contactList = new ArrayList<>();
     private List<Opportunity> opportunityList = new ArrayList<>();
 
-    private static String colorMain = "\u001B[33m";
-    private static String reset = "\u001B[0m";
+    private static final String colorMain = "\u001B[33m";
+    private static final String colorMainBold = "\033[1;30m";
+    private static final String colorTable = "\u001B[32m";
+    private static final String colorHeadlineBold = "\033[1;34m";
+    private static final String reset = "\u001B[0m";
 
     public Account() {
     }
@@ -68,8 +71,19 @@ public class Account extends ClientInformation{
         this.country = country;
     }
 
-    public List<Contact> getContactList() {
-        return contactList;
+    public String getContactList() {
+        return String.format("%-1s %-15s %-1s %-48s %-1s %-25s %-1s %-45s %-1s %-48s %-1s\n",
+                             colorMain + "║",
+                             colorTable + contactList.get(0).getId(),
+                             colorMain + "║",
+                             colorTable + contactList.get(0).getName(),
+                             colorMain + "║",
+                             colorTable + contactList.get(0).getPhoneNumber(),
+                             colorMain + "║",
+                             colorTable + contactList.get(0).getEmail(),
+                             colorMain + "║",
+                             colorTable + contactList.get(0).getCompanyName(),
+                             colorMain + "║"+ reset);
     }
 
     public String getCompanyName(){
@@ -80,8 +94,33 @@ public class Account extends ClientInformation{
         contactList.add(contact);
     }
 
-    public List<Opportunity> getOpportunityList() {
-        return opportunityList;
+    public String getOpportunityList() {
+        System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "New Opportunity created" + colorMain + " ════════════════╦═══════════════════════════╦═══════════════════════════╗" + reset);
+        System.out.printf("%-1s %-17s %-1s %-24s %-1s %-24s %-1s %-24s %-1s %-50s %-1s\n",
+                          colorMain + "║",
+                          colorHeadlineBold + "ID",
+                          colorMain + "║",
+                          colorHeadlineBold + "Status",
+                          colorMain + "║",
+                          colorHeadlineBold + "Product",
+                          colorMain + "║",
+                          colorHeadlineBold + "Quantity",
+                          colorMain + "║",
+                          colorHeadlineBold + "Decision maker",
+                          colorMain + "║\n" +
+                          colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════════════╬═══════════════════════════╣\n");
+        return String.format("%-1s %-15s %-1s %-22s %-1s %-22s %-1s %-22s %-1s %-48s %-1s\n",
+                             colorMain + "║",
+                             colorTable + opportunityList.get(0).getId(),
+                             colorMain + "║",
+                             colorTable + opportunityList.get(0).getStatus(),
+                             colorMain + "║",
+                             colorTable + opportunityList.get(0).getProduct(),
+                             colorMain + "║",
+                             colorTable + opportunityList.get(0).getQuantity(),
+                             colorMain + "║",
+                             colorTable + opportunityList.get(0).getDecisionMaker().getName(),
+                             colorMain + "║"+ reset);
     }
 
     public void addOpportunity(Opportunity opportunity) {
@@ -91,17 +130,33 @@ public class Account extends ClientInformation{
 
     @Override
     public String toString() {
+        System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "New Account created" + colorMain + " ════════════════╦═══════════════════════════╦═══════════════════════════╗" + reset);
+        System.out.printf("%-1s %-17s %-1s %-27s %-1s %-24s %-1s %-32s %-1s %-32s %-1s\n",
+                          colorMain + "║",
+                          colorHeadlineBold + "ID",
+                          colorMain + "║",
+                          colorHeadlineBold + "Industry",
+                          colorMain + "║",
+                          colorHeadlineBold + "Employee Count",
+                          colorMain + "║",
+                          colorHeadlineBold + "City",
+                          colorMain + "║",
+                          colorHeadlineBold + "Country",
+                          colorMain + "║\n" +
+                          colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════════════╬═══════════════════════════╣");
         return  colorMain +
-                "ID: " + id + "\n" +
-                "Industry: " + industry + "\n" +
-                "Employee Count: " + employeeCount + "\n" +
-                "City: " + city + "\n" +
-                "Country: " + country + "\n" +
-                "\nList of Contacts: \n" +
-                contactList + "\n" +
-                "\nList of Opportunities: \n" +
-                opportunityList;
+                String.format("%-1s %-15s %-1s %-25s %-1s %-22s %-1s %-30s %-1s %-30s %-1s\n",
+                              colorMain + "║",
+                              colorTable + id,
+                              colorMain + "║",
+                              colorTable + industry,
+                              colorMain + "║",
+                              colorTable + employeeCount,
+                              colorMain + "║",
+                              colorTable + city,
+                              colorMain + "║",
+                              colorTable + country,
+                              colorMain + "║") + reset;
     }
-
 }
 

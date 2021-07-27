@@ -7,8 +7,11 @@ public class Lead extends ClientInformation {
     protected String email;
     protected String companyName;
 
-    private static String colorMain = "\u001B[33m";
-    private static String reset = "\u001B[0m";
+    private static final String colorMain = "\u001B[33m";
+    private static final String colorMainBold = "\033[1;30m";
+    private static final String colorTable = "\u001B[32m";
+    private static final String colorHeadlineBold = "\033[1;34m";
+    private static final String reset = "\u001B[0m";
 
     public Lead() {
     }
@@ -57,14 +60,33 @@ public class Lead extends ClientInformation {
         return id;
     }
 
-
     public String toString() {
-        return  colorMain +
-                "\nID: " + getId() + "\n" +
-                "Name: " + getName() + "\n" +
-                "Phone Number: " + getPhoneNumber() + "\n" +
-                "Email Address: " + getEmail() + "\n" +
-                "Company Name: " + getCompanyName();
+        System.out.printf(String.format("%-1s %-17s %-1s %-50s %-1s %-27s %-1s %-47s %-1s %-50s %-1s \n",
+                                        colorMain + "║",
+                                        colorHeadlineBold + "ID",
+                                        colorMain + "║",
+                                        colorHeadlineBold + "Name",
+                                        colorMain + "║",
+                                        colorHeadlineBold + "Phone Number",
+                                        colorMain + "║",
+                                        colorHeadlineBold + "Email Address",
+                                        colorMain + "║",
+                                        colorHeadlineBold + "Company Name",
+                                        colorMain + "║\n" +
+                                        colorMain + "╠════════════╬═════════════════════════════════════════════╬══════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════════════╣"
+                                        + reset));
+        return  String.format("%-1s %-15s %-1s %-48s %-1s %-25s %-1s %-45s %-1s %-48s %-1s\n",
+                              colorMain + "║",
+                              colorTable + getId(),
+                              colorMain + "║",
+                              colorTable + getName(),
+                              colorMain + "║",
+                              colorTable + getPhoneNumber(),
+                              colorMain + "║",
+                              colorTable + getEmail(),
+                              colorMain + "║",
+                              colorTable + getCompanyName(),
+                              colorMain + "║"+ reset);
     }
 
 }
