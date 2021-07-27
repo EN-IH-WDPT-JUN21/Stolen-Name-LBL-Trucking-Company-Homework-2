@@ -510,14 +510,26 @@ public class MainMenu {
     //Change opportunity status to LOST
     public void closeLost(String id) {
         Opportunity opp = theOpportunities.get(id);
-        System.out.println(colorInput + "\nWould you like to change the status of this opportunity to LOST?   y / n\n" +
-                                   opp + reset);
+        System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "Opportunity details" + colorMain + " ════════════════╦═══════════════════╗" + reset);
+        System.out.printf("%-1s %-17s %-1s %-27s %-1s %-24s %-1s %-24s %-1s\n",
+                          colorMain + "║",
+                          colorHeadlineBold + "ID",
+                          colorMain + "║",
+                          colorHeadlineBold + "Status",
+                          colorMain + "║",
+                          colorHeadlineBold + "Product",
+                          colorMain + "║",
+                          colorHeadlineBold + "Quantity",
+                          colorMain + "║\n" +
+                                  colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════╣");
+        System.out.println(opp);
+        System.out.println(colorInput + "Would you like to change the status of this opportunity to " + colorTable + "LOST?   y / n" + reset);
         Scanner scanner = new Scanner(System.in);
         try {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
                 case "y": {
                     opp.setStatus(Status.CLOSED_LOST);
-                    System.out.println(colorMain + "\n═════════════ Status Changed! ═════════════" + reset);
+                    System.out.println(colorMain + "\n═════════════ " + colorMainBold + "Status Changed!" + colorMain + " ═════════════" + reset);
                 }
                 break;
                 case "n": {
@@ -555,14 +567,26 @@ public class MainMenu {
     //Change opportunity status to Won
     public void closeWon(String id) {
         Opportunity opp = theOpportunities.get(id);
-        System.out.println(colorInput + "\nWould you like to change the status of this opportunity to WON?   y / n\n" +
-                opp + reset);
+        System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "Opportunity details" + colorMain + " ════════════════╦═══════════════════╗" + reset);
+        System.out.printf("%-1s %-17s %-1s %-27s %-1s %-24s %-1s %-24s %-1s\n",
+                          colorMain + "║",
+                          colorHeadlineBold + "ID",
+                          colorMain + "║",
+                          colorHeadlineBold + "Status",
+                          colorMain + "║",
+                          colorHeadlineBold + "Product",
+                          colorMain + "║",
+                          colorHeadlineBold + "Quantity",
+                          colorMain + "║\n" +
+                                  colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════╣");
+        System.out.println(opp);
+        System.out.println(colorInput + "Would you like to change the status of this opportunity to " + colorTable + "WON?   y / n" + reset);
         Scanner scanner = new Scanner(System.in);
         try {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
                 case "y": {
                     opp.setStatus(Status.CLOSED_WON);
-                    System.out.println(colorMain + "\n═════════════ Status Changed! ═════════════" + reset);
+                    System.out.println(colorMain + "\n═════════════ " + colorMainBold + "Status Changed!" + colorMain + " ═════════════" + reset);
                 }
                 break;
                 case "n": {
