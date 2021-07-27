@@ -1,3 +1,0 @@
-public enum Industry {
-    PRODUCE, ECOMMERCE, MEDICAL, OTHER, MANUFACTURING
-}
