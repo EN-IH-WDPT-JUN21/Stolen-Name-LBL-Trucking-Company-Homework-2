@@ -4,7 +4,7 @@ import com.ironhack.exceptions.EmailNotValidException;
 import com.ironhack.exceptions.EmptyStringException;
 import com.ironhack.exceptions.NameContainsNumbersException;
 import com.ironhack.exceptions.PhoneNumberContainsLettersException;
-import org.apache.commons.validator.routines.EmailValidator;
+import org.apache.commons.validator.EmailValidator;
 
 public class Lead extends ClientInformation {
 
@@ -66,12 +66,12 @@ public class Lead extends ClientInformation {
     }
 
     public void setEmail(String email) throws EmailNotValidException, EmptyStringException {
-        if (email.isEmpty()) {
+        /*if (email.isEmpty()) {
             throw new EmptyStringException("No email input. Please, try again.");
         }
         else if (!EmailValidator.getInstance().isValid(email)){
             throw new EmailNotValidException("The email should follow the format \"***@***.**\". Please, try again.");
-        }
+        }*/
 
         this.email = email;
     }
