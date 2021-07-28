@@ -373,7 +373,7 @@ public class MainMenu {
                 System.out.println(colorInput + "\nPlease input the city for " + colorTable + newAccount.getCompanyName() + colorInput + ":  " + reset);
 
                 try {
-                    newAccount.setCity(scanner.nextLine().trim());
+                    newAccount.setCity(scanner.nextLine().trim().toUpperCase(Locale.ROOT));
                     valid = true;
                 }catch (EmptyStringException e) {
                     System.out.println(colorError + e.getMessage());
@@ -386,7 +386,7 @@ public class MainMenu {
             while (!valid) {
                 System.out.println(colorInput + "\nPlease input the Country for " + newAccount.getCompanyName() + ":  " + reset);
                 try {
-                    newAccount.setCountry(scanner.nextLine().trim());
+                    newAccount.setCountry(scanner.nextLine().trim().toUpperCase());
                     valid = true;
                 } catch (EmptyStringException e) {
                     System.out.println(colorError + e.getMessage());
@@ -702,7 +702,7 @@ public class MainMenu {
         }
     }
 
-    //Email format validation
+    /*//Email format validation
     public static boolean isValidEmail(String email){
         return email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
     }
@@ -712,7 +712,7 @@ public class MainMenu {
     //Name input validation (contains only alphabetic characters)
     public static boolean isValidName(String name){
         return name.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$");
-    }
+    }*/
 }
 
 
