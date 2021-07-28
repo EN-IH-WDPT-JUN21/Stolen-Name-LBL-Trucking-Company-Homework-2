@@ -8,7 +8,7 @@ public class Lead extends ClientInformation {
     protected String companyName;
 
     private static final String colorMain = "\u001B[33m";
-    private static final String colorMainBold = "\033[1;30m";
+    private static final String colorMainBold = "\033[1;37m";
     private static final String colorTable = "\u001B[32m";
     private static final String colorHeadlineBold = "\033[1;34m";
     private static final String reset = "\u001B[0m";

@@ -6,6 +6,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //Login.login();
+
         Lead lead1 = new Lead("Sebastian Marek Łabędź", "123 456 789", "labedz.sebastian.marek@gmail.com", "Wings of Freedom");
         Lead lead2 = new Lead("Lee Dawson", "980 651 164", "ld@gmail.com", "LeeD");
         Lead lead3 = new Lead("Natalia Shilyaeva", "563 782 789", "nattyshil@yahoo.com", "Nathy From Wonderland");

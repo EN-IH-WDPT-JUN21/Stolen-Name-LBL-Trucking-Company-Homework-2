@@ -18,7 +18,7 @@ public class Login implements ActionListener {
     private static JFrame frame;
     public static JPanel panel;
 
-    public void login() {
+    public static void login() {
 
         frame = new JFrame("LBL CRM SYSTEM LOGIN");
         frame.setUndecorated(true);

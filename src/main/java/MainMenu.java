@@ -42,7 +42,7 @@ public class MainMenu {
     }
 
     private static final String colorMain = consoleTextColor.ANSI_YELLOW.color;
-    private static final String colorMainBold = consoleTextColor.BLACK_BOLD.color;
+    private static final String colorMainBold = consoleTextColor.WHITE_BOLD.color;
     private static final String colorInput = consoleTextColor.CYAN_BOLD.color;
     private static final String colorHeadline = consoleTextColor.ANSI_BLUE.color;
     private static final String colorHeadlineBold = consoleTextColor.BLUE_BOLD.color;
@@ -289,10 +289,10 @@ public class MainMenu {
                 System.out.println(colorInput + "\nPlease input the Country for " + colorTable + newAccount.getCompanyName() + colorInput + ":  " + reset);
                 country = scanner.nextLine().trim().toUpperCase(Locale.ROOT);
                 newAccount.setCountry(country);
-                if(!isValidCountry(country)){
+                if(isValidCountry(country)){
                     System.out.println(colorError + "Invalid country. Please, try again" + reset);
                 }
-            } while (!isValidCountry(country));
+            } while (isValidCountry(country));
             theAccounts.put(newAccount.getId(), newAccount); // Adds new account to Accounts Map (database)
             //System.out.println(colorMain + "\n ═════════════ New Account Created ═════════════\n");
             System.out.println(theAccounts.get(newAccount.getId()));
@@ -625,7 +625,7 @@ public class MainMenu {
             }
         }
 
-       return countries.contains(country);
+        return !countries.contains(country);
     }
 
     //Name input validation (contains only alphabetic characters)
