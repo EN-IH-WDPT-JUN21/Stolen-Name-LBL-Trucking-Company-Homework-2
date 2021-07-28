@@ -1,9 +1,10 @@
+package com.ironhack;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class Login implements ActionListener {
 
@@ -49,7 +50,7 @@ public class Login implements ActionListener {
         passwordText.setBounds(130, 90, 165, 25);
         panel.add(passwordText);
 
-        submit = new JButton("Login");
+        submit = new JButton("com.ironhack.Login");
         submit.setBounds(213, 140, 80, 25);
         submit.addActionListener(new Login());
         panel.add(submit);
