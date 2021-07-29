@@ -290,8 +290,8 @@ public class MainMenu {
                         try {
                             newOpp.setQuantity(Integer.parseInt(scanner.nextLine().trim()));
                             valid = true;
-                        }catch (NumberFormatException  e) {
-                            System.out.println(colorError + "You have to input a positive number. Please, try again.");}
+                        }//catch (NumberFormatException  e) {
+                            //System.out.println(colorError + "You have to input a positive number. Please, try again.");}
                         catch (IllegalArgumentException e) {
                             System.out.println(colorError + e.getMessage());
                         } catch (ExceedsMaxValue e) {
