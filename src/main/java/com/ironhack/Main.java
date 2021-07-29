@@ -45,11 +45,7 @@ public class Main {
         MainMenu.theAccounts.put(account2.getId(), account2);
         MainMenu.theAccounts.put(account3.getId(), account3);
 
-        try {
-            while (true) {
-                menu.OS();
-            }
-        } catch (RuntimeException | AWTException e) {
-        }
+        Login.login2();
+
     }
 }

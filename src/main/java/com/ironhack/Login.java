@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 public class Login implements ActionListener {
 
     private static JLabel title;
+    private static JPanel panel;
     private static JLabel user;
     private static JTextField userText;
     private static JLabel password;
@@ -16,10 +17,14 @@ public class Login implements ActionListener {
     private static JButton submit;
     private static JLabel success;
     private static JLabel success2;
+    private static JLabel hint;
     private static JFrame frame;
-    public static JPanel panel;
+    private static String username;
 
-    public static void login() {
+
+    public static MainMenu menu = new MainMenu();
+
+    public static void login2() {
 
         frame = new JFrame("LBL CRM SYSTEM LOGIN");
         frame.setUndecorated(true);
@@ -50,7 +55,7 @@ public class Login implements ActionListener {
         passwordText.setBounds(130, 90, 165, 25);
         panel.add(passwordText);
 
-        submit = new JButton("com.ironhack.Login");
+        submit = new JButton("Login");
         submit.setBounds(213, 140, 80, 25);
         submit.addActionListener(new Login());
         panel.add(submit);
@@ -59,6 +64,10 @@ public class Login implements ActionListener {
         success.setBounds(30, 140, 300, 25);
         panel.add(success);
 
+        hint = new JLabel("Hint: Make your console full screen for a better experience");
+        hint.setBounds(10, 200, 300, 25);
+        panel.add(hint);
+
         success2 = new JLabel();
         panel.add(success2);
 
@@ -66,24 +75,55 @@ public class Login implements ActionListener {
 
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
+        frame.getRootPane().setDefaultButton(submit); // Let's you press "Submit" button using ENTER
 
+    }
+
+    public static String getUsername() {
+        username = userText.getText() ;
+        return username;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String user = userText.getText();
+        //username = userText.getText();
         char[] password = passwordText.getPassword();
         String pass = String.valueOf(password);
 
-        if (user.equals("abc") && pass.equals("123")) {
-            success.setText("Welcome to our LBL CRM SYSTEM");
-            JPanel text1 = new JPanel(new BorderLayout());
+        if (getUsername().equals("Lee") && pass.equals("lee")
+        || getUsername().equals("Sebastian") && pass.equals("sebastian")
+        || getUsername().equals("Mariana") && pass.equals("mariana")
+        || getUsername().equals("NataliaS") && pass.equals("natalias")
+        || getUsername().equals("Nathan") && pass.equals("nathan")
+        || getUsername().equals("NataliaN") && pass.equals("natalian")
+        || getUsername().equals("Katarzyna") && pass.equals("katarzyna")
+        || getUsername().equals("Urszula") && pass.equals("urszula")
+        || getUsername().equals("Anna") && pass.equals("anna")
+        || getUsername().equals("Admin") && pass.equals("admin")) {
+            //success.setText("Welcome to our LBL CRM SYSTEM");
+            /*JPanel text1 = new JPanel(new BorderLayout());
             text1.setBounds(0, 0, 350, 200);
             JLabel text = new JLabel("Welcome to our LBL CRM SYSTEM");
             text.setFont(new Font("Serif", Font.BOLD, 18));
             text1.add(text);
             panel.setVisible(false);
-            frame.add(text1);
+            frame.add(text1);*/
+            /*try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }*/
+            frame.dispose();
+            try {
+                menu.OS();
+            } catch (RuntimeException | AWTException ex) {
+            }
+        } else if (getUsername().equals("Guest") && pass.equals("guest")) {
+            frame.dispose();
+            try {
+                menu.OSGuest();
+            } catch (RuntimeException | AWTException ex) {
+            }
         } else {
             success.setText("Wrong username or password!");
         }
