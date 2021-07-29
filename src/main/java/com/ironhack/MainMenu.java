@@ -8,7 +8,6 @@ import com.ironhack.exceptions.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.*;
-import java.util.List;
 
 
 public class MainMenu {
@@ -75,9 +74,9 @@ public class MainMenu {
                                    "             ####################.###### ############ ###################### ############         \n" +
                                    "             ################ ####### # ############ #####################  ############          \n" + reset +
          colorHeadline + colorMain + "╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗\n"
-                                   + "║                                " + colorMainBold + "WELCOME TO LBL CRM SYSTEM" + colorMain + "                                          ║\n"
+                                   + "║                                " + colorTable + "WELCOME TO LBL CRM SYSTEM" + colorMain + "                                          ║\n"
                                    + "╠═══════════════════════════════════════════════════════════════════════════════════════════════════╣\n"
-                                   + "║     " + colorMainBold + "WHAT WOULD YOU LIKE TO DO?" + colorMain + "                                                                    ║\n"
+                                   + "║     " + colorTable + "WHAT WOULD YOU LIKE TO DO " + Login.getUsername().toUpperCase() +  "?" + colorMain + insertLine() + "║\n"
                                    + "╠═══════════════════════════════════════════════════════════════════════════════════════════════════╣\n"
                                    + "║ 1.  To create new Lead " + colorHeadline + "- type: 'new lead'" + colorMain + "                                                         ║\n"
                                    + "║ 2.  To check Leads list " + colorHeadline + "- type: 'show leads'" + colorMain + "                                                      ║\n"
@@ -176,7 +175,7 @@ public class MainMenu {
                             System.out.println(colorError + e.getMessage());
                         } catch (NameContainsNumbersException e) {
                             System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxValue e) {
+                        } catch (ExceedsMaxLength e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
@@ -193,7 +192,7 @@ public class MainMenu {
                             System.out.println(colorError + e.getMessage());
                         } catch (PhoneNumberContainsLettersException e) {
                             System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxValue e) {
+                        } catch (ExceedsMaxLength e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
@@ -211,7 +210,7 @@ public class MainMenu {
                             System.out.println(colorError + e.getMessage());
                         } catch (EmailNotValidException e) {
                             System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxValue e) {
+                        } catch (ExceedsMaxLength e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
@@ -227,7 +226,7 @@ public class MainMenu {
                             valid = true;
                         }catch(EmptyStringException e){
                             System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxValue e) {
+                        } catch (ExceedsMaxLength e) {
                             System.out.println(colorError + e.getMessage());
                         }
 
@@ -290,11 +289,9 @@ public class MainMenu {
                         try {
                             newOpp.setQuantity(Integer.parseInt(scanner.nextLine().trim()));
                             valid = true;
-                        }//catch (NumberFormatException  e) {
-                            //System.out.println(colorError + "You have to input a positive number. Please, try again.");}
-                        catch (IllegalArgumentException e) {
-                            System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxValue e) {
+                        }catch (NumberFormatException  e) {
+                            System.out.println(colorError + "You need to input a reasonable number. Please, try again.");
+                        }catch (IllegalArgumentException e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
@@ -388,9 +385,9 @@ public class MainMenu {
                 try {
                     newAccount.setEmployeeCount(Integer.parseInt(scanner.nextLine().trim()));
                     valid = true;
+                }catch (NumberFormatException  e) {
+                    System.out.println(colorError + "You need to input a reasonable number. Please, try again.");
                 } catch (IllegalArgumentException e) {
-                    System.out.println(colorError + e.getMessage());
-                } catch (ExceedsMaxValue e) {
                     System.out.println(colorError + e.getMessage());
                 }
             }
@@ -407,7 +404,7 @@ public class MainMenu {
                     System.out.println(colorError + e.getMessage());
                 } catch (NameContainsNumbersException e) {
                     System.out.println(colorError + e.getMessage());
-                } catch (ExceedsMaxValue e) {
+                } catch (ExceedsMaxLength e) {
                     System.out.println(colorError + e.getMessage());
                 }
             }
@@ -420,7 +417,7 @@ public class MainMenu {
                     valid = true;
                 } catch (EmptyStringException e) {
                     System.out.println(colorError + e.getMessage());
-                } catch (NameContainsNumbersException e) {
+                }catch(ExceedsMaxLength e){
                     System.out.println(colorError + e.getMessage());
                 }catch(InvalidCountryException e){
                     System.out.println(colorError + e.getMessage());
@@ -768,6 +765,75 @@ public class MainMenu {
     public static boolean isValidName(String name){
         return name.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$");
     }*/
+
+    public static StringBuilder insertLine() {
+        StringBuilder line = new StringBuilder();
+        for (int i = 1; i < (68 - Login.getUsername().length()); i++) {
+            line.append(" ");
+        }
+        return line;
+    }
+
+    public void OSGuest() throws RuntimeException, AWTException {
+
+        System.out.println("\n" + colorHeadline + colorLogo
+                                   + "                                                                                                \n" +
+                                   "                                         *#### #####        ###################*   *####*         \n" +
+                                   "                         #################### #####        ######################  #####          \n" +
+                                   "                    ,######              ### #####        #####            ###### #####           \n" +
+                                   "                  ####                  ### #####        #####    ############## #####            \n" +
+                                   "                ####                   ### #####        #####      ###########  #####             \n" +
+                                   "              ########################### #####        #####            ###### #####              \n" +
+                                   "             ####################.###### ############ ###################### ############         \n" +
+                                   "             ################ ####### # ############ #####################  ############          \n" + reset +
+                                   colorHeadline + colorMain + "╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗\n"
+                                   + "║                                " + colorTable + "WELCOME TO LBL CRM SYSTEM" + colorMain + "                                          ║\n"
+                                   + "╠═══════════════════════════════════════════════════════════════════════════════════════════════════╣\n"
+                                   + "║     " + colorTable + "WHAT WOULD YOU LIKE TO DO " + Login.getUsername().toUpperCase() +  "?" + colorMain + insertLine() + "║\n"
+                                   + "╠═══════════════════════════════════════════════════════════════════════════════════════════════════╣\n"
+                                   + "║ 1.  To check Leads list " + colorHeadline + "- type: 'show leads'" + colorMain + "                                                      ║\n"
+                                   + "║ 2.  To check individual Lead's details " + colorHeadline + "- type: 'lookup lead ' + Lead Id" + colorMain + "                           ║\n"
+                                   + "║ 3.  To check Opportunity list " + colorHeadline + "- type: 'show opportunities'" + colorMain + "                                        ║\n"
+                                   + "║ 4.  To check individual Opportunity's details " + colorHeadline + "- type: 'lookup opportunity ' + Opportunity Id" + colorMain + "      ║\n"
+                                   + "║ 5.  To check Contact list " + colorHeadline + "- type: 'show contacts'" + colorMain + "                                                 ║\n"
+                                   + "║ 6.  To check Account list " + colorHeadline + "- type: 'show accounts'" + colorMain + "                                                 ║\n"
+                                   + "║ 7.  To quit " + colorHeadline + "- type: 'quit'" + colorMain + "                                                                        ║\n"
+                                   + "╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝\n" + reset);
+
+        conoleFocusRunOnce();
+
+        try {
+
+            // Creates String array from scanner input
+            String[] input = scanner.nextLine().trim().toLowerCase().split("\\s+");
+
+            if (input[0].equals("quit")) {
+                System.out.println(colorMainBold + "\nThank you for using our LBL CRM SYSTEM!" + reset);
+                throw new RuntimeException(colorError + "Exiting the program" + reset);
+            }else if (input[0].equals("lookup") && input[1].equals("lead")) {
+                System.out.println(lookUpLeadId(input[2]).toString());
+            } else if (input[0].equals("lookup") && input[1].equals("opportunity")) {
+                System.out.println(lookUpOppId(input[2]).toString());
+            } else {
+
+                switch (input[0] + input[1]) {
+                    //String x = input.substring(input.indexOf("Lead") + 3, input.length());
+                    case "new" + "lead" -> newLead();
+                    case "show" + "leads" -> showLeads();
+                    case "show" + "opportunities" -> showOpportunities();
+                    case "show" + "contacts" -> showContacts();
+                    case "show" + "accounts" -> showAccounts();
+                    default -> throw new IllegalArgumentException();
+                }
+            }
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.out.println(colorError + "\nInvalid input" + reset);
+
+        }
+        System.out.println(colorInput + "\nPress Enter to continue..." + reset);
+        scanner.nextLine();
+        OSGuest();
+    }
 }
 
 

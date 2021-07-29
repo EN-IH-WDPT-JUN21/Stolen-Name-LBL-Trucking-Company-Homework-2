@@ -9,7 +9,9 @@ public class Main {
 
     public static MainMenu menu = new MainMenu();
 
-    public static void main(String[] args) throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxValue, NoSuchValueException {
+
+    public static void main(String[] args) throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxLength, NoSuchValueException {
+
 
         Lead lead1 = new Lead("Sebastian Marek Labedz", "123456789", "labedzsebastian@gmail.co", "Wings of Freedom");
         Lead lead2 = new Lead("Lee Dawson", "980651164", "ld@gmail.com", "LeeD");
@@ -45,11 +47,7 @@ public class Main {
         MainMenu.theAccounts.put(account2.getId(), account2);
         MainMenu.theAccounts.put(account3.getId(), account3);
 
-        try {
-            while (true) {
-                menu.OS();
-            }
-        } catch (RuntimeException | AWTException e) {
-        }
+        Login.login2();
+
     }
 }
