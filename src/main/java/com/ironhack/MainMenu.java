@@ -61,7 +61,7 @@ public class MainMenu {
 
     }
 
-    public void OS() throws RuntimeException, AWTException {
+    public void OS() throws RuntimeException, AWTException, NoSuchValueException {
 
         System.out.println("\n" + colorHeadline + colorLogo
                                    + "                                                                                                \n" +
@@ -102,14 +102,29 @@ public class MainMenu {
                 System.out.println(colorMainBold + "\nThank you for using our LBL CRM SYSTEM!" + reset);
                 throw new RuntimeException(colorError + "Exiting the program" + reset);
             } else if (input[0].equals("lookup") && input[1].equals("lead")) {
+                if(!theLeads.containsKey((input[2]).toString())){
+                    throw new NoSuchValueException("There is no Lead that matches that id.");
+                }
                 System.out.println(lookUpLeadId(input[2]).toString());
             } else if (input[0].equals("lookup") && input[1].equals("opportunity")) {
+                if(!theOpportunities.containsKey((input[2]).toString())){
+                    throw new NoSuchValueException("There is no Opportunity that matches that id.");
+                }
                 System.out.println(lookUpOppId(input[2]).toString());
             } else if (input[0].equals("convert")) { // throws null point exception if number not in array
+                if(!theLeads.containsKey((input[1]).toString())){
+                    throw new NoSuchValueException("There is no Lead that matches that id.");
+                }
                 createAccount(convertLead(input[1]));
             } else if (input[0].equals("close-lost")) {
+                if(!theOpportunities.containsKey((input[1]).toString())){
+                    throw new NoSuchValueException("There is no Opportunity that matches that id.");
+                }
                 closeLost(input[1]);
             } else if (input[0].equals("close-won")) {
+                if(!theOpportunities.containsKey((input[1]).toString())){
+                    throw new NoSuchValueException("There is no Opportunity that matches that id.");
+                }
                 closeWon(input[1]);
             } else if (input.length < 2) {
                 throw new IllegalArgumentException();
@@ -125,10 +140,13 @@ public class MainMenu {
                     default -> throw new IllegalArgumentException();
                 }
             }
-        } catch (IllegalArgumentException | NullPointerException e) {
+        } catch (IllegalArgumentException | NullPointerException  e) {
             System.out.println(colorError + "\nInvalid input" + reset);
-
         }
+        catch (NoSuchValueException e){
+            System.out.println(colorError + e.getMessage() + reset);
+        }
+
         System.out.println(colorInput + "\nPress Enter to continue..." + reset);
         scanner.nextLine();
         OS();
@@ -543,6 +561,7 @@ public class MainMenu {
 
 
     public Lead lookUpLeadId(String id) throws RuntimeException {
+
         System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "Lead details" + colorMain + " ══════════════════════════╦══════════════════════╦══════════════════════════════════════════╦═════════════════════════════════════════════╗" + reset);
         return theLeads.get(id);
     }
