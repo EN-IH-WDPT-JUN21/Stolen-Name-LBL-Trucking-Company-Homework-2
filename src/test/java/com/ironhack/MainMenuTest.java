@@ -2,10 +2,7 @@ package com.ironhack;
 
 import com.ironhack.enums.Industry;
 import com.ironhack.enums.Truck;
-import com.ironhack.exceptions.EmailNotValidException;
-import com.ironhack.exceptions.EmptyStringException;
-import com.ironhack.exceptions.NameContainsNumbersException;
-import com.ironhack.exceptions.PhoneNumberContainsLettersException;
+import com.ironhack.exceptions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +20,7 @@ class MainMenuTest {
 
 
     @BeforeEach
-    void setUp() throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException {
+    void setUp() throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxValue {
         counterStatus = ClientInformation.getUniqueID();
         ClientInformation.setUniqueID(0);
         lead1 = new Lead("TestOne", "123546", "test1@test.gmail.com", "TestCompany1");
@@ -101,7 +98,7 @@ class MainMenuTest {
         }
     }
     @Test
-    void TestCreateAccountPositive() throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException {
+    void TestCreateAccountPositive() throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxValue {
         String data = "Produce \n 200 \n Stourbridge \n England \n"; // Used to simulate user input
         InputStream stdin = System.in; // Used to store default System.in
 

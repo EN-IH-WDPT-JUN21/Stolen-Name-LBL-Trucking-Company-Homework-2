@@ -1,10 +1,7 @@
 package com.ironhack;//For creating basic Leads. Extends Client information in order to retain a unique ID counter.
 
-import com.ironhack.exceptions.EmailNotValidException;
-import com.ironhack.exceptions.EmptyStringException;
-import com.ironhack.exceptions.NameContainsNumbersException;
-import com.ironhack.exceptions.PhoneNumberContainsLettersException;
-import org.apache.commons.validator.EmailValidator;
+import com.ironhack.exceptions.*;
+import org.apache.commons.validator.routines.EmailValidator;
 
 public class Lead extends ClientInformation {
 
@@ -22,7 +19,7 @@ public class Lead extends ClientInformation {
     public Lead() {
     }
 
-    public Lead(String name, String phoneNumber, String email, String companyName) throws NameContainsNumbersException, EmptyStringException, PhoneNumberContainsLettersException, EmailNotValidException {
+    public Lead(String name, String phoneNumber, String email, String companyName) throws NameContainsNumbersException, EmptyStringException, PhoneNumberContainsLettersException, EmailNotValidException, ExceedsMaxValue {
         setName(name);
         setPhoneNumber(phoneNumber);
         setEmail(email);
@@ -33,12 +30,14 @@ public class Lead extends ClientInformation {
         return name;
     }
 
-    public void setName(String name) throws NameContainsNumbersException, EmptyStringException {
+    public void setName(String name) throws NameContainsNumbersException, EmptyStringException, ExceedsMaxValue {
         if (name.isEmpty()) {
             throw new EmptyStringException("No name input. Please try again.");
         }
         else if(!name.matches("[a-zA-Z\\u00C0-\\u00FF\\s]+")){
             throw new NameContainsNumbersException( "Name can not contain numbers. Please try again");
+        } else if(name.length()>43){
+            throw new ExceedsMaxValue( "Exceeds maximum value. Please try again");
         }
 
         this.name = name;
@@ -48,7 +47,7 @@ public class Lead extends ClientInformation {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) throws EmptyStringException, PhoneNumberContainsLettersException {
+    public void setPhoneNumber(String phoneNumber) throws EmptyStringException, PhoneNumberContainsLettersException, ExceedsMaxValue {
 
 
         if (phoneNumber.isEmpty()) {
@@ -56,6 +55,8 @@ public class Lead extends ClientInformation {
         }
         else if(!phoneNumber.matches("[0-9]+")) {
             throw new PhoneNumberContainsLettersException("The phone number must only contain numbers. Please try again.");
+        } else if(phoneNumber.length()>20) {
+            throw new ExceedsMaxValue("Exceeds maximum value. Please try again.");
         }
 
         this.phoneNumber = phoneNumber;
@@ -65,13 +66,15 @@ public class Lead extends ClientInformation {
         return email;
     }
 
-    public void setEmail(String email) throws EmailNotValidException, EmptyStringException {
-        /*if (email.isEmpty()) {
+    public void setEmail(String email) throws EmailNotValidException, EmptyStringException, ExceedsMaxValue {
+        if (email.isEmpty()) {
             throw new EmptyStringException("No email input. Please, try again.");
         }
         else if (!EmailValidator.getInstance().isValid(email)){
             throw new EmailNotValidException("The email should follow the format \"***@***.**\". Please, try again.");
-        }*/
+        } else if (email.length()>40){
+            throw new ExceedsMaxValue("Exceeds maximum value. Please, try again.");
+        }
 
         this.email = email;
     }
@@ -80,9 +83,11 @@ public class Lead extends ClientInformation {
         return companyName;
     }
 
-    public void setCompanyName(String companyName) throws EmptyStringException {
+    public void setCompanyName(String companyName) throws EmptyStringException, ExceedsMaxValue {
         if (companyName.isEmpty()) {
             throw new EmptyStringException("No company name input. Please, try again.");
+        } else if (companyName.length()>43){
+            throw new ExceedsMaxValue("Exceeds maximum value. Please, try again.");
         }
 
         this.companyName = companyName;

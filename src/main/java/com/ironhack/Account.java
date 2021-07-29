@@ -2,9 +2,11 @@ package com.ironhack;
 
 import com.ironhack.enums.Industry;
 import com.ironhack.exceptions.EmptyStringException;
+import com.ironhack.exceptions.ExceedsMaxValue;
 import com.ironhack.exceptions.InvalidCountryException;
 import com.ironhack.exceptions.NameContainsNumbersException;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -33,7 +35,7 @@ public class Account extends ClientInformation{
     }
 
 
-    public Account(Industry industry, int employeeCount, String city, String country, Contact contact, Opportunity opportunity) throws NameContainsNumbersException, EmptyStringException, InvalidCountryException {
+    public Account(Industry industry, int employeeCount, String city, String country, Contact contact, Opportunity opportunity) throws NameContainsNumbersException, EmptyStringException, InvalidCountryException, ExceedsMaxValue {
         setIndustry(industry);
         setEmployeeCount(employeeCount);
         setCity(city);
@@ -58,9 +60,11 @@ public class Account extends ClientInformation{
         return employeeCount;
     }
 
-    public void setEmployeeCount(int employeeCount) {
+    public void setEmployeeCount(int employeeCount) throws ExceedsMaxValue {
         if (employeeCount <= 0) {
             throw new IllegalArgumentException("Employee count must be positive. Please try again.");
+        } else if (String.valueOf(employeeCount).length() > 17){
+            throw new ExceedsMaxValue("Exceeds maximum value. Please try again.");
         }
 
         this.employeeCount = employeeCount;
@@ -70,12 +74,14 @@ public class Account extends ClientInformation{
         return city;
     }
 
-    public void setCity(String city) throws EmptyStringException, NameContainsNumbersException {
+    public void setCity(String city) throws EmptyStringException, NameContainsNumbersException, IllegalArgumentException, ExceedsMaxValue {
         if (city.isEmpty()) {
             throw new EmptyStringException("No city input. Please try again.");
         }
         else if(!city.matches("[a-zA-Z\\u00C0-\\u00FF]+")){
             throw new NameContainsNumbersException( "City can not contain numbers. Please try again");
+        } else if(city.length()>25){
+            throw new ExceedsMaxValue( "Exceeds maximum value. Please try again.");
         }
 
         this.city = city;
@@ -87,7 +93,7 @@ public class Account extends ClientInformation{
 
     public void setCountry(String country) throws InvalidCountryException, NameContainsNumbersException, EmptyStringException {
 
-        List<String> countries = new ArrayList<>();
+        /*List<String> countries = new ArrayList<>();
 
         // retrieve the list of countries and populate country names
         String[] isoCountries = Locale.getISOCountries();
@@ -98,7 +104,7 @@ public class Account extends ClientInformation{
             if (!"".equals(name)) {
                 countries.add(name);
             }
-        }
+        }*/ //found that this is OS language specific and we want it to be uniform, hence a different method created
 
         if (country.isEmpty()) {
             throw new EmptyStringException("No country input. Please try again.");
@@ -106,8 +112,8 @@ public class Account extends ClientInformation{
         else if(!country.matches("[a-zA-Z\\u00C0-\\u00FF]+")){
             throw new NameContainsNumbersException( "Country can not contain numbers. Please try again");
         }
-        else if(!countries.contains(country)){
-            throw new InvalidCountryException( "That's not a real country in your language. Please try again.");
+        else if(!isValidCountry(country)){
+            throw new InvalidCountryException( "That's not a real country. Please try again.");
         }
 
 
@@ -200,6 +206,47 @@ public class Account extends ClientInformation{
                               colorMain + "║",
                               colorTable + country,
                               colorMain + "║") + reset;
+    }
+
+    //Countries list as per ISO
+    private static String[] countries = {
+            "ANDORRA", "UNITED ARAB EMIRATES", "AFGHANISTAN", "ANTIGUA & BARBUDA", "ANGUILLA",
+            "ALBANIA", "ARMENIA", "ANGOLA", "ANTARCTICA", "ARGENTINA", "AMERICAN SAMOA", "AUSTRIA",
+            "AUSTRALIA", "ARUBA", "ÅLAND ISLANDS", "AZERBAIJAN", "BOSNIA & HERZEGOVINA", "BARBADOS",
+            "BANGLADESH", "BELGIUM", "BURKINA FASO", "BULGARIA", "BAHRAIN", "BURUNDI", "BENIN", "ST BARTHÉLEMY",
+            "BERMUDA", "BRUNEI", "BOLIVIA", "CARIBBEAN NETHERLANDS", "BRAZIL", "BAHAMAS", "BHUTAN", "BOUVET ISLAND",
+            "BOTSWANA", "BELARUS", "BELIZE", "CANADA", "COCOS (KEELING) ISLANDS", "CONGO - KINSHASA", "CENTRAL AFRICAN REPUBLIC",
+            "CONGO - BRAZZAVILLE", "SWITZERLAND", "CÔTE D’IVOIRE", "COOK ISLANDS", "CHILE", "CAMEROON", "CHINA",
+            "COLOMBIA", "COSTA RICA", "CUBA", "CAPE VERDE", "CURAÇAO", "CHRISTMAS ISLAND", "CYPRUS", "CZECH REPUBLIC",
+            "GERMANY", "DJIBOUTI", "DENMARK", "DOMINICA", "DOMINICAN REPUBLIC", "ALGERIA", "ECUADOR", "ESTONIA",
+            "EGYPT", "WESTERN SAHARA", "ERITREA", "SPAIN", "ETHIOPIA", "FINLAND", "FIJI", "FALKLAND ISLANDS",
+            "MICRONESIA", "FAROE ISLANDS", "FRANCE", "GABON", "UNITED KINGDOM", "GRENADA", "GEORGIA", "FRENCH GUIANA",
+            "GUERNSEY", "GHANA", "GIBRALTAR", "GREENLAND", "GAMBIA", "GUINEA", "GUADELOUPE", "EQUATORIAL GUINEA",
+            "GREECE", "SOUTH GEORGIA & SOUTH SANDWICH ISLANDS", "GUATEMALA", "GUAM", "GUINEA-BISSAU", "GUYANA",
+            "HONG KONG SAR CHINA", "HEARD & MCDONALD ISLANDS", "HONDURAS", "CROATIA", "HAITI", "HUNGARY", "INDONESIA",
+            "IRELAND", "ISRAEL", "ISLE OF MAN", "INDIA", "BRITISH INDIAN OCEAN TERRITORY", "IRAQ", "IRAN", "ICELAND",
+            "ITALY", "JERSEY", "JAMAICA", "JORDAN", "JAPAN", "KENYA", "KYRGYZSTAN", "CAMBODIA", "KIRIBATI", "COMOROS",
+            "ST KITTS & NEVIS", "NORTH KOREA", "SOUTH KOREA", "KUWAIT", "CAYMAN ISLANDS", "KAZAKHSTAN", "LAOS", "LEBANON",
+            "ST LUCIA", "LIECHTENSTEIN", "SRI LANKA", "LIBERIA", "LESOTHO", "LITHUANIA", "LUXEMBOURG", "LATVIA", "LIBYA",
+            "MOROCCO", "MONACO", "MOLDOVA", "MONTENEGRO", "ST MARTIN", "MADAGASCAR", "MARSHALL ISLANDS", "NORTH MACEDONIA",
+            "MALI", "MYANMAR (BURMA)", "MONGOLIA", "MACAO SAR CHINA", "NORTHERN MARIANA ISLANDS", "MARTINIQUE", "MAURITANIA",
+            "MONTSERRAT", "MALTA", "MAURITIUS", "MALDIVES", "MALAWI", "MEXICO", "MALAYSIA", "MOZAMBIQUE", "NAMIBIA",
+            "NEW CALEDONIA", "NIGER", "NORFOLK ISLAND", "NIGERIA", "NICARAGUA", "NETHERLANDS", "NORWAY", "NEPAL", "NAURU",
+            "NIUE", "NEW ZEALAND", "OMAN", "PANAMA", "PERU", "FRENCH POLYNESIA", "PAPUA NEW GUINEA", "PHILIPPINES", "PAKISTAN",
+            "POLAND", "ST PIERRE & MIQUELON", "PITCAIRN ISLANDS", "PUERTO RICO", "PALESTINIAN TERRITORIES", "PORTUGAL", "PALAU", "PARAGUAY", "QATAR",
+            "RÉUNION", "ROMANIA", "SERBIA", "RUSSIA", "RWANDA", "SAUDI ARABIA", "SOLOMON ISLANDS", "SEYCHELLES", "SUDAN",
+            "SWEDEN", "SINGAPORE", "ST HELENA", "SLOVENIA", "SVALBARD & JAN MAYEN", "SLOVAKIA", "SIERRA LEONE", "SAN MARINO",
+            "SENEGAL", "SOMALIA", "SURINAME", "SOUTH SUDAN", "SÃO TOMÉ & PRÍNCIPE", "EL SALVADOR", "SINT MAARTEN", "SYRIA",
+            "ESWATINI", "TURKS & CAICOS ISLANDS", "CHAD", "FRENCH SOUTHERN TERRITORIES", "TOGO", "THAILAND", "TAJIKISTAN",
+            "TOKELAU", "TIMOR-LESTE", "TURKMENISTAN", "TUNISIA", "TONGA", "TURKEY", "TRINIDAD & TOBAGO", "TUVALU", "TAIWAN",
+            "TANZANIA", "UKRAINE", "UGANDA", "US OUTLYING ISLANDS", "UNITED STATES", "URUGUAY", "UZBEKISTAN", "VATICAN CITY",
+            "ST VINCENT & THE GRENADINES", "VENEZUELA", "BRITISH VIRGIN ISLANDS", "US VIRGIN ISLANDS", "VIETNAM", "VANUATU",
+            "WALLIS & FUTUNA", "SAMOA", "YEMEN", "MAYOTTE", "SOUTH AFRICA", "ZAMBIA", "ZIMBABWE"
+    };
+
+    //compares input against the array of countries
+    public boolean isValidCountry (String country){
+        return Arrays.asList(countries).contains(country);
     }
 }
 
