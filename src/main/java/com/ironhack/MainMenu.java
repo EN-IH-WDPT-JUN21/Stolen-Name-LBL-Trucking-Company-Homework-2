@@ -8,7 +8,6 @@ import com.ironhack.exceptions.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.*;
-import java.util.List;
 
 
 public class MainMenu {
@@ -158,7 +157,7 @@ public class MainMenu {
                             System.out.println(colorError + e.getMessage());
                         } catch (NameContainsNumbersException e) {
                             System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxValue e) {
+                        } catch (ExceedsMaxLength e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
@@ -175,7 +174,7 @@ public class MainMenu {
                             System.out.println(colorError + e.getMessage());
                         } catch (PhoneNumberContainsLettersException e) {
                             System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxValue e) {
+                        } catch (ExceedsMaxLength e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
@@ -193,7 +192,7 @@ public class MainMenu {
                             System.out.println(colorError + e.getMessage());
                         } catch (EmailNotValidException e) {
                             System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxValue e) {
+                        } catch (ExceedsMaxLength e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
@@ -209,7 +208,7 @@ public class MainMenu {
                             valid = true;
                         }catch(EmptyStringException e){
                             System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxValue e) {
+                        } catch (ExceedsMaxLength e) {
                             System.out.println(colorError + e.getMessage());
                         }
 
@@ -272,11 +271,9 @@ public class MainMenu {
                         try {
                             newOpp.setQuantity(Integer.parseInt(scanner.nextLine().trim()));
                             valid = true;
-                        }//catch (NumberFormatException  e) {
-                            //System.out.println(colorError + "You have to input a positive number. Please, try again.");}
-                        catch (IllegalArgumentException e) {
-                            System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxValue e) {
+                        }catch (NumberFormatException  e) {
+                            System.out.println(colorError + "You need to input a reasonable number. Please, try again.");
+                        }catch (IllegalArgumentException e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
@@ -370,9 +367,9 @@ public class MainMenu {
                 try {
                     newAccount.setEmployeeCount(Integer.parseInt(scanner.nextLine().trim()));
                     valid = true;
+                }catch (NumberFormatException  e) {
+                    System.out.println(colorError + "You need to input a reasonable number. Please, try again.");
                 } catch (IllegalArgumentException e) {
-                    System.out.println(colorError + e.getMessage());
-                } catch (ExceedsMaxValue e) {
                     System.out.println(colorError + e.getMessage());
                 }
             }
@@ -389,7 +386,7 @@ public class MainMenu {
                     System.out.println(colorError + e.getMessage());
                 } catch (NameContainsNumbersException e) {
                     System.out.println(colorError + e.getMessage());
-                } catch (ExceedsMaxValue e) {
+                } catch (ExceedsMaxLength e) {
                     System.out.println(colorError + e.getMessage());
                 }
             }
@@ -402,7 +399,7 @@ public class MainMenu {
                     valid = true;
                 } catch (EmptyStringException e) {
                     System.out.println(colorError + e.getMessage());
-                } catch (NameContainsNumbersException e) {
+                }catch(ExceedsMaxLength e){
                     System.out.println(colorError + e.getMessage());
                 }catch(InvalidCountryException e){
                     System.out.println(colorError + e.getMessage());
