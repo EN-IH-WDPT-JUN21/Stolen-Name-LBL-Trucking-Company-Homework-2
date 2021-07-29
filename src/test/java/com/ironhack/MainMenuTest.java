@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.awt.*;
+import java.io.*;
 
 class MainMenuTest {
 
@@ -68,6 +68,8 @@ class MainMenuTest {
         Assertions.assertThrows(NullPointerException.class, () -> test.convertLead("239832487248"));
         Assertions.assertThrows(NullPointerException.class, () -> test.convertLead("Sausage"));
     }
+
+
 
     @Test
     void testConvertLeadPositive() {
@@ -138,6 +140,38 @@ class MainMenuTest {
             System.setIn(stdin); /// Resets System.in to default state
         }
     }
+
+    /* May come back to this to test console output if we have time
+    @Test
+    void testConvertLeadThrowsNoSuchValueException() throws NoSuchValueException, AWTException {
+        String data = "convert lead 50\r"; // Used to simulate user input
+        String expected = "There is no Lead that matches that id."; //Used to check system output
+        InputStream stdin = System.in; // Used to store default System.in
+        PrintStream stdout = System.out; //Used to store default System.out
+        PrintStream originalErr = System.err;
+
+        try {
+            System.setIn(new ByteArrayInputStream(data.getBytes())); // Sets System.In to test1
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            PrintStream printStream = new PrintStream((baos));
+
+            System.setOut(printStream);
+
+
+            MainMenu test = new MainMenu(); // Creates a sales associate to test method
+            //test::OS;
+            String lines = baos.toString();
+            //String lines = baos.toString();
+                    //.split(System.lineSeparator());
+            String toCheck = lines;
+            Assertions.assertEquals(expected, toCheck);
+        }finally {
+            System.setIn(stdin); /// Resets System.in to default state
+            System.setOut(stdout); /// Resets System.out to default state
+        }
+    }
+*/
+
 
     @Test
     void showLeads() {
