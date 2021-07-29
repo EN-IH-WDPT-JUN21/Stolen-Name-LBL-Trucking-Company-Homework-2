@@ -2,6 +2,7 @@ package com.ironhack;//Extends com.ironhack.ClientInformation class to retain Un
 
 import com.ironhack.enums.Status;
 import com.ironhack.enums.Truck;
+import com.ironhack.exceptions.ExceedsMaxValue;
 
 public class Opportunity extends ClientInformation {
 
@@ -22,7 +23,7 @@ public class Opportunity extends ClientInformation {
     public Opportunity() {
     }
 
-    public Opportunity(Truck product, int quantity, Contact decisionMaker) {
+    public Opportunity(Truck product, int quantity, Contact decisionMaker) throws ExceedsMaxValue {
         setTruck(product);
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
@@ -54,7 +55,13 @@ public class Opportunity extends ClientInformation {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(int quantity) throws ExceedsMaxValue {
+         if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be positive. Please try again.");
+        } if (String.valueOf(quantity).length() > 17) {
+            throw new ExceedsMaxValue("Exceeds maximum value. Please try again.");
+        }
+
         this.quantity = quantity;
     }
 
