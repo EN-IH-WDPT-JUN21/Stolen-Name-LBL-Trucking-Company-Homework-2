@@ -2,6 +2,7 @@ package com.ironhack.enums;
 
 import com.ironhack.exceptions.EmptyStringException;
 import com.ironhack.exceptions.InvalidEnumException;
+import com.ironhack.exceptions.NameContainsNumbersException;
 
 public enum Industry {
     PRODUCE, ECOMMERCE, MEDICAL, OTHER, MANUFACTURING;

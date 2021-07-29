@@ -20,7 +20,7 @@ class MainMenuTest {
 
 
     @BeforeEach
-    void setUp() throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxValue {
+    void setUp() throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxLength {
         counterStatus = ClientInformation.getUniqueID();
         ClientInformation.setUniqueID(0);
         lead1 = new Lead("TestOne", "123546", "test1@test.gmail.com", "TestCompany1");
@@ -98,7 +98,7 @@ class MainMenuTest {
         }
     }
     @Test
-    void TestCreateAccountPositive() throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxValue {
+    void TestCreateAccountPositive() throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxLength {
         String data = "Produce \n 200 \n Stourbridge \n England \n"; // Used to simulate user input
         InputStream stdin = System.in; // Used to store default System.in
 
@@ -159,5 +159,6 @@ class MainMenuTest {
     @Test
     void lookUpLeadId() {
     }
+
 
 }

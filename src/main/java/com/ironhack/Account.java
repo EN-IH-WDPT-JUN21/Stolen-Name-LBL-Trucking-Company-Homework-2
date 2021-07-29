@@ -2,14 +2,13 @@ package com.ironhack;
 
 import com.ironhack.enums.Industry;
 import com.ironhack.exceptions.EmptyStringException;
-import com.ironhack.exceptions.ExceedsMaxValue;
+import com.ironhack.exceptions.ExceedsMaxLength;
 import com.ironhack.exceptions.InvalidCountryException;
 import com.ironhack.exceptions.NameContainsNumbersException;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class Account extends ClientInformation{
 
@@ -35,7 +34,7 @@ public class Account extends ClientInformation{
     }
 
 
-    public Account(Industry industry, int employeeCount, String city, String country, Contact contact, Opportunity opportunity) throws NameContainsNumbersException, EmptyStringException, InvalidCountryException, ExceedsMaxValue {
+    public Account(Industry industry, int employeeCount, String city, String country, Contact contact, Opportunity opportunity) throws NameContainsNumbersException, EmptyStringException, InvalidCountryException, ExceedsMaxLength {
         setIndustry(industry);
         setEmployeeCount(employeeCount);
         setCity(city);
@@ -60,11 +59,9 @@ public class Account extends ClientInformation{
         return employeeCount;
     }
 
-    public void setEmployeeCount(int employeeCount) throws ExceedsMaxValue {
+    public void setEmployeeCount(int employeeCount) throws ExceedsMaxLength {
         if (employeeCount <= 0) {
             throw new IllegalArgumentException("Employee count must be positive. Please try again.");
-        } else if (String.valueOf(employeeCount).length() > 17){
-            throw new ExceedsMaxValue("Exceeds maximum value. Please try again.");
         }
 
         this.employeeCount = employeeCount;
@@ -74,14 +71,15 @@ public class Account extends ClientInformation{
         return city;
     }
 
-    public void setCity(String city) throws EmptyStringException, NameContainsNumbersException, IllegalArgumentException, ExceedsMaxValue {
+    public void setCity(String city) throws EmptyStringException, NameContainsNumbersException, IllegalArgumentException, ExceedsMaxLength {
         if (city.isEmpty()) {
             throw new EmptyStringException("No city input. Please try again.");
         }
         else if(!city.matches("[a-zA-Z\\u00C0-\\u00FF]+")){
-            throw new NameContainsNumbersException( "City can not contain numbers. Please try again");
+            throw new NameContainsNumbersException( "City can not contain numbers. Please try again.");
+
         } else if(city.length()>25){
-            throw new ExceedsMaxValue( "Exceeds maximum value. Please try again.");
+            throw new ExceedsMaxLength( "Exceeds maximum value of 25 characters. Please try again.");
         }
 
         this.city = city;
@@ -91,7 +89,7 @@ public class Account extends ClientInformation{
         return country;
     }
 
-    public void setCountry(String country) throws InvalidCountryException, NameContainsNumbersException, EmptyStringException {
+    public void setCountry(String country) throws InvalidCountryException, EmptyStringException, ExceedsMaxLength {
 
         /*List<String> countries = new ArrayList<>();
 
@@ -109,11 +107,11 @@ public class Account extends ClientInformation{
         if (country.isEmpty()) {
             throw new EmptyStringException("No country input. Please try again.");
         }
-        else if(!country.matches("[a-zA-Z\\u00C0-\\u00FF]+")){
-            throw new NameContainsNumbersException( "Country can not contain numbers. Please try again");
+        else if(country.length()>25){
+            throw new ExceedsMaxLength("Exceeds maximum value of 25 characters. Please, try again.");
         }
         else if(!isValidCountry(country)){
-            throw new InvalidCountryException( "That's not a real country. Please try again.");
+            throw new InvalidCountryException( "That is not a real country. Please try again.");
         }
 
 
