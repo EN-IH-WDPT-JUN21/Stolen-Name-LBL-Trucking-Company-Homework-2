@@ -19,10 +19,6 @@ public class Main {
         Lead lead3 = new Lead("Natalia Shilyaeva", "563782789", "nattyshil@yahoo.com", "Nathy From Wonderland");
         //Login.login();
 
-        Lead lead1 = new Lead("Sebastian Marek Łabędź", "123 456 789", "labedz.sebastian.marek@gmail.com", "Wings of Freedom");
-        Lead lead2 = new Lead("Lee Dawson", "980 651 164", "ld@gmail.com", "LeeD");
-        Lead lead3 = new Lead("Natalia Shilyaeva", "563 782 789", "nattyshil@yahoo.com", "Nathy From Wonderland");
-
         Contact contact1 = new Contact("John Doe", "123475357", "alfa@beta.uk", "Kałasznikow");
         Contact contact2 = new Contact("Martha Steward", "123475357", "ms@wp.pl", "My own company");
         Contact contact3 = new Contact("George Truman", "123475357", "thisisverylongemail@gmail.com", "Truman Show");

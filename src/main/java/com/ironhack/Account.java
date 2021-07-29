@@ -75,7 +75,7 @@ public class Account extends ClientInformation{
             throw new EmptyStringException("No city input. Please try again.");
         }
         else if(!city.matches("[a-zA-Z\\u00C0-\\u00FF]+")){
-            throw new NameContainsNumbersException( "City can not contain numbers. Please try again");
+            throw new NameContainsNumbersException( "City can not contain numbers or special characters. Please try again");
         }
 
         this.city = city;

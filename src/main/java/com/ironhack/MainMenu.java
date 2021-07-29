@@ -314,7 +314,7 @@ public class MainMenu {
                     //createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
                 }
                 case "n" -> {// Should return to main menu here
-                    System.out.println(colorError + "You said no" + reset);
+                    //System.out.println(colorError + "You said no" + reset);
                     OS();
                 }
                 default -> throw new IllegalArgumentException(colorError + "Invalid input - please start again" + reset);
