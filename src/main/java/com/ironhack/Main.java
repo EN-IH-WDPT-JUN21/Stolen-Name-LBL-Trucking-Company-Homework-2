@@ -1,10 +1,7 @@
 package com.ironhack;
 
 import com.ironhack.enums.Truck;
-import com.ironhack.exceptions.EmailNotValidException;
-import com.ironhack.exceptions.EmptyStringException;
-import com.ironhack.exceptions.NameContainsNumbersException;
-import com.ironhack.exceptions.PhoneNumberContainsLettersException;
+import com.ironhack.exceptions.*;
 
 import java.awt.*;
 
@@ -12,7 +9,7 @@ public class Main {
 
     public static MainMenu menu = new MainMenu();
 
-    public static void main(String[] args) throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException {
+    public static void main(String[] args) throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxValue {
 
         Lead lead1 = new Lead("Sebastian Marek Labedz", "123456789", "labedz.sebastian.marek@gmail.com", "Wings of Freedom");
         Lead lead2 = new Lead("Lee Dawson", "980651164", "ld@gmail.com", "LeeD");

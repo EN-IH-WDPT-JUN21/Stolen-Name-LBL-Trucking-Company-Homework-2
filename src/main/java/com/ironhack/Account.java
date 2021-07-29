@@ -2,6 +2,7 @@ package com.ironhack;
 
 import com.ironhack.enums.Industry;
 import com.ironhack.exceptions.EmptyStringException;
+import com.ironhack.exceptions.ExceedsMaxValue;
 import com.ironhack.exceptions.InvalidCountryException;
 import com.ironhack.exceptions.NameContainsNumbersException;
 
@@ -34,7 +35,7 @@ public class Account extends ClientInformation{
     }
 
 
-    public Account(Industry industry, int employeeCount, String city, String country, Contact contact, Opportunity opportunity) throws NameContainsNumbersException, EmptyStringException, InvalidCountryException {
+    public Account(Industry industry, int employeeCount, String city, String country, Contact contact, Opportunity opportunity) throws NameContainsNumbersException, EmptyStringException, InvalidCountryException, ExceedsMaxValue {
         setIndustry(industry);
         setEmployeeCount(employeeCount);
         setCity(city);
@@ -59,9 +60,11 @@ public class Account extends ClientInformation{
         return employeeCount;
     }
 
-    public void setEmployeeCount(int employeeCount) {
+    public void setEmployeeCount(int employeeCount) throws ExceedsMaxValue {
         if (employeeCount <= 0) {
             throw new IllegalArgumentException("Employee count must be positive. Please try again.");
+        } else if (String.valueOf(employeeCount).length() > 17){
+            throw new ExceedsMaxValue("Exceeds maximum value. Please try again.");
         }
 
         this.employeeCount = employeeCount;
@@ -71,12 +74,14 @@ public class Account extends ClientInformation{
         return city;
     }
 
-    public void setCity(String city) throws EmptyStringException, NameContainsNumbersException {
+    public void setCity(String city) throws EmptyStringException, NameContainsNumbersException, IllegalArgumentException, ExceedsMaxValue {
         if (city.isEmpty()) {
             throw new EmptyStringException("No city input. Please try again.");
         }
         else if(!city.matches("[a-zA-Z\\u00C0-\\u00FF]+")){
             throw new NameContainsNumbersException( "City can not contain numbers. Please try again");
+        } else if(city.length()>25){
+            throw new ExceedsMaxValue( "Exceeds maximum value. Please try again.");
         }
 
         this.city = city;

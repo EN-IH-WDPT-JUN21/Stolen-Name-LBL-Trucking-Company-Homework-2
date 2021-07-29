@@ -1,9 +1,6 @@
 package com.ironhack;
 
-import com.ironhack.exceptions.EmailNotValidException;
-import com.ironhack.exceptions.EmptyStringException;
-import com.ironhack.exceptions.NameContainsNumbersException;
-import com.ironhack.exceptions.PhoneNumberContainsLettersException;
+import com.ironhack.exceptions.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +16,7 @@ public class Contact extends Lead {
     private static final String colorHeadlineBold = "\033[1;34m";
     private static final String reset = "\u001B[0m";
 
-    public Contact(String name, String phoneNumber, String email, String companyName) throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException {
+    public Contact(String name, String phoneNumber, String email, String companyName) throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxValue {
         super(name, phoneNumber, email, companyName);
     }
 

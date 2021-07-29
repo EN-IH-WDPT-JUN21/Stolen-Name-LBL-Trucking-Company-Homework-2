@@ -158,6 +158,8 @@ public class MainMenu {
                             System.out.println(colorError + e.getMessage());
                         } catch (NameContainsNumbersException e) {
                             System.out.println(colorError + e.getMessage());
+                        } catch (ExceedsMaxValue e) {
+                            System.out.println(colorError + e.getMessage());
                         }
                     }
 
@@ -172,6 +174,8 @@ public class MainMenu {
                         }catch (EmptyStringException e) {
                             System.out.println(colorError + e.getMessage());
                         } catch (PhoneNumberContainsLettersException e) {
+                            System.out.println(colorError + e.getMessage());
+                        } catch (ExceedsMaxValue e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
@@ -189,6 +193,8 @@ public class MainMenu {
                             System.out.println(colorError + e.getMessage());
                         } catch (EmailNotValidException e) {
                             System.out.println(colorError + e.getMessage());
+                        } catch (ExceedsMaxValue e) {
+                            System.out.println(colorError + e.getMessage());
                         }
                     }
 
@@ -202,6 +208,8 @@ public class MainMenu {
                             newLead.setCompanyName(scanner.nextLine().trim());
                             valid = true;
                         }catch(EmptyStringException e){
+                            System.out.println(colorError + e.getMessage());
+                        } catch (ExceedsMaxValue e) {
                             System.out.println(colorError + e.getMessage());
                         }
 
@@ -218,7 +226,7 @@ public class MainMenu {
             }
         } catch (IllegalArgumentException e) {
 
-            System.out.println(colorError + "\n***Invalid input - please start again***\n" + reset);
+            System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
             newLead();
         }
         return null;
@@ -264,9 +272,11 @@ public class MainMenu {
                         try {
                             newOpp.setQuantity(Integer.parseInt(scanner.nextLine().trim()));
                             valid = true;
-                        }catch (NumberFormatException  e) {
-                            System.out.println(colorError + "You have to input a positive number. Please, try again.");
-                        }catch (IllegalArgumentException e) {
+                        }//catch (NumberFormatException  e) {
+                            //System.out.println(colorError + "You have to input a positive number. Please, try again.");}
+                        catch (IllegalArgumentException e) {
+                            System.out.println(colorError + e.getMessage());
+                        } catch (ExceedsMaxValue e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
@@ -321,7 +331,7 @@ public class MainMenu {
             }
         } catch (Exception e) {
 
-            System.out.println(colorError + "\n***Invalid input - please start again***\n" + reset);
+            System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
             convertLead(id); // Catches errors and returns to start of method - Is there a simple alternative?
         }
         return null;
@@ -360,9 +370,9 @@ public class MainMenu {
                 try {
                     newAccount.setEmployeeCount(Integer.parseInt(scanner.nextLine().trim()));
                     valid = true;
-                } catch (NumberFormatException  e) {
-                    System.out.println(colorError + "You have to input a positive number. Please, try again.");
-                }catch (IllegalArgumentException e) {
+                } catch (IllegalArgumentException e) {
+                    System.out.println(colorError + e.getMessage());
+                } catch (ExceedsMaxValue e) {
                     System.out.println(colorError + e.getMessage());
                 }
             }
@@ -378,6 +388,8 @@ public class MainMenu {
                 }catch (EmptyStringException e) {
                     System.out.println(colorError + e.getMessage());
                 } catch (NameContainsNumbersException e) {
+                    System.out.println(colorError + e.getMessage());
+                } catch (ExceedsMaxValue e) {
                     System.out.println(colorError + e.getMessage());
                 }
             }
@@ -406,7 +418,7 @@ public class MainMenu {
             return newAccount;
         } catch (Exception e) {
 
-            System.out.println(colorError + "\n***Invalid input - please start again***\n" + reset);
+            System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
             createAccount(opportunity); // Catches errors and returns to start of method - Is there a better way??
         }
         return null;
@@ -652,7 +664,7 @@ public class MainMenu {
             }
 
         } catch (Exception e) {
-            System.out.println(colorError + "\n***Invalid input - please start again***\n" + reset);
+            System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
             closeLost(id);
         }
     }
@@ -697,7 +709,7 @@ public class MainMenu {
             }
 
         } catch (Exception e) {
-            System.out.println(colorError + "\n***Invalid input - please start again***\n" + reset);
+            System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
             closeLost(id);
         }
     }
