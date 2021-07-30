@@ -270,7 +270,7 @@ public class MainMenu {
         /*Scanner scanner = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);*/
         try {
-            switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
+            switch (scanner.nextLine().trim().toLowerCase()) {
                 case "y" -> {
                     Opportunity newOpp = new Opportunity();
 
@@ -325,7 +325,7 @@ public class MainMenu {
                                       colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════╣");
                     System.out.println(theOpportunities.get(newOpp.getId()));
                     System.out.println(colorInput + "Press Enter to continue..." + reset);
-                    scanner2.nextLine();
+                    scanner.nextLine();
                     System.out.println(colorMain + "╔════════════╦═════ " + colorMainBold + "New Contact created" + colorMain + " ═══════════════════╦══════════════════════╦══════════════════════════════════════════╦═════════════════════════════════════════════╗" + reset);
                     System.out.printf(String.format("%-1s %-17s %-1s %-50s %-1s %-27s %-1s %-47s %-1s %-50s %-1s\n",
                                                     colorMain + "║",
@@ -342,7 +342,7 @@ public class MainMenu {
                                                     colorMain + "╠════════════╬═════════════════════════════════════════════╬══════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════════════╣" + reset));
                     System.out.println(theContacts.get(newContact.getId()));
                     System.out.println(colorInput + "Press Enter to continue..." + reset);
-                    scanner2.nextLine();
+                    scanner.nextLine();
                     return newOpp;
                     //createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
                 }

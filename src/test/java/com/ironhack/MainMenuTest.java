@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.io.*;
 
 class MainMenuTest {
@@ -73,30 +74,31 @@ class MainMenuTest {
 
     @Test
     void testConvertLeadPositive() throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, ExceedsMaxLength, PhoneNumberContainsLettersException {
-        //Assertions.assertEquals(0, MainMenu.theOpportunities.size());
-        //Assertions.assertEquals(0, MainMenu.theContacts.size());
-        MainMenu test = new MainMenu(); // Creates a sales associate to test method
-
-        String data = "y \n box \n 20 \n"; // Used to simulate user input
+        Assertions.assertEquals(0, MainMenu.theOpportunities.size());
+        Assertions.assertEquals(0, MainMenu.theContacts.size());
+        String data = "y \n box \n 20 \n \n \n"; // Used to simulate user input
         InputStream stdin = System.in; // Used to store default System.in
-        Contact testContact = new Contact(lead1.getName(), lead1.getPhoneNumber(), lead1.getEmail(),
-                lead1.getCompanyName());
-
+        Lead lead = MainMenu.theLeads.get(lead1.getId());
         try {
             System.setIn(new ByteArrayInputStream(data.getBytes())); // Sets System.In to test1
             //int oppHashMapSize = MainMenu.theOpportunities.size();
             //int conHashMapSize = MainMenu.theContacts.size();
-
-            Opportunity newOpp = test.convertLead(lead1.getId());
+            MainMenu test = new MainMenu(); // Creates a sales associate to test method
+            Opportunity newOpp = test.convertLead(String.valueOf(lead.getId()));
             //Assertions check Object created correctly and added to hashmap
             //Assertions.assertEquals(oppHashMapSize + 1, MainMenu.theOpportunities.size()); // Checks it's added to HashMap
             Assertions.assertEquals(Truck.BOX, MainMenu.theOpportunities.get(newOpp.getId()).getProduct());
             Assertions.assertEquals(20, MainMenu.theOpportunities.get(newOpp.getId()).getQuantity());
             //Assertions.assertEquals(conHashMapSize + 1, MainMenu.theContacts.size()); // Checks that new lead is added to array
+            Assertions.assertEquals("TESTONE", newOpp.getDecisionMaker().getName());
+            Assertions.assertEquals("TESTCOMPANY1", newOpp.getDecisionMaker().getCompanyName());
+            Assertions.assertEquals("123546", newOpp.getDecisionMaker().getPhoneNumber());
+            Assertions.assertEquals("TEST1@TEST.GMAIL.COM", newOpp.getDecisionMaker().getEmail());
         } finally {
             System.setIn(stdin); /// Resets System.in to default state
         }
     }
+
     @Test
     void TestCreateAccountPositive() throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxLength {
         String data = "Produce \n 200 \n Stourbridge \n United Kingdom \n"; // Used to simulate user input
@@ -199,7 +201,7 @@ class MainMenuTest {
 
         String data = "y";
         InputStream stdin = System.in;
-        MainMenu test = new MainMenu();
+
         Contact testContact = new Contact("TestContact", "1234567", "email@email.com",
                 "TestContactCompany");
         Opportunity testOpp = new Opportunity(Truck.HYBRID, 30, testContact);
@@ -207,6 +209,7 @@ class MainMenuTest {
 
         try {
             System.setIn(new ByteArrayInputStream(data.getBytes()));
+            MainMenu test = new MainMenu();
             test.closeLost(testOpp.getId());
             Assertions.assertEquals(Status.CLOSED_LOST, MainMenu.theOpportunities.get(testOpp.getId()).getStatus());
 
