@@ -64,6 +64,9 @@ public class MainMenu {
 
     public void OS() throws RuntimeException, AWTException {
 
+        Scanner scanner = new Scanner(System.in);
+        Scanner scanner2 = new Scanner(System.in);
+
         System.out.println("\n" + colorHeadline + colorLogo
                                    + "                                                                                                \n" +
                                    "                                         *#### #####        ###################*   *####*         \n" +
@@ -222,6 +225,7 @@ public class MainMenu {
                 }
                 case "n" -> // Would normally go back in the menu at this point
                     OS();
+
                 default -> throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException | AWTException e) {
@@ -323,7 +327,6 @@ public class MainMenu {
                 }
                 case "n" ->
                     OS();
-
                 default -> throw new IllegalArgumentException(colorError + "Invalid input - please start again" + reset);
             }
         } catch (Exception e) {
@@ -597,7 +600,7 @@ public class MainMenu {
                                   colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════╣");
         System.out.println(opp);
         System.out.println(colorInput + "Would you like to change the status of this opportunity to " + colorTable + "LOST?   y / n" + reset);
-        Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
         try {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
                 case "y": {
