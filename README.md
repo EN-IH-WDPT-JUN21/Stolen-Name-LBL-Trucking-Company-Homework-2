@@ -29,7 +29,7 @@ Information Display
 
 <img alt="information display example" src="https://github.com/EN-IH-WDPT-JUN21/Stolen-Name-LBL-Trucking-Company-Homework-2/blob/Natalia/Screenshots/output%20screen.png">
 
-Our uniform UI throught allows the user to easily find and understand information. 
+Our uniform UI throughout allows the user to easily find and understand information. 
 We also introduced various colours to allow the user to separate blocks of information from one another. 
 For example, all error methods are displayed in red colour.
 
@@ -48,7 +48,7 @@ How to
 
 Firstly, you will need to log on. If you want to have full functionality, use ***Admin*** as username and ***admin*** as password.
 Alternatively, if you just want to have a little nosey, you can use username ***Guest*** and password ***guest***. 
-The *guest* access will allow you to view things but won't allow you to change anything. We don't want random curiosity mess up our CRM :P
+The *guest* access will allow you to view the information stored but won't allow you to change anything. We don't want random curiosity mess up our CRM :P
 
 <img alt="login screenshot" src="https://github.com/EN-IH-WDPT-JUN21/Stolen-Name-LBL-Trucking-Company-Homework-2/blob/Natalia/Screenshots/login%20screen.png">
 
