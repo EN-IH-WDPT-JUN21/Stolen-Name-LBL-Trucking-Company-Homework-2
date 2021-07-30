@@ -678,7 +678,7 @@ public class MainMenu {
 
         } catch (Exception e) {
             System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
-            closeLost(id);
+            closeWon(id);
         }
     }
 
