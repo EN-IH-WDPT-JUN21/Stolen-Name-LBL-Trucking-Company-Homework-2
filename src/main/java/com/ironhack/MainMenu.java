@@ -18,6 +18,7 @@ public class MainMenu {
     public static Map<String, Opportunity> theOpportunities = new HashMap<>();
 
     Scanner scanner = new Scanner(System.in);
+    Scanner scanner2 = new Scanner(System.in);
 
     enum consoleTextColor {
         ANSI_BLACK("\033[0;30m"),
@@ -91,7 +92,7 @@ public class MainMenu {
                                    + "║ 11. To quit " + colorHeadline + "- type: 'quit'" + colorMain + "                                                                        ║\n"
                                    + "╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝\n" + reset);
 
-        conoleFocusRunOnce();
+        consoleFocusRunOnce();
 
         try {
 
@@ -151,7 +152,7 @@ public class MainMenu {
                     while (!valid) {
                         System.out.println(colorInput + "\nPlease input the customer's name: " + reset);
                         try {
-                            newLead.setName(scanner.nextLine().trim());
+                            newLead.setName(scanner.nextLine().trim().toUpperCase());
                             valid = true;
                         } catch (EmptyStringException e) {
                             System.out.println(colorError + e.getMessage());
@@ -168,7 +169,7 @@ public class MainMenu {
                     while (!valid) {
                         System.out.println(colorInput + "\nPlease input the customer's phone number: " + reset);
                         try{
-                            newLead.setPhoneNumber(scanner.nextLine().trim());
+                            newLead.setPhoneNumber(scanner.nextLine().trim().toUpperCase());
                             valid = true;
                         }catch (EmptyStringException e) {
                             System.out.println(colorError + e.getMessage());
@@ -186,7 +187,7 @@ public class MainMenu {
                     while (!valid) {
                         System.out.println(colorInput + "\nPlease input the customer's email address: " + reset);
                         try {
-                            newLead.setEmail(scanner.nextLine().trim());
+                            newLead.setEmail(scanner.nextLine().trim().toUpperCase());
                             valid = true;
                         }catch (EmptyStringException e) {
                             System.out.println(colorError + e.getMessage());
@@ -204,7 +205,7 @@ public class MainMenu {
                     while (!valid) {
                         System.out.println(colorInput + "\nPlease input the customer's company name: " + reset);
                         try {
-                            newLead.setCompanyName(scanner.nextLine().trim());
+                            newLead.setCompanyName(scanner.nextLine().trim().toUpperCase());
                             valid = true;
                         }catch(EmptyStringException e){
                             System.out.println(colorError + e.getMessage());
@@ -220,10 +221,10 @@ public class MainMenu {
                     return newLead;
                 }
                 case "n" -> // Would normally go back in the menu at this point
-                        System.out.println(colorError + "You said no" + reset);
+                    OS();
                 default -> throw new IllegalArgumentException();
             }
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | AWTException e) {
 
             System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
             newLead();
@@ -241,8 +242,8 @@ public class MainMenu {
                            colorTable + lead.getCompanyName() +
                            colorInput + " into an opportunity?" +
                            colorTable + "    y / n " + reset);
-        Scanner scanner = new Scanner(System.in);
-        Scanner scanner2 = new Scanner(System.in);
+        /*Scanner scanner = new Scanner(System.in);
+        Scanner scanner2 = new Scanner(System.in);*/
         try {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
                 case "y" -> {
@@ -266,7 +267,7 @@ public class MainMenu {
                     valid = false;
 
                     while (!valid) {
-                        System.out.println(colorInput + "\nPlease input the quantity that " + lead.getCompanyName() + " is interested in: " + reset);
+                        System.out.println(colorInput + "\nPlease input the quantity that " + colorTable + lead.getCompanyName() + colorInput + " is interested in: " + reset);
 
                         try {
                             newOpp.setQuantity(Integer.parseInt(scanner.nextLine().trim()));
@@ -280,7 +281,7 @@ public class MainMenu {
 
                     valid = false;
 
-                    Contact newContact = new Contact(lead.getName(), lead.getPhoneNumber(), lead.getEmail(), lead.getCompanyName()); // Converts lead into contact
+                    Contact newContact = new Contact(lead.getName().toUpperCase(), lead.getPhoneNumber().toUpperCase(), lead.getEmail().toUpperCase(), lead.getCompanyName().toUpperCase()); // Converts lead into contact
                     newOpp.setDecisionMaker(newContact); // Assigns contact as the decisionMaker
                     theContacts.put(newContact.getId(), newContact);  // Adds contact to contact Map
                     theOpportunities.put(newOpp.getId(), newOpp); // Adds Opportunity to opportunities map
@@ -320,10 +321,9 @@ public class MainMenu {
                     return newOpp;
                     //createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
                 }
-                case "n" -> {// Should return to main menu here
-                    //System.out.println(colorError + "You said no" + reset);
+                case "n" ->
                     OS();
-                }
+
                 default -> throw new IllegalArgumentException(colorError + "Invalid input - please start again" + reset);
             }
         } catch (Exception e) {
@@ -580,63 +580,6 @@ public class MainMenu {
                               theOpportunities.get(id).getDecisionMaker());
     }
 
-    //Change opportunity status
-    /*public void changeOppStatus(String id) {
-        Opportunity opp = theOpportunities.get(id);
-        System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "Opportunity details" + colorMain + " ════════════════╦═══════════════════╗" + reset);
-        System.out.printf("%-1s %-17s %-1s %-27s %-1s %-24s %-1s %-24s %-1s\n",
-                          colorMain + "║",
-                          colorHeadlineBold + "ID",
-                          colorMain + "║",
-                          colorHeadlineBold + "Status",
-                          colorMain + "║",
-                          colorHeadlineBold + "Product",
-                          colorMain + "║",
-                          colorHeadlineBold + "Quantity",
-                          colorMain + "║\n" +
-                                  colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════╣");
-        System.out.println(opp);
-        System.out.println(colorInput + "Would you like to change the status of this opportunity?" + colorTable + "   y / n" + reset);
-        Scanner scanner = new Scanner(System.in);
-        try {
-            switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
-                case "y": {
-
-                     valid = false;
-                     while (!valid) {
-                       System.out.println(colorInput + "\nPlease select the status you would like to change to?\n" +
-                                               colorTable + "OPEN, CLOSED_WON, CLOSED_LOST" + reset);           //Do we want to keep open option?
-                        try {
-                            opp.setStatus(Status.getStatus(scanner.nextLine().trim().toUpperCase(Locale.ROOT)));
-                            valid = true;
-                        } catch (EmptyStringException e) {
-                            System.out.println(colorError + e.getMessage());
-                        } catch (InvalidEnumException e) {
-                            System.out.println(colorError + e.getMessage());
-                        }
-                    }
-                    valid = false;
-
-
-                    System.out.println(colorMain + "\n═════════════ " + colorMainBold + "Status Changed!" + colorMain + " ═════════════" + reset);
-                }
-                break;
-                case "n": {
-                    System.out.println(colorError + "You said no" + reset);
-                    OS();
-                }
-                break;
-
-                default:
-                    throw new IllegalArgumentException(colorError + "Invalid input - please try again" + reset);
-            }
-
-        } catch (Exception e) {
-            System.out.println(colorError + "\n***Invalid input - please start again***\n" + reset);
-            changeOppStatus(id);
-        }
-    }*/
-
     //Change opportunity status to LOST
     public void closeLost(String id) {
         Opportunity opp = theOpportunities.get(id);
@@ -663,7 +606,6 @@ public class MainMenu {
                 }
                 break;
                 case "n": {
-                    System.out.println(colorError + "You said no" + reset);
                     OS();
                 }
                 break;
@@ -675,22 +617,6 @@ public class MainMenu {
         } catch (Exception e) {
             System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
             closeLost(id);
-        }
-    }
-
-    public void consoleFocus() throws AWTException {
-        Robot robot = new Robot();
-
-        robot.keyPress(KeyEvent.VK_ALT);
-        robot.keyPress(KeyEvent.VK_4);
-        robot.keyRelease(KeyEvent.VK_4);
-        robot.keyRelease(KeyEvent.VK_ALT);
-    }
-
-    public void conoleFocusRunOnce() throws AWTException {
-        if (!wasRun) {
-            wasRun = true;
-            consoleFocus();
         }
     }
 
@@ -720,7 +646,6 @@ public class MainMenu {
                 }
                 break;
                 case "n": {
-                    System.out.println(colorError + "You said no" + reset);
                     OS();
                 }
                 break;
@@ -732,6 +657,22 @@ public class MainMenu {
         } catch (Exception e) {
             System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
             closeLost(id);
+        }
+    }
+
+    public void consoleFocus() throws AWTException {
+        Robot robot = new Robot();
+
+        robot.keyPress(KeyEvent.VK_ALT);
+        robot.keyPress(KeyEvent.VK_4);
+        robot.keyRelease(KeyEvent.VK_4);
+        robot.keyRelease(KeyEvent.VK_ALT);
+    }
+
+    public void consoleFocusRunOnce() throws AWTException {
+        if (!wasRun) {
+            wasRun = true;
+            consoleFocus();
         }
     }
 
@@ -781,7 +722,7 @@ public class MainMenu {
                                    + "║ 7.  To quit " + colorHeadline + "- type: 'quit'" + colorMain + "                                                                        ║\n"
                                    + "╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝\n" + reset);
 
-        conoleFocusRunOnce();
+        consoleFocusRunOnce();
 
         try {
 

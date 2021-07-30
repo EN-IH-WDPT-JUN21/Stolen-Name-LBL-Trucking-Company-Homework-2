@@ -32,19 +32,13 @@ public class Contact extends Lead {
                               colorMain + "║",
                               colorTable + id,
                               colorMain + "║",
-                              colorTable + name,
+                              colorTable + name.toUpperCase(),
                               colorMain + "║",
                               colorTable + phoneNumber,
                               colorMain + "║",
-                              colorTable + email,
+                              colorTable + email.toUpperCase(),
                               colorMain + "║",
-                              colorTable + companyName,
+                              colorTable + companyName.toUpperCase(),
                               colorMain + "║"+ reset);
-        /*return colorMain +
-                "ID: " + getId() + "\n" +
-                "Name: " + getName() + "\n" +
-                "Phone Number: " + getPhoneNumber() + "\n" +
-                "Email Address: " + getEmail() + "\n" +
-                "Company name: " + getCompanyName();*/
     }
 }

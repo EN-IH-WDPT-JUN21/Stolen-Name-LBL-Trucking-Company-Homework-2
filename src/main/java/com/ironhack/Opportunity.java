@@ -84,11 +84,5 @@ public class Opportunity extends ClientInformation {
                               colorMain + "║",
                               colorTable + quantity,
                               colorMain + "║"+ reset);
-        /*return colorMain +
-                "\nID: " + id + "\n" +
-                "Contract status: " + status + "\n" +
-                "Product: " + product + "\n" +
-                "Quantity: " + quantity + "\n" +
-                "\nDecision maker:\n" + decisionMaker.toString();*/
     }
 }

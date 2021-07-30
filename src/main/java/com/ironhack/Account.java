@@ -123,13 +123,13 @@ public class Account extends ClientInformation{
                              colorMain + "║",
                              colorTable + contactList.get(0).getId(),
                              colorMain + "║",
-                             colorTable + contactList.get(0).getName(),
+                             colorTable + contactList.get(0).getName().toUpperCase(),
                              colorMain + "║",
                              colorTable + contactList.get(0).getPhoneNumber(),
                              colorMain + "║",
-                             colorTable + contactList.get(0).getEmail(),
+                             colorTable + contactList.get(0).getEmail().toUpperCase(),
                              colorMain + "║",
-                             colorTable + contactList.get(0).getCompanyName(),
+                             colorTable + contactList.get(0).getCompanyName().toUpperCase(),
                              colorMain + "║"+ reset);
     }
 
@@ -166,7 +166,7 @@ public class Account extends ClientInformation{
                              colorMain + "║",
                              colorTable + opportunityList.get(0).getQuantity(),
                              colorMain + "║",
-                             colorTable + opportunityList.get(0).getDecisionMaker().getName(),
+                             colorTable + opportunityList.get(0).getDecisionMaker().getName().toUpperCase(),
                              colorMain + "║"+ reset);
     }
 
