@@ -7,6 +7,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Locale;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
@@ -61,8 +63,8 @@ class AccountTest {
 
     @Test
     void setCountry_shouldWork() throws EmptyStringException, InvalidCountryException, ExceedsMaxLength {
-       acc.setCountry("Spain");
-      assertEquals("Spain", acc.getCountry());
+       acc.setCountry("SPAIN");
+      assertEquals("SPAIN", acc.getCountry());
     }
 
 

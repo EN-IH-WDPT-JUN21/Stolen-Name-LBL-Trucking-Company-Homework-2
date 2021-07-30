@@ -1,5 +1,7 @@
 package com.ironhack;
 
+import com.ironhack.exceptions.NoSuchValueException;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -108,7 +110,7 @@ public class Login implements ActionListener {
             frame.dispose();
             try {
                 menu.OS();
-            } catch (RuntimeException | AWTException ex) {
+            } catch (RuntimeException | AWTException | NoSuchValueException ex) {
             }
         } else if (getUsername().equals("Guest") && pass.equals("guest")) {
             frame.dispose();

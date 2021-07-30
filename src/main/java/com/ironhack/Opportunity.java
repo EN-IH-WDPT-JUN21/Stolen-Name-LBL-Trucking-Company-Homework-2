@@ -59,7 +59,6 @@ public class Opportunity extends ClientInformation {
          if (quantity <= 0) {
             throw new IllegalArgumentException("Quantity must be positive. Please try again.");
         }
-
         this.quantity = quantity;
     }
 

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Contact extends Lead {
 
-    public static Map<String, Contact> theContacts = new HashMap<>();
+    //public static Map<String, Contact> theContacts = new HashMap<>();
 
     private static final String colorMain = "\u001B[33m";
     private static final String colorMainBold = "\033[1;37m";
