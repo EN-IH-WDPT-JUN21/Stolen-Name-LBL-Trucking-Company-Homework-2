@@ -117,13 +117,13 @@ public class Lead extends ClientInformation {
                               colorMain + "║",
                               colorTable + getId(),
                               colorMain + "║",
-                              colorTable + getName(),
+                              colorTable + getName().toUpperCase(),
                               colorMain + "║",
                               colorTable + getPhoneNumber(),
                               colorMain + "║",
-                              colorTable + getEmail(),
+                              colorTable + getEmail().toUpperCase(),
                               colorMain + "║",
-                              colorTable + getCompanyName(),
+                              colorTable + getCompanyName().toUpperCase(),
                               colorMain + "║"+ reset);
     }
 
