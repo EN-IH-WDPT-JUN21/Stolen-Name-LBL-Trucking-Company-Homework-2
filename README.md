@@ -52,6 +52,7 @@ The *guest* access will allow you to view things but won't allow you to change a
 
 <img alt="login screenshot" src="https://github.com/EN-IH-WDPT-JUN21/Stolen-Name-LBL-Trucking-Company-Homework-2/blob/Natalia/Screenshots/login%20screen.png">
 
+Please, pay attention dual screen users! The login window tends to pop up in the second screen...
 In addition, all peer reviewers will receive their own login details (*we love to please those in power!*).
 
 **The code** is split in various sections, with the main chunk of code being in the **MainMenu**. Exceptions are handled in each class as well as in the MainMenu. A number of tests has been created to test inputs, validations and methods.
