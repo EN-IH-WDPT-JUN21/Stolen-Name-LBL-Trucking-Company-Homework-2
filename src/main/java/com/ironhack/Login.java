@@ -1,5 +1,7 @@
 package com.ironhack;
 
+import com.ironhack.exceptions.NoSuchValueException;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -35,7 +37,7 @@ public class Login implements ActionListener {
         panel.setBorder(new LineBorder(Color.BLACK, 2, true));
 
         title = new JLabel("LBL CRM SYSTEM LOGIN");
-        title.setBounds(40, 10, 200, 25);
+        title.setBounds(40, 10, 210, 25);
         title.setFont(new Font("Serif", Font.BOLD, 16));
         panel.add(title);
 
@@ -116,7 +118,7 @@ public class Login implements ActionListener {
             frame.dispose();
             try {
                 menu.OS();
-            } catch (RuntimeException | AWTException ex) {
+            } catch (RuntimeException | AWTException | NoSuchValueException ex) {
             }
         } else if (getUsername().equals("Guest") && pass.equals("guest")) {
             frame.dispose();
