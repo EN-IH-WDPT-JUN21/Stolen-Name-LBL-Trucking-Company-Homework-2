@@ -422,7 +422,7 @@ public class MainMenu {
     }
 
     public void showLeads() {
-        System.out.println(colorMain + "\n╔════════════╦═══ " + colorMainBold + "Total Number Of Leads: " + theLeads.size() + colorMain + " ════════════════╗" + reset);
+        System.out.println(colorMain + "\n╔════════════╦═══ " + colorMainBold + "TOTAL NUMBER OF LEADS: " + theLeads.size() + colorMain + " ════════════════╗" + reset);
         System.out.printf("%-1s %-17s %-1s %-50s %-1s\n",
                           colorMain + "║",
                           colorHeadlineBold + "ID",
@@ -440,7 +440,7 @@ public class MainMenu {
                               colorMain + "║",
                               colorTable + key,
                               colorMain + "║",
-                              colorTable + theLeads.get(key).getName(),
+                              colorTable + theLeads.get(key).getName().toUpperCase(),
                               colorMain + "║" + reset);
         }
     }
@@ -468,9 +468,9 @@ public class MainMenu {
                               colorMain + "║",
                               colorTable + key,
                               colorMain + "║",
-                              colorTable + theContacts.get(key).getName(),
+                              colorTable + theContacts.get(key).getName().toUpperCase(),
                               colorMain + "║",
-                              colorTable + theContacts.get(key).getCompanyName(),
+                              colorTable + theContacts.get(key).getCompanyName().toUpperCase(),
                               colorMain + "║" + reset);
         }
     }
@@ -512,7 +512,7 @@ public class MainMenu {
                               colorMain + "║",
                               colorTable + theOpportunities.get(key).getQuantity(),
                               colorMain + "║",
-                              colorTable + theOpportunities.get(key).getDecisionMaker().getName(),
+                              colorTable + theOpportunities.get(key).getDecisionMaker().getName().toUpperCase(),
                               colorMain + "║" + reset);
         }
     }
@@ -536,7 +536,7 @@ public class MainMenu {
                               colorMain + "║",
                               colorTable + key,
                               colorMain + "║",
-                              colorTable + theAccounts.get(key).getCompanyName(),
+                              colorTable + theAccounts.get(key).getCompanyName().toUpperCase(),
                               colorMain + "║" + reset);
         }
     }
