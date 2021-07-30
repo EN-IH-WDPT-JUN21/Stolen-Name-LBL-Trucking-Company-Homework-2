@@ -242,7 +242,7 @@ public class MainMenu {
                     OS();
                 default -> throw new IllegalArgumentException();
             }
-        } catch (IllegalArgumentException | AWTException e) {
+        } catch (IllegalArgumentException | AWTException | NoSuchValueException e) {
 
             System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
             newLead();
