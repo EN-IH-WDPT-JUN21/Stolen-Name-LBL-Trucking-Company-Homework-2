@@ -104,13 +104,18 @@ public class MainMenu {
 
             if (input[0].equals("quit")) {
                 System.out.println(colorMainBold + "\nThank you for using our LBL CRM SYSTEM!" + reset);
-                throw new RuntimeException(colorError + "Exiting the program" + reset);
-            } else if (input[0].equals("lookup") && input[1].equals("lead")) {
+                System.out.println(colorError + "Exiting the program" + reset);
+                System.exit(0);
+
+            } else if (input.length < 2) {
+                throw new IllegalArgumentException();
+            }
+            else if (input[0].equals("lookup") && input[1].equals("lead") && input.length>2) {
                 if(!theLeads.containsKey((input[2]).toString())){
                     throw new NoSuchValueException("There is no Lead that matches that id.");
                 }
                 System.out.println(lookUpLeadId(input[2]).toString());
-            } else if (input[0].equals("lookup") && input[1].equals("opportunity")) {
+            } else if (input[0].equals("lookup") && input[1].equals("opportunity") && input.length>2) {
                 if(!theOpportunities.containsKey((input[2]).toString())){
                     throw new NoSuchValueException("There is no Opportunity that matches that id.");
                 }
@@ -130,8 +135,6 @@ public class MainMenu {
                     throw new NoSuchValueException("There is no Opportunity that matches that id.");
                 }
                 closeWon(input[1]);
-            } else if (input.length < 2) {
-                throw new IllegalArgumentException();
             } else {
 
                 switch (input[0] + input[1]) {
