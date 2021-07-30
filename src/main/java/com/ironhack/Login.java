@@ -30,35 +30,37 @@ public class Login implements ActionListener {
 
         frame = new JFrame("LBL CRM SYSTEM LOGIN");
         frame.setUndecorated(true);
-        frame.setSize(350, 200);
+        frame.setSize(400, 230);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         panel = new JPanel(new BorderLayout());
         panel.setBorder(new LineBorder(Color.BLACK, 2, true));
 
         title = new JLabel("LBL CRM SYSTEM LOGIN");
-        title.setBounds(40, 10, 210, 25);
-        title.setFont(new Font("Serif", Font.BOLD, 16));
+        title.setBounds(40, 10, 300, 25);
+        title.setFont(new Font("Serif", Font.BOLD, 20));
         panel.add(title);
 
         user = new JLabel("Username");
-        user.setBounds(40, 60, 80, 25);
+        user.setFont(new Font("Serif", Font.BOLD, 16));
+        user.setBounds(50, 60, 120, 25);
         panel.add(user);
 
         userText = new JTextField(20);
-        userText.setBounds(130, 60, 165, 25);
+        userText.setBounds(140, 60, 165, 25);
         panel.add(userText);
 
         password = new JLabel("Password");
-        password.setBounds(40, 90, 80, 25);
+        password.setFont(new Font("Serif", Font.BOLD, 16));
+        password.setBounds(50, 90, 120, 25);
         panel.add(password);
 
         passwordText = new JPasswordField();
-        passwordText.setBounds(130, 90, 165, 25);
+        passwordText.setBounds(140, 90, 165, 25);
         panel.add(passwordText);
 
         submit = new JButton("Login");
-        submit.setBounds(213, 140, 80, 25);
+        submit.setBounds(223, 140, 80, 25);
         submit.addActionListener(new Login());
         panel.add(submit);
 
@@ -66,8 +68,10 @@ public class Login implements ActionListener {
         success.setBounds(30, 140, 300, 25);
         panel.add(success);
 
-        hint = new JLabel("Hint: Make your console full screen for a better experience");
-        hint.setBounds(10, 200, 300, 25);
+        hint = new JLabel("Make your console full screen for a better experience");
+        hint.setFont(new Font("Serif", Font.BOLD, 16));
+        hint.setForeground(Color.red);
+        hint.setBounds(20, 190, 380, 25);
         panel.add(hint);
 
         success2 = new JLabel();
@@ -102,19 +106,7 @@ public class Login implements ActionListener {
         || getUsername().equals("Urszula") && pass.equals("urszula")
         || getUsername().equals("Anna") && pass.equals("anna")
         || getUsername().equals("Admin") && pass.equals("admin")) {
-            //success.setText("Welcome to our LBL CRM SYSTEM");
-            /*JPanel text1 = new JPanel(new BorderLayout());
-            text1.setBounds(0, 0, 350, 200);
-            JLabel text = new JLabel("Welcome to our LBL CRM SYSTEM");
-            text.setFont(new Font("Serif", Font.BOLD, 18));
-            text1.add(text);
-            panel.setVisible(false);
-            frame.add(text1);*/
-            /*try {
-                TimeUnit.SECONDS.sleep(3);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }*/
+
             frame.dispose();
             try {
                 menu.OS();
