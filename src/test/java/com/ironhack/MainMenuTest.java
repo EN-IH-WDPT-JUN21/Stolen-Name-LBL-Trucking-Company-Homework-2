@@ -269,7 +269,7 @@ class MainMenuTest {
 
     @Test
     void lookUpLeadId_FindLead() {
-        Assertions.assertEquals("TestOne", theLeads.get(lead1.getId()).getName());
+        Assertions.assertEquals("TESTONE", theLeads.get(lead1.getId()).getName());
     }
 
 
