@@ -189,7 +189,7 @@ class MainMenuTest {
         test.showLeads();
 
         //Now you have to validate the output. It has to exactly mimic the output we created.
-        String expectedOutput  = colorMain + "\n╔════════════╦═══ " + colorMainBold + "TOTAL NUMBER OF LEADS: 3" + colorMain+ " ════════════════╗"  +
+        String expectedOutput  = colorMain + "\n╔════════════╦═══ " + colorMainBold + "Total Number Of Leads: 3" + colorMain+ " ════════════════╗"  +
         reset + "\n" + colorMain + "║ " + colorHeadlineBold + "ID         " + colorMain + "║ " + colorHeadlineBold+"Name                                        " + colorMain +"║" +
         "\n" + colorMain + "╠════════════╬═════════════════════════════════════════════╣" +
         reset + "\n" + colorMain + "║ " + colorTable + "1          " + colorMain+ "║ " + colorTable + "TESTONE                                     "+ colorMain + "║" +
@@ -275,7 +275,7 @@ class MainMenuTest {
 
         String data = "y";
         InputStream stdin = System.in;
-        MainMenu test = new MainMenu();
+
         Contact testContact = new Contact("TestContact", "1234567", "email@email.com",
                 "TestContactCompany");
         Opportunity testOpp = new Opportunity(Truck.HYBRID, 30, testContact);
@@ -283,6 +283,7 @@ class MainMenuTest {
 
         try {
             System.setIn(new ByteArrayInputStream(data.getBytes()));
+            MainMenu test = new MainMenu();
             test.closeLost(testOpp.getId());
             Assertions.assertEquals(Status.CLOSED_LOST, MainMenu.theOpportunities.get(testOpp.getId()).getStatus());
 
