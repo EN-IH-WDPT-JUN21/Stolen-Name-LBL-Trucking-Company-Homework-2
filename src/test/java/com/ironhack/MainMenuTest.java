@@ -86,8 +86,7 @@ class MainMenuTest {
         Assertions.assertEquals(0, MainMenu.theContacts.size());
         String data = "y \n box \n 20 \n \n \n"; // Used to simulate user input
         InputStream stdin = System.in; // Used to store default System.in
-        Lead lead = theLeads.get(lead1.getId());
-
+        Lead lead = MainMenu.theLeads.get(lead1.getId());
         try {
             System.setIn(new ByteArrayInputStream(data.getBytes())); // Sets System.In to test1
             //int oppHashMapSize = MainMenu.theOpportunities.size();
@@ -99,6 +98,10 @@ class MainMenuTest {
             Assertions.assertEquals(Truck.BOX, MainMenu.theOpportunities.get(newOpp.getId()).getProduct());
             Assertions.assertEquals(20, MainMenu.theOpportunities.get(newOpp.getId()).getQuantity());
             //Assertions.assertEquals(conHashMapSize + 1, MainMenu.theContacts.size()); // Checks that new lead is added to array
+            Assertions.assertEquals("TESTONE", newOpp.getDecisionMaker().getName());
+            Assertions.assertEquals("TESTCOMPANY1", newOpp.getDecisionMaker().getCompanyName());
+            Assertions.assertEquals("123546", newOpp.getDecisionMaker().getPhoneNumber());
+            Assertions.assertEquals("TEST1@TEST.GMAIL.COM", newOpp.getDecisionMaker().getEmail());
         } finally {
             System.setIn(stdin); /// Resets System.in to default state
         }
