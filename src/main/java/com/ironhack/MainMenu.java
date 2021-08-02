@@ -262,13 +262,12 @@ public class MainMenu {
 
         Lead lead = theLeads.get(id);
         System.out.println(colorInput + "\nWould you like to convert " +
-                           colorTable + lead.getName() +
+                           colorTable + lead.getName().toUpperCase() +
                            colorInput + " from " +
-                           colorTable + lead.getCompanyName() +
+                           colorTable + lead.getCompanyName().toUpperCase() +
                            colorInput + " into an opportunity?" +
                            colorTable + "    y / n " + reset);
-        /*Scanner scanner = new Scanner(System.in);
-        Scanner scanner2 = new Scanner(System.in);*/
+
         try {
             switch (scanner.nextLine().trim().toLowerCase()) {
                 case "y" -> {
@@ -277,7 +276,7 @@ public class MainMenu {
                     valid = false;
 
                     while (!valid) {
-                        System.out.println(colorInput + "\nPlease input the product that " + colorTable + lead.getCompanyName() + colorInput + " is interested in: \n " +
+                        System.out.println(colorInput + "\nPlease input the product that " + colorTable + lead.getCompanyName().toUpperCase() + colorInput + " is interested in: \n " +
                                 colorTable + "HYBRID, FLATBED OR BOX" + reset);
                         try {
                             newOpp.setTruck(Truck.getTruck(scanner.nextLine().trim().toUpperCase(Locale.ROOT)));
@@ -292,7 +291,7 @@ public class MainMenu {
                     valid = false;
 
                     while (!valid) {
-                        System.out.println(colorInput + "\nPlease input the quantity that " + colorTable + lead.getCompanyName() + colorInput + " is interested in: " + reset);
+                        System.out.println(colorInput + "\nPlease input the quantity that " + colorTable + lead.getCompanyName().toUpperCase() + colorInput + " is interested in: " + reset);
 
                         try {
                             newOpp.setQuantity(Integer.parseInt(scanner.nextLine().trim()));
@@ -417,7 +416,7 @@ public class MainMenu {
             valid = false;
 
             while (!valid) {
-                System.out.println(colorInput + "\nPlease input the Country for " + newAccount.getCompanyName() + ":  " + reset);
+                System.out.println(colorInput + "\nPlease input the Country for " + colorTable + newAccount.getCompanyName() + ":  " + reset);
                 try {
                     newAccount.setCountry(scanner.nextLine().trim().toUpperCase());
                     valid = true;

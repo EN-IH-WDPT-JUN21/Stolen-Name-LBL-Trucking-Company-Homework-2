@@ -4,6 +4,9 @@ import com.ironhack.enums.Industry;
 import com.ironhack.enums.Status;
 import com.ironhack.enums.Truck;
 import com.ironhack.exceptions.*;
+import org.junit.Assert;
+import org.junit.Rule;
+import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -99,6 +102,22 @@ class MainMenuTest {
         }
     }
 
+    @Rule
+    public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+
+    /*@Test
+    public void givenSystemOutRule_whenInvokePrintln_thenLogSuccess() {
+        Lead lead = MainMenu.theLeads.get(lead1.getId());
+        MainMenu test = new MainMenu(); // Creates a sales associate to test method
+        test.showLeads();
+
+        Assertions.assertEquals("║" + key +
+                                        colorMain + "║" +
+                                        colorTable + theLeads.get(key).getName().toUpperCase() +
+                                        colorMain + "║" + reset', systemOutRule.getLog()
+                .trim());
+    }*/
+
     @Test
     void TestCreateAccountPositive() throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxLength {
         String data = "Produce \n 200 \n Stourbridge \n United Kingdom \n"; // Used to simulate user input
@@ -192,7 +211,10 @@ class MainMenuTest {
 
     @Test
     void lookUpLeadId_FindLead() {
-        Assertions.assertEquals("TestOne", MainMenu.theLeads.get(lead1.getId()).getName());
+        Lead lead = MainMenu.theLeads.get(lead1.getId());
+        MainMenu test = new MainMenu();
+        //Assertions.assertEquals("TestOne", MainMenu.theLeads.get(lead1.getId()).getName());
+        Assertions.assertEquals("TestOne", test.lookUpLeadId(lead1.getId()).getName());
     }
 
 

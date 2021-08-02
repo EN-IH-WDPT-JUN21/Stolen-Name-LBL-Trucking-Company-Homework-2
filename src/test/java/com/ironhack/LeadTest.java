@@ -3,6 +3,7 @@ package com.ironhack;
 import com.ironhack.exceptions.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,17 +37,17 @@ class LeadTest {
 
     @Test
     void setName_throwsException_EmptyString() {
-        Assert.assertThrows(EmptyStringException.class, () -> { lead1.setName("");});
+        Assertions.assertThrows(EmptyStringException.class, () -> { lead1.setName("");});
     }
 
     @Test
     void setName_throwsException_ContainsNumbers() {
-        Assert.assertThrows(NameContainsNumbersException.class, () -> { lead1.setName("Lee1");});
+        Assertions.assertThrows(NameContainsNumbersException.class, () -> { lead1.setName("Lee1");});
     }
 
     @Test
     void setName_throwsException_ExceedsMaxCharacters() {
-        Assert.assertThrows(ExceedsMaxLength.class, () -> { lead1.setName("Arbitrary Name" +
+        Assertions.assertThrows(ExceedsMaxLength.class, () -> { lead1.setName("Arbitrary Name" +
                 "to test if the name exceeds the max length of forty three characters");});
     }
 
@@ -60,17 +61,17 @@ class LeadTest {
 
     @Test
     void setPhoneNumber_throwsException_EmptyString() {
-        Assert.assertThrows(EmptyStringException.class, () -> { lead1.setPhoneNumber("");});
+        Assertions.assertThrows(EmptyStringException.class, () -> { lead1.setPhoneNumber("");});
     }
 
     @Test
     void setPhoneNumber_throwsException_ContainsNumbers() {
-        Assert.assertThrows(PhoneNumberContainsLettersException.class, () -> { lead1.setPhoneNumber("123a56");});
+        Assertions.assertThrows(PhoneNumberContainsLettersException.class, () -> { lead1.setPhoneNumber("123a56");});
     }
 
     @Test
     void setPhoneNumber_throwsException_ExceedsMaxCharacters() {
-        Assert.assertThrows(ExceedsMaxLength.class, () -> { lead1.setPhoneNumber("12345678901234567890123");});
+        Assertions.assertThrows(ExceedsMaxLength.class, () -> { lead1.setPhoneNumber("12345678901234567890123");});
     }
 
     @Test
@@ -81,25 +82,25 @@ class LeadTest {
 
     @Test
     void setEmail_throwsException_EmptyString() {
-        Assert.assertThrows(EmptyStringException.class, () -> { lead1.setEmail("");});
+        Assertions.assertThrows(EmptyStringException.class, () -> { lead1.setEmail("");});
     }
 
     @Test
     void setEmail_throwsException_InvalidEmail() {
 
         //Wrong Format - Missing @
-        Assert.assertThrows(EmailNotValidException.class, () -> { lead1.setEmail("lead1mail.com");});
+        Assertions.assertThrows(EmailNotValidException.class, () -> { lead1.setEmail("lead1mail.com");});
 
         //Wrong Format - Missing .
-        Assert.assertThrows(EmailNotValidException.class, () -> { lead1.setEmail("lead1@mailcom");});
+        Assertions.assertThrows(EmailNotValidException.class, () -> { lead1.setEmail("lead1@mailcom");});
 
         // Invalid TLD
-        Assert.assertThrows(EmailNotValidException.class, () -> { lead1.setEmail("lead1@mail.crom");});
+        Assertions.assertThrows(EmailNotValidException.class, () -> { lead1.setEmail("lead1@mail.crom");});
     }
 
      @Test
     void setEmail_throwsException_ExceedsMaxCharacters() {
-         Assert.assertThrows(ExceedsMaxLength.class, () -> { lead1.setEmail("lead1withalotofcharactersfortesting@mail.com");});
+         Assertions.assertThrows(ExceedsMaxLength.class, () -> { lead1.setEmail("lead1withalotofcharactersfortesting@mail.com");});
      }
 
     @Test
@@ -111,12 +112,12 @@ class LeadTest {
 
     @Test
     void setCompanyName_throwsException_EmptyString() {
-        Assert.assertThrows(EmptyStringException.class, () -> { lead1.setCompanyName("");});
+        Assertions.assertThrows(EmptyStringException.class, () -> { lead1.setCompanyName("");});
     }
 
     @Test
     void setCompanyName_throwsException_ExceedsMaxCharacters() {
-        Assert.assertThrows(ExceedsMaxLength.class, () -> { lead1.setCompanyName("This is an extra long company" +
+        Assertions.assertThrows(ExceedsMaxLength.class, () -> { lead1.setCompanyName("This is an extra long company" +
                 "name with some extra characters");});
     }
 
