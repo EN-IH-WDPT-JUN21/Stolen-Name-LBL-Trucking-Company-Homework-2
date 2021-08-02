@@ -318,7 +318,7 @@ public class MainMenu {
                                       colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════╣");
                     System.out.println(theOpportunities.get(newOpp.getId()));
                     System.out.println(colorInput + "Press Enter to continue..." + reset);
-                    scanner2.nextLine();
+                    scanner.nextLine();
                     System.out.println(colorMain + "╔════════════╦═════ " + colorMainBold + "New Contact created" + colorMain + " ═══════════════════╦══════════════════════╦══════════════════════════════════════════╦═════════════════════════════════════════════╗" + reset);
                     System.out.printf(String.format("%-1s %-17s %-1s %-50s %-1s %-27s %-1s %-47s %-1s %-50s %-1s\n",
                                                     colorMain + "║",
@@ -335,7 +335,7 @@ public class MainMenu {
                                                     colorMain + "╠════════════╬═════════════════════════════════════════════╬══════════════════════╬══════════════════════════════════════════╬═════════════════════════════════════════════╣" + reset));
                     System.out.println(theContacts.get(newContact.getId()));
                     System.out.println(colorInput + "Press Enter to continue..." + reset);
-                    scanner2.nextLine();
+                    scanner.nextLine();
                     return newOpp;
                     //createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
                 }
@@ -675,7 +675,7 @@ public class MainMenu {
 
         } catch (Exception e) {
             System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
-            closeLost(id);
+            closeWon(id);
         }
     }
 
