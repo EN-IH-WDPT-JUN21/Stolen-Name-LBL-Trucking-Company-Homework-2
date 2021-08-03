@@ -184,11 +184,11 @@ class MainMenuTest {
     @Test
     void showLeads() {
 
-        MainMenu test = new MainMenu();
+        // After this all System.out.println() statements will come to outContent stream.
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        // After this all System.out.println() statements will come to outContent stream.
+        MainMenu test = new MainMenu();
         test.showLeads();
 
         //Now you have to validate the output. It has to exactly mimic the output we created.
@@ -207,11 +207,11 @@ class MainMenuTest {
     void showContacts() throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, ExceedsMaxLength, PhoneNumberContainsLettersException {
         Contact testContact = new Contact("TESTCONTACT", "1234567", "EMAIL@EMAIL.COM", "TESTCOMPANY");
         MainMenu.theContacts.put(testContact.getId(), testContact);
-        MainMenu test = new MainMenu();
+        // After this all System.out.println() statements will come to outContent stream.
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        // After this all System.out.println() statements will come to outContent stream.
+        MainMenu test = new MainMenu();
         test.showContacts();
 
         //Now you have to validate the output. It has to exactly mimic the output we created.
@@ -228,11 +228,10 @@ class MainMenuTest {
        Contact testContact = new Contact("TESTCONTACT", "1234567", "EMAIL@EMAIL.COM", "TESTCOMPANY");
        Opportunity testOpp = new Opportunity(Truck.HYBRID, 30, testContact);
        MainMenu.theOpportunities.put(testOpp.getId(), testOpp);
-       MainMenu test = new MainMenu();
+       // After this all System.out.println() statements will come to outContent stream.
        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
        System.setOut(new PrintStream(outContent));
-
-       // After this all System.out.println() statements will come to outContent stream.
+       MainMenu test = new MainMenu();
        test.showOpportunities();
 
        //Now you have to validate the output. It has to exactly mimic the output we created.
@@ -251,11 +250,10 @@ class MainMenuTest {
         Opportunity testOpp = new Opportunity(Truck.HYBRID, 30, testContact);
         Account testAcc = new Account(testContact, testOpp);
         MainMenu.theAccounts.put(testAcc.getId(), testAcc);
-        MainMenu test = new MainMenu();
+        // After this all System.out.println() statements will come to outContent stream.
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-
-        // After this all System.out.println() statements will come to outContent stream.
+        MainMenu test = new MainMenu();
         test.showAccounts();
 
         //Now you have to validate the output. It has to exactly mimic the output we created.
