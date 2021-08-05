@@ -3,14 +3,9 @@ package com.ironhack;
 import com.ironhack.enums.Truck;
 import com.ironhack.exceptions.*;
 
-import java.awt.*;
-
 public class Main {
 
-    public static MainMenu menu = new MainMenu();
-
-
-    public static void main(String[] args) throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxLength, NoSuchValueException {
+    public static void main(String[] args) throws NameContainsNumbersException, EmptyStringException, EmailNotValidException, PhoneNumberContainsLettersException, ExceedsMaxLength {
 
 
         Lead lead1 = new Lead("Sebastian Marek Labedz", "123456789", "labedzsebastian@gmail.co", "Wings of Freedom");
@@ -46,7 +41,7 @@ public class Main {
         MainMenu.theAccounts.put(account2.getId(), account2);
         MainMenu.theAccounts.put(account3.getId(), account3);
 
-        Login.login2();
+        Login.login();
 
     }
 }

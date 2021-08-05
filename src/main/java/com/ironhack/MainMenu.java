@@ -12,30 +12,23 @@ import java.util.*;
 
 public class MainMenu {
 
+    // Creates all HashMaps used in the program
     public static Map<String, Lead> theLeads = new HashMap<>();
     public static Map<String, Account> theAccounts = new HashMap<>();
     public static Map<String, Contact> theContacts = new HashMap<>();
     public static Map<String, Opportunity> theOpportunities = new HashMap<>();
 
     Scanner scanner = new Scanner(System.in);
-    Scanner scanner2 = new Scanner(System.in);
 
+    // Creates Enum with all ASCI codes that can change console text color
     enum consoleTextColor {
-        ANSI_BLACK("\033[0;30m"),
         ANSI_RED("\033[0;31m"),
         ANSI_GREEN("\033[0;32m"),
         ANSI_YELLOW("\033[0;33m"),
         ANSI_BLUE("\033[0;34m"),
-        ANSI_PURPLE("\033[0;35m"),
-        ANSI_CYAN("\033[0;36m"),
-        ANSI_WHITE("\033[0;37m"),
         ANSI_RESET("\u001B[0m"),
-        BLACK_BOLD("\033[1;30m"),
-        RED_BOLD("\033[1;31m"),
         GREEN_BOLD("\033[1;32m"),
-        YELLOW_BOLD("\033[1;33m"),
         BLUE_BOLD("\033[1;34m"),
-        PURPLE_BOLD("\033[1;35m"),
         CYAN_BOLD("\033[1;36m"),
         WHITE_BOLD("\033[1;37m");
 
@@ -59,16 +52,14 @@ public class MainMenu {
     private static boolean valid;
 
     public MainMenu() {
-
     }
 
+    // Shows menu for all users except Guest
     public void OS() throws RuntimeException, AWTException, NoSuchValueException {
 
-        Scanner scanner = new Scanner(System.in);
-        Scanner scanner2 = new Scanner(System.in);
-
-        System.out.println("\n" + colorHeadline + colorLogo
-                                   + "                                                                                                \n" +
+        // Prints Main Menu into console
+        System.out.println("\n" + colorLogo +
+                                   "                                                                                                  \n" +
                                    "                                         *#### #####        ###################*   *####*         \n" +
                                    "                         #################### #####        ######################  #####          \n" +
                                    "                    ,######              ### #####        #####            ###### #####           \n" +
@@ -95,6 +86,7 @@ public class MainMenu {
                                    + "║ 11. To quit " + colorHeadline + "- type: 'quit'" + colorMain + "                                                                        ║\n"
                                    + "╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝\n" + reset);
 
+        // After the menu is shown it focuses cursor inside console but only once during the program start
         consoleFocusRunOnce();
 
         try {
@@ -102,7 +94,8 @@ public class MainMenu {
             // Creates String array from scanner input
             String[] input = scanner.nextLine().trim().toLowerCase().split("\\s+");
 
-            if (input[0].equals("quit")) {
+            // Checks if input is equal to any of the options and if so runs specific code
+            if (input[0].equals("quit") && input.length == 1) {
                 System.out.println(colorMainBold + "\nThank you for using our LBL CRM SYSTEM!" + reset);
                 System.out.println(colorError + "Exiting the program" + reset);
                 System.exit(0);
@@ -135,10 +128,9 @@ public class MainMenu {
                     throw new NoSuchValueException("There is no Opportunity that matches that id.");
                 }
                 closeWon(input[1]);
-            } else {
+            } else if (input.length == 2){
 
                 switch (input[0] + input[1]) {
-                    //String x = input.substring(input.indexOf("Lead") + 3, input.length());
                     case "new" + "lead" -> newLead();
                     case "show" + "leads" -> showLeads();
                     case "show" + "opportunities" -> showOpportunities();
@@ -146,6 +138,8 @@ public class MainMenu {
                     case "show" + "accounts" -> showAccounts();
                     default -> throw new IllegalArgumentException();
                 }
+            } else {
+                throw new IllegalArgumentException(colorError + "\nInvalid input" + reset);
             }
         } catch (IllegalArgumentException | NullPointerException  e) {
             System.out.println(colorError + "\nInvalid input" + reset);
@@ -157,7 +151,6 @@ public class MainMenu {
         System.out.println(colorInput + "\nPress Enter to continue..." + reset);
         scanner.nextLine();
         OS();
-
     }
 
 
@@ -172,34 +165,26 @@ public class MainMenu {
                 case "y" -> {
                     Lead newLead = new Lead();
 
-                    //asks and validates customer's name
+                    //checks if restrictions for Customer name are met
                     while (!valid) {
                         System.out.println(colorInput + "\nPlease input the customer's name: " + reset);
                         try {
                             newLead.setName(scanner.nextLine().trim().toUpperCase());
                             valid = true;
-                        } catch (EmptyStringException e) {
-                            System.out.println(colorError + e.getMessage());
-                        } catch (NameContainsNumbersException e) {
-                            System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxLength e) {
+                        } catch (EmptyStringException | NameContainsNumbersException | ExceedsMaxLength e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
 
                     valid = false;
 
-                    //asks and validates customer's phone number
+                    //checks if restrictions for Phone number are met
                     while (!valid) {
-                        System.out.println(colorInput + "\nPlease input the customer's phone number: " + reset);
+                        System.out.println(colorInput + "\nPlease input the customer's phone number without spaces: " + reset);
                         try{
                             newLead.setPhoneNumber(scanner.nextLine().trim().toUpperCase());
                             valid = true;
-                        }catch (EmptyStringException e) {
-                            System.out.println(colorError + e.getMessage());
-                        } catch (PhoneNumberContainsLettersException e) {
-                            System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxLength e) {
+                        }catch (EmptyStringException | PhoneNumberContainsLettersException | ExceedsMaxLength e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
@@ -207,36 +192,28 @@ public class MainMenu {
                     valid = false;
 
 
-                    //asks and validates customer's e-mail address
+                    //checks if restrictions for E-mail address are met
                     while (!valid) {
                         System.out.println(colorInput + "\nPlease input the customer's email address: " + reset);
                         try {
                             newLead.setEmail(scanner.nextLine().trim().toUpperCase());
                             valid = true;
-                        }catch (EmptyStringException e) {
-                            System.out.println(colorError + e.getMessage());
-                        } catch (EmailNotValidException e) {
-                            System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxLength e) {
+                        }catch (EmptyStringException | EmailNotValidException | ExceedsMaxLength e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
 
                     valid = false;
 
-
-                    //asks and validates customer's company name
+                    //checks if restrictions for Company name are met
                     while (!valid) {
                         System.out.println(colorInput + "\nPlease input the customer's company name: " + reset);
                         try {
                             newLead.setCompanyName(scanner.nextLine().trim().toUpperCase());
                             valid = true;
-                        }catch(EmptyStringException e){
-                            System.out.println(colorError + e.getMessage());
-                        } catch (ExceedsMaxLength e) {
+                        }catch(EmptyStringException | ExceedsMaxLength e){
                             System.out.println(colorError + e.getMessage());
                         }
-
                     }
 
                     theLeads.put(newLead.getId(), newLead);
@@ -244,7 +221,7 @@ public class MainMenu {
                     System.out.println(theLeads.get(newLead.getId()));
                     return newLead;
                 }
-                case "n" -> // Would normally go back in the menu at this point
+                case "n" ->
                     OS();
 
                 default -> throw new IllegalArgumentException();
@@ -262,13 +239,12 @@ public class MainMenu {
 
         Lead lead = theLeads.get(id);
         System.out.println(colorInput + "\nWould you like to convert " +
-                           colorTable + lead.getName() +
+                           colorTable + lead.getName().toUpperCase() +
                            colorInput + " from " +
-                           colorTable + lead.getCompanyName() +
+                           colorTable + lead.getCompanyName().toUpperCase() +
                            colorInput + " into an opportunity?" +
                            colorTable + "    y / n " + reset);
-        /*Scanner scanner = new Scanner(System.in);
-        Scanner scanner2 = new Scanner(System.in);*/
+
         try {
             switch (scanner.nextLine().trim().toLowerCase()) {
                 case "y" -> {
@@ -276,23 +252,23 @@ public class MainMenu {
 
                     valid = false;
 
+                    // checks if restrictions for Product are met
                     while (!valid) {
-                        System.out.println(colorInput + "\nPlease input the product that " + colorTable + lead.getCompanyName() + colorInput + " is interested in: \n " +
+                        System.out.println(colorInput + "\nPlease input the product that " + colorTable + lead.getCompanyName().toUpperCase() + colorInput + " is interested in: \n " +
                                 colorTable + "HYBRID, FLATBED OR BOX" + reset);
                         try {
                             newOpp.setTruck(Truck.getTruck(scanner.nextLine().trim().toUpperCase(Locale.ROOT)));
                             valid = true;
-                        }catch (EmptyStringException e) {
-                            System.out.println(colorError + e.getMessage());
-                        } catch (InvalidEnumException e) {
+                        }catch (EmptyStringException | InvalidEnumException e) {
                             System.out.println(colorError + e.getMessage());
                         }
                     }
 
                     valid = false;
 
+                    // checks if restrictions for Quantity are met
                     while (!valid) {
-                        System.out.println(colorInput + "\nPlease input the quantity that " + colorTable + lead.getCompanyName() + colorInput + " is interested in: " + reset);
+                        System.out.println(colorInput + "\nPlease input the quantity that " + colorTable + lead.getCompanyName().toUpperCase() + colorInput + " is interested in: " + reset);
 
                         try {
                             newOpp.setQuantity(Integer.parseInt(scanner.nextLine().trim()));
@@ -344,7 +320,6 @@ public class MainMenu {
                     System.out.println(colorInput + "Press Enter to continue..." + reset);
                     scanner.nextLine();
                     return newOpp;
-                    //createAccount(newContact, newOpp); // Not sure whether to put this here or in Menu
                 }
                 case "n" ->
                     OS();
@@ -353,7 +328,7 @@ public class MainMenu {
         } catch (Exception e) {
 
             System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
-            convertLead(id); // Catches errors and returns to start of method - Is there a simple alternative?
+            convertLead(id); // Catches errors and returns to start of method
         }
         return null;
     }
@@ -362,31 +337,29 @@ public class MainMenu {
     public Account createAccount(Opportunity opportunity) {
         System.out.println(colorMain + "\n═════════════ " + colorMainBold + "Creating new Account" + colorMain + " ═════════════");
         Scanner scanner = new Scanner(System.in);
-        String country;
         try {
 
             Account newAccount = new Account(opportunity.getDecisionMaker(), opportunity);
 
             valid = false;
 
+            // checks if restrictions for Industry are met
             while (!valid) {
-
                 System.out.println(colorInput + "\nPlease input the company industry: \n" +
                         colorTable + "PRODUCE, ECOMMERCE, MANUFACTURING, MEDICAL OR OTHER" + reset);
 
                 try {
                     newAccount.setIndustry(Industry.getIndustry(scanner.nextLine().trim().toUpperCase(Locale.ROOT))); // ENUM Selection
                     valid = true;
-                } catch (EmptyStringException e) {
-                    System.out.println(colorError + e.getMessage());
-                } catch (InvalidEnumException e) {
+                } catch (EmptyStringException | InvalidEnumException e) {
                     System.out.println(colorError + e.getMessage());
                 }
             }
+
             valid = false;
 
+            // checks if restrictions for Employee count are met
             while (!valid) {
-
                 System.out.println(colorInput + "\nPlease input the employee count for " + colorTable + newAccount.getCompanyName() + colorInput + ":  " + reset); //**Needs amending to display name in contact list
                 try {
                     newAccount.setEmployeeCount(Integer.parseInt(scanner.nextLine().trim()));
@@ -400,51 +373,44 @@ public class MainMenu {
 
             valid = false;
 
+            // checks if restrictions for City name are met
             while (!valid) {
                 System.out.println(colorInput + "\nPlease input the city for " + colorTable + newAccount.getCompanyName() + colorInput + ":  " + reset);
-
                 try {
                     newAccount.setCity(scanner.nextLine().trim().toUpperCase(Locale.ROOT));
                     valid = true;
-                }catch (EmptyStringException e) {
-                    System.out.println(colorError + e.getMessage());
-                } catch (NameContainsNumbersException e) {
-                    System.out.println(colorError + e.getMessage());
-                } catch (ExceedsMaxLength e) {
+                }catch (EmptyStringException | NameContainsNumbersException | ExceedsMaxLength e) {
                     System.out.println(colorError + e.getMessage());
                 }
             }
+
             valid = false;
 
+            // checks if Country is in country array
             while (!valid) {
-                System.out.println(colorInput + "\nPlease input the Country for " + newAccount.getCompanyName() + ":  " + reset);
+                System.out.println(colorInput + "\nPlease input the Country for " + colorTable + newAccount.getCompanyName() + ":  " + reset);
                 try {
                     newAccount.setCountry(scanner.nextLine().trim().toUpperCase());
                     valid = true;
-                } catch (EmptyStringException e) {
-                    System.out.println(colorError + e.getMessage());
-                }catch(ExceedsMaxLength e){
-                    System.out.println(colorError + e.getMessage());
-                }catch(InvalidCountryException e){
+                } catch (EmptyStringException | ExceedsMaxLength | InvalidCountryException e) {
                     System.out.println(colorError + e.getMessage());
                 }
             }
 
             valid = false;
 
-
             theAccounts.put(newAccount.getId(), newAccount); // Adds new account to Accounts Map (database)
-            //System.out.println(colorMain + "\n ═════════════ New Account Created ═════════════\n");
             System.out.println(theAccounts.get(newAccount.getId()));
             return newAccount;
         } catch (Exception e) {
 
             System.out.println(colorError + "\nInvalid input - please start again\n" + reset);
-            createAccount(opportunity); // Catches errors and returns to start of method - Is there a better way??
+            createAccount(opportunity); // Catches errors and returns to start of method
         }
         return null;
     }
 
+    // showing all leads
     public void showLeads() {
         System.out.println(colorMain + "\n╔════════════╦═══ " + colorMainBold + "Total Number Of Leads: " + theLeads.size() + colorMain + " ════════════════╗" + reset);
         System.out.printf("%-1s %-17s %-1s %-50s %-1s\n",
@@ -469,6 +435,7 @@ public class MainMenu {
         }
     }
 
+    // showing all contacts
     public void showContacts() {
         System.out.println(colorMain + "\n╔════════════╦════════ " + colorMainBold + "Total Number Of Contacts: " + theContacts.size() + colorMain + " ════════╦══════════════════════════════════════════╗" + reset);
         System.out.printf("%-1s %-17s %-1s %-50s %-1s %-47s %-1s\n",
@@ -499,6 +466,7 @@ public class MainMenu {
         }
     }
 
+    // showing all opportunities
     public static void showOpportunities() {
         System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "Total Number Of Opportunities: " + theOpportunities.size() + colorMain + " ══════╦══════════════════════════════════════════╗" + reset);
         System.out.printf("%-1s %-17s %-1s %-24s %-1s %-17s %-1s %-17s %-1s %-47s %-1s\n",
@@ -541,6 +509,7 @@ public class MainMenu {
         }
     }
 
+    // showing all accounts
     public static void showAccounts() {
         System.out.println(colorMain + "\n╔════════════╦═══ " + colorMainBold + "Total Number Of Accounts: " + theAccounts.size() + colorMain + " ═════════════╗" + reset);
         System.out.printf("%-1s %-17s %-1s %-50s %-1s\n",
@@ -565,14 +534,14 @@ public class MainMenu {
         }
     }
 
-
+    // lookup lead by Id
     public Lead lookUpLeadId(String id) throws RuntimeException {
 
         System.out.println(colorMain + "\n╔════════════╦═════ " + colorMainBold + "Lead details" + colorMain + " ══════════════════════════╦══════════════════════╦══════════════════════════════════════════╦═════════════════════════════════════════════╗" + reset);
         return theLeads.get(id);
     }
 
-    //look up opportunity by Id
+    // lookup opportunity by Id
     public String lookUpOppId(String id) throws RuntimeException {
         System.out.println(colorMain + "\n╔════════════╦═══ " + colorMainBold + "Contract details" + colorMain + " ═╦═══════════════════╦═══════════════════╗" + reset);
         System.out.printf("%-1s %-17s %-1s %-27s %-1s %-24s %-1s %-24s %-1s\n",
@@ -622,21 +591,17 @@ public class MainMenu {
                                   colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════╣");
         System.out.println(opp);
         System.out.println(colorInput + "Would you like to change the status of this opportunity to " + colorTable + "LOST?   y / n" + reset);
-        // Scanner scanner = new Scanner(System.in);
+
         try {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
-                case "y": {
+                case "y" -> {
                     opp.setStatus(Status.CLOSED_LOST);
                     System.out.println(colorMain + "\n═════════════ " + colorMainBold + "Status Changed!" + colorMain + " ═════════════" + reset);
                 }
-                break;
-                case "n": {
+                case "n" ->
                     OS();
-                }
-                break;
 
-                default:
-                    throw new IllegalArgumentException(colorError + "Invalid input - please try again" + reset);
+                default -> throw new IllegalArgumentException(colorError + "Invalid input - please try again" + reset);
             }
 
         } catch (Exception e) {
@@ -665,18 +630,14 @@ public class MainMenu {
         Scanner scanner = new Scanner(System.in);
         try {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
-                case "y": {
+                case "y" -> {
                     opp.setStatus(Status.CLOSED_WON);
                     System.out.println(colorMain + "\n═════════════ " + colorMainBold + "Status Changed!" + colorMain + " ═════════════" + reset);
                 }
-                break;
-                case "n": {
+                case "n" ->
                     OS();
-                }
-                break;
 
-                default:
-                    throw new IllegalArgumentException(colorError + "Invalid input - please try again" + reset);
+                default -> throw new IllegalArgumentException(colorError + "Invalid input - please try again" + reset);
             }
 
         } catch (Exception e) {
@@ -685,6 +646,7 @@ public class MainMenu {
         }
     }
 
+    // Focuses cursor inside console for IntelliJ users
     public void consoleFocus() throws AWTException {
         Robot robot = new Robot();
 
@@ -694,6 +656,7 @@ public class MainMenu {
         robot.keyRelease(KeyEvent.VK_ALT);
     }
 
+    // Makes sure that method consoleFocus is run only once during the program runtime
     public void consoleFocusRunOnce() throws AWTException {
         if (!wasRun) {
             wasRun = true;
@@ -701,18 +664,7 @@ public class MainMenu {
         }
     }
 
-    /*//Email format validation
-    public static boolean isValidEmail(String email){
-        return email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
-    }
-
-
-
-    //Name input validation (contains only alphabetic characters)
-    public static boolean isValidName(String name){
-        return name.matches("^[A-Za-z\\s]{1,}[\\.]{0,1}[A-Za-z\\s]{0,}$");
-    }*/
-
+    // Adjusts number of characters printed for different usernames
     public static StringBuilder insertLine() {
         StringBuilder line = new StringBuilder();
         for (int i = 1; i < (68 - Login.getUsername().length()); i++) {
@@ -721,10 +673,12 @@ public class MainMenu {
         return line;
     }
 
-    public void OSGuest() throws RuntimeException, AWTException {
+    // Shows different menu when Guest user is logged in
+    public void OSGuest() throws RuntimeException, AWTException, NoSuchValueException {
 
-        System.out.println("\n" + colorHeadline + colorLogo
-                                   + "                                                                                                \n" +
+        // Prints MainMenu into console
+        System.out.println("\n" + colorLogo +
+                                   "                                                                                                  \n" +
                                    "                                         *#### #####        ###################*   *####*         \n" +
                                    "                         #################### #####        ######################  #####          \n" +
                                    "                    ,######              ### #####        #####            ###### #####           \n" +
@@ -747,6 +701,7 @@ public class MainMenu {
                                    + "║ 7.  To quit " + colorHeadline + "- type: 'quit'" + colorMain + "                                                                        ║\n"
                                    + "╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝\n" + reset);
 
+        // After the menu is shown it focuses cursor inside console but only once during the program start
         consoleFocusRunOnce();
 
         try {
@@ -754,17 +709,26 @@ public class MainMenu {
             // Creates String array from scanner input
             String[] input = scanner.nextLine().trim().toLowerCase().split("\\s+");
 
-            if (input[0].equals("quit")) {
+            // Checks if input is equal to any of the options and if so runs specific code
+            if (input[0].equals("quit") && input.length == 1) {
                 System.out.println(colorMainBold + "\nThank you for using our LBL CRM SYSTEM!" + reset);
-                throw new RuntimeException(colorError + "Exiting the program" + reset);
-            }else if (input[0].equals("lookup") && input[1].equals("lead")) {
+                System.out.println(colorError + "Exiting the program" + reset);
+                System.exit(0);
+            } else if (input.length < 2) {
+                throw new IllegalArgumentException();
+            } else if (input[0].equals("lookup") && input[1].equals("lead") && input.length>2) {
+                if(!theLeads.containsKey((input[2]).toString())){
+                    throw new NoSuchValueException("There is no Lead that matches that id.");
+                }
                 System.out.println(lookUpLeadId(input[2]).toString());
-            } else if (input[0].equals("lookup") && input[1].equals("opportunity")) {
+            } else if (input[0].equals("lookup") && input[1].equals("opportunity") && input.length>2) {
+                if(!theOpportunities.containsKey((input[2]).toString())){
+                    throw new NoSuchValueException("There is no Opportunity that matches that id.");
+                }
                 System.out.println(lookUpOppId(input[2]).toString());
-            } else {
+            } else if (input.length == 2){
 
                 switch (input[0] + input[1]) {
-                    //String x = input.substring(input.indexOf("Lead") + 3, input.length());
                     case "new" + "lead" -> newLead();
                     case "show" + "leads" -> showLeads();
                     case "show" + "opportunities" -> showOpportunities();
@@ -772,11 +736,16 @@ public class MainMenu {
                     case "show" + "accounts" -> showAccounts();
                     default -> throw new IllegalArgumentException();
                 }
+            } else {
+                throw new IllegalArgumentException(colorError + "\nInvalid input" + reset);
             }
-        } catch (IllegalArgumentException | NullPointerException e) {
+        } catch (IllegalArgumentException | NullPointerException  e) {
             System.out.println(colorError + "\nInvalid input" + reset);
-
         }
+        catch (NoSuchValueException e){
+            System.out.println(colorError + e.getMessage() + reset);
+        }
+
         System.out.println(colorInput + "\nPress Enter to continue..." + reset);
         scanner.nextLine();
         OSGuest();

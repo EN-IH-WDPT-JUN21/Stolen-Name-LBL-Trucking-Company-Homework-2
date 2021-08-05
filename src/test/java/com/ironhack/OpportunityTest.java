@@ -4,6 +4,7 @@ import com.ironhack.enums.Truck;
 import com.ironhack.exceptions.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +35,7 @@ class OpportunityTest {
 
     @Test
     void setQuantity_throwsException_IllegalArgument() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> { opp.setQuantity(-3);});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> { opp.setQuantity(-3);});
     }
 
 

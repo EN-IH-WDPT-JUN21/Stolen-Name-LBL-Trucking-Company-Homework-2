@@ -10,8 +10,8 @@ public class Lead extends ClientInformation {
     protected String email;
     protected String companyName;
 
+    // Variables used to color console output
     private static final String colorMain = "\u001B[33m";
-    private static final String colorMainBold = "\033[1;37m";
     private static final String colorTable = "\u001B[32m";
     private static final String colorHeadlineBold = "\033[1;34m";
     private static final String reset = "\u001B[0m";
@@ -35,7 +35,7 @@ public class Lead extends ClientInformation {
             throw new EmptyStringException("No name input. Please try again.");
         }
         else if(!name.matches("[a-zA-Z\\u00C0-\\u00FF\\s]+")){
-            throw new NameContainsNumbersException( "Name can not contain numbers. Please try again.");
+            throw new NameContainsNumbersException( "Name can not contain numbers or special characters. Please try again.");
         } else if(name.length()>43){
             throw new ExceedsMaxLength("Exceeds maximum value of 43 characters. Please try again.");
         }
@@ -71,7 +71,7 @@ public class Lead extends ClientInformation {
             throw new EmptyStringException("No email input. Please, try again.");
         }
         else if (!EmailValidator.getInstance().isValid(email)){
-            throw new EmailNotValidException("The email should follow the format \"***@***.**\". Please, try again.");
+            throw new EmailNotValidException("The email should follow the format \"***@***.***\". Please, try again.");
         } else if (email.length()>40){
             throw new ExceedsMaxLength("Exceeds maximum value of 40 characters. Please, try again.");
         }

@@ -4,6 +4,7 @@ import com.ironhack.enums.Truck;
 import com.ironhack.exceptions.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +36,7 @@ class AccountTest {
 
     @Test
     void setEmployeeCount_throwsException_IllegalArgument() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> { acc.setEmployeeCount(0);});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> { acc.setEmployeeCount(0);});
     }
 
     @Test
@@ -46,19 +47,19 @@ class AccountTest {
 
     @Test
     void setCity_throwsException_EmptyString() {
-        Assert.assertThrows(EmptyStringException.class, () -> { acc.setCity("");});
+        Assertions.assertThrows(EmptyStringException.class, () -> { acc.setCity("");});
     }
 
 
     @Test
     void setCity_throwsException_ContainsNumbers() {
-        Assert.assertThrows(NameContainsNumbersException.class, () -> { acc.setCity("Madr1d");});
+        Assertions.assertThrows(NameContainsNumbersException.class, () -> { acc.setCity("Madr1d");});
     }
 
 
     @Test
     void setCity_throwsException_ExceedsMaxLength() {
-        Assert.assertThrows(ExceedsMaxLength.class, () -> { acc.setCity("Longestnameeverseenonacity");});
+        Assertions.assertThrows(ExceedsMaxLength.class, () -> { acc.setCity("Longestnameeverseenonacity");});
     }
 
     @Test
@@ -70,17 +71,17 @@ class AccountTest {
 
     @Test
     void setCountry_throwsException_EmptyString() {
-     Assert.assertThrows(EmptyStringException.class, () -> { acc.setCountry("");});
+     Assertions.assertThrows(EmptyStringException.class, () -> { acc.setCountry("");});
     }
 
     @Test
     void setCountry_throwsException_ExceedsMaxLength() {
-      Assert.assertThrows(ExceedsMaxLength.class, () -> { acc.setCountry("Longest country name really really long");});
+      Assertions.assertThrows(ExceedsMaxLength.class, () -> { acc.setCountry("Longest country name really really long");});
     }
 
     @Test
     void setCountry_throwsException_InvalidCountry() {
-      Assert.assertThrows(InvalidCountryException.class, () -> { acc.setCountry("Japun");});
+      Assertions.assertThrows(InvalidCountryException.class, () -> { acc.setCountry("Japun");});
     }
 
 
