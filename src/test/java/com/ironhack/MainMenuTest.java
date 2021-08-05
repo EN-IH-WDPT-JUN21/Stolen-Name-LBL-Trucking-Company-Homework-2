@@ -49,6 +49,8 @@ class MainMenuTest {
         theLeads.remove(lead2.getId(), lead2);
         theLeads.remove(lead3.getId(), lead3);
         ClientInformation.setUniqueID(counterStatus);
+        MainMenu.theContacts.clear();
+        MainMenu.theOpportunities.clear();
     }
 
     @Test
