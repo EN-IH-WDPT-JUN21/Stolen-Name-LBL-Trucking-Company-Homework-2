@@ -64,6 +64,9 @@ public class MainMenu {
 
     public void OS() throws RuntimeException, AWTException, NoSuchValueException {
 
+        Scanner scanner = new Scanner(System.in);
+        Scanner scanner2 = new Scanner(System.in);
+
         System.out.println("\n" + colorHeadline + colorLogo
                                    + "                                                                                                \n" +
                                    "                                         *#### #####        ###################*   *####*         \n" +
@@ -101,13 +104,18 @@ public class MainMenu {
 
             if (input[0].equals("quit")) {
                 System.out.println(colorMainBold + "\nThank you for using our LBL CRM SYSTEM!" + reset);
-                throw new RuntimeException(colorError + "Exiting the program" + reset);
-            } else if (input[0].equals("lookup") && input[1].equals("lead")) {
+                System.out.println(colorError + "Exiting the program" + reset);
+                System.exit(0);
+
+            } else if (input.length < 2) {
+                throw new IllegalArgumentException();
+            }
+            else if (input[0].equals("lookup") && input[1].equals("lead") && input.length>2) {
                 if(!theLeads.containsKey((input[2]).toString())){
                     throw new NoSuchValueException("There is no Lead that matches that id.");
                 }
                 System.out.println(lookUpLeadId(input[2]).toString());
-            } else if (input[0].equals("lookup") && input[1].equals("opportunity")) {
+            } else if (input[0].equals("lookup") && input[1].equals("opportunity") && input.length>2) {
                 if(!theOpportunities.containsKey((input[2]).toString())){
                     throw new NoSuchValueException("There is no Opportunity that matches that id.");
                 }
@@ -127,8 +135,6 @@ public class MainMenu {
                     throw new NoSuchValueException("There is no Opportunity that matches that id.");
                 }
                 closeWon(input[1]);
-            } else if (input.length < 2) {
-                throw new IllegalArgumentException();
             } else {
 
                 switch (input[0] + input[1]) {
@@ -240,6 +246,7 @@ public class MainMenu {
                 }
                 case "n" -> // Would normally go back in the menu at this point
                     OS();
+
                 default -> throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException | AWTException | NoSuchValueException e) {
@@ -263,7 +270,7 @@ public class MainMenu {
         /*Scanner scanner = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);*/
         try {
-            switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
+            switch (scanner.nextLine().trim().toLowerCase()) {
                 case "y" -> {
                     Opportunity newOpp = new Opportunity();
 
@@ -341,7 +348,6 @@ public class MainMenu {
                 }
                 case "n" ->
                     OS();
-
                 default -> throw new IllegalArgumentException(colorError + "Invalid input - please start again" + reset);
             }
         } catch (Exception e) {
@@ -616,7 +622,7 @@ public class MainMenu {
                                   colorMain + "╠════════════╬══════════════════════╬═══════════════════╬═══════════════════╣");
         System.out.println(opp);
         System.out.println(colorInput + "Would you like to change the status of this opportunity to " + colorTable + "LOST?   y / n" + reset);
-        Scanner scanner = new Scanner(System.in);
+        // Scanner scanner = new Scanner(System.in);
         try {
             switch (scanner.nextLine().trim().toLowerCase(Locale.ROOT)) {
                 case "y": {
