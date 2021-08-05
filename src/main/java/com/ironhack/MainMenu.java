@@ -446,7 +446,7 @@ public class MainMenu {
     }
 
     public void showLeads() {
-        System.out.println(colorMain + "\n╔════════════╦═══ " + colorMainBold + "TOTAL NUMBER OF LEADS: " + theLeads.size() + colorMain + " ════════════════╗" + reset);
+        System.out.println(colorMain + "\n╔════════════╦═══ " + colorMainBold + "Total Number Of Leads: " + theLeads.size() + colorMain + " ════════════════╗" + reset);
         System.out.printf("%-1s %-17s %-1s %-50s %-1s\n",
                           colorMain + "║",
                           colorHeadlineBold + "ID",
