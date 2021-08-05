@@ -2,7 +2,6 @@ package com.ironhack;//Holds and increments the Unique ID for all created object
 
 abstract class ClientInformation {
 
-
     static Integer uniqueID = 0;
     protected String id;
 

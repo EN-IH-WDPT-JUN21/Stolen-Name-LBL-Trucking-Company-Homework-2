@@ -1,4 +1,4 @@
-package com.ironhack;//Extends com.ironhack.ClientInformation class to retain Unique ID incrementing.
+package com.ironhack; //Extends ClientInformation class to retain Unique ID incrementing.
 
 import com.ironhack.enums.Status;
 import com.ironhack.enums.Truck;
@@ -9,15 +9,14 @@ public class Opportunity extends ClientInformation {
     // This sets the status to Enum Open whenever an opportunity object is created
     private Status status = Status.OPEN;
 
-    // com.ironhack.Opportunity Specific variable - EnumTruck com.ironhack.enums.Truck, int quantity, ObjectContact DecisionMaker
+    // Opportunity Specific variables - EnumTruck Truck, int quantity, ObjectContact DecisionMaker
     private Truck product;
     private int quantity;
     private Contact decisionMaker;
 
+    // Variables used to color console output
     private static final String colorMain = "\u001B[33m";
-    private static final String colorMainBold = "\033[1;37m";
     private static final String colorTable = "\u001B[32m";
-    private static final String colorHeadlineBold = "\033[1;34m";
     private static final String reset = "\u001B[0m";
 
     public Opportunity() {
@@ -28,7 +27,6 @@ public class Opportunity extends ClientInformation {
         setQuantity(quantity);
         setDecisionMaker(decisionMaker);
     }
-
 
     public String getId() {
         return id;

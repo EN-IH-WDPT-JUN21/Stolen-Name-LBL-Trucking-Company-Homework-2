@@ -16,9 +16,10 @@ public class Account extends ClientInformation{
     private int employeeCount;
     private String city;
     private String country;
-    private List<Contact> contactList = new ArrayList<>();
-    private List<Opportunity> opportunityList = new ArrayList<>();
+    private final List<Contact> contactList = new ArrayList<>();
+    private final List<Opportunity> opportunityList = new ArrayList<>();
 
+    // Variables used to color console output
     private static final String colorMain = "\u001B[33m";
     private static final String colorMainBold = "\033[1;37m";
     private static final String colorTable = "\u001B[32m";
@@ -76,7 +77,7 @@ public class Account extends ClientInformation{
             throw new EmptyStringException("No city input. Please try again.");
         }
         else if(!city.matches("[a-zA-Z\\u00C0-\\u00FF]+")){
-            throw new NameContainsNumbersException( "City can not contain numbers. Please try again.");
+            throw new NameContainsNumbersException( "City cannot contain numbers or special characters. Please try again.");
 
         } else if(city.length()>25){
             throw new ExceedsMaxLength( "Exceeds maximum value of 25 characters. Please try again.");
@@ -91,19 +92,6 @@ public class Account extends ClientInformation{
 
     public void setCountry(String country) throws InvalidCountryException, EmptyStringException, ExceedsMaxLength {
 
-        /*List<String> countries = new ArrayList<>();
-
-        // retrieve the list of countries and populate country names
-        String[] isoCountries = Locale.getISOCountries();
-        for (String code : isoCountries) {
-            Locale locale = new Locale("en", code);
-            String name = locale.getDisplayCountry().toUpperCase(Locale.ROOT);
-
-            if (!"".equals(name)) {
-                countries.add(name);
-            }
-        }*/ //found that this is OS language specific and we want it to be uniform, hence a different method created
-
         if (country.isEmpty()) {
             throw new EmptyStringException("No country input. Please try again.");
         }
@@ -111,9 +99,8 @@ public class Account extends ClientInformation{
             throw new ExceedsMaxLength("Exceeds maximum value of 25 characters. Please, try again.");
         }
         else if(!isValidCountry(country)){
-            throw new InvalidCountryException( "That is not a real country. Please try again.");
+            throw new InvalidCountryException( "Sorry, but we do not sell to your country. Please put different country name.");
         }
-
 
         this.country = country;
     }
@@ -207,7 +194,7 @@ public class Account extends ClientInformation{
     }
 
     //Countries list as per ISO
-    private static String[] countries = {
+    private static final String[] countries = {
             "ANDORRA", "UNITED ARAB EMIRATES", "AFGHANISTAN", "ANTIGUA & BARBUDA", "ANGUILLA",
             "ALBANIA", "ARMENIA", "ANGOLA", "ANTARCTICA", "ARGENTINA", "AMERICAN SAMOA", "AUSTRIA",
             "AUSTRALIA", "ARUBA", "ÅLAND ISLANDS", "AZERBAIJAN", "BOSNIA & HERZEGOVINA", "BARBADOS",
