@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
 import java.io.*;
 
 import static com.ironhack.MainMenu.theLeads;
@@ -49,6 +50,8 @@ class MainMenuTest {
         theLeads.remove(lead2.getId(), lead2);
         theLeads.remove(lead3.getId(), lead3);
         ClientInformation.setUniqueID(counterStatus);
+        MainMenu.theContacts.clear();
+        MainMenu.theOpportunities.clear();
     }
 
     @Test
@@ -91,8 +94,10 @@ class MainMenuTest {
         Lead lead = MainMenu.theLeads.get(lead1.getId());
         try {
             System.setIn(new ByteArrayInputStream(data.getBytes())); // Sets System.In to test1
+
             int oppHashMapSize = MainMenu.theOpportunities.size();
             int conHashMapSize = MainMenu.theContacts.size();
+
             MainMenu test = new MainMenu(); // Creates a sales associate to test method
             Opportunity newOpp = test.convertLead(String.valueOf(lead.getId()));
             //Assertions check Object created correctly and added to hashmap
